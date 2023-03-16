@@ -10,3 +10,15 @@ C:\Users\alu602\Downloads\Base\Game\obj\Debug\Game.exe
 C:\Users\alu602\Downloads\Base\Game\obj\Debug\Game.pdb
 C:\Users\alu602\Downloads\Base\Game\bin\Debug\bg.png
 C:\Users\alu602\Downloads\Base\Game\bin\Debug\otacon.png
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\bg.png
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\Engine.dll
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\otacon.png
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\ship.png
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\Game.exe.config
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\Game.exe
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\Game.pdb
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.AssemblyReference.cache
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.SuggestedBindingRedirects.cache
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.CoreCompileInputs.cache
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.exe
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.pdb

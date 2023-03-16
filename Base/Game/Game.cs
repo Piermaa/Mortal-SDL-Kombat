@@ -6,6 +6,8 @@ namespace TestEngine
 {
     public struct Vector2
     {
+        public static Vector2 Zero = new Vector2(0, 0);
+
         public float x, y;
 
         public Vector2(float xPos,float yPos)
