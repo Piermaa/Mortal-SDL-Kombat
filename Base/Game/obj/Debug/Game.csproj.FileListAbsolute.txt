@@ -22,3 +22,5 @@ E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.SuggestedB
 E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.CoreCompileInputs.cache
 E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.exe
 E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.pdb
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\skorpion.png
+E:\GameDev\PorroMeo\Mortal-SDL-Kombat\Base\Game\bin\Debug\subzero.png

@@ -6,15 +6,40 @@ namespace TestEngine
 {
     public struct Vector2
     {
-        public static Vector2 Zero = new Vector2(0, 0);
-
         public float x, y;
-
-        public Vector2(float xPos,float yPos)
+        public Vector2(float xPos, float yPos)
         {
-            x= xPos;
-            y= yPos;
+            x = xPos;
+            y = yPos;
         }
+
+        public static Vector2 Zero  = new Vector2(0 , 0);
+        public static Vector2 Up    = new Vector2(0 , -1);
+        public static Vector2 Down  = new Vector2(0 , 1);
+        public static Vector2 Left  = new Vector2(-1, 0);
+        public static Vector2 Right = new Vector2(1 , 0);
+
+       
+        public static Vector2 operator +(Vector2 a, Vector2 b)
+        {
+            return new Vector2(a.x + b.x, a.y + b.y);
+        }
+        //Esto es para q se puedan sumar los vectores, no hagas preguntas boludas juan
+
+        public static Vector2 operator *(Vector2 a, Vector2 b)
+        {
+            return new Vector2(a.x * b.x, a.y * b.y);
+        }
+        public static Vector2 operator *(Vector2 a,float f)
+        {
+            return new Vector2(a.x *f, a.y*f);
+        }
+
+        public static Vector2 operator /(Vector2 a, Vector2 b)
+        {
+            return new Vector2(a.x / b.x, a.y / b.y);
+        }
+
 
         public Vector2 Normalize()
         {
@@ -243,7 +268,7 @@ namespace TestEngine
                 return tex;
             }
         }
-
+      
         public static void Draw(string texture, float x = 0, float y = 0, float scaX = 1, float scaY = 1, float angle = 0, float offsetX = 0, float offsetY = 0)
         {
             Draw(GetTexture(texture), x, y, scaX, scaY, angle, offsetX, offsetY);
