@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RigidBody.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bg.png">
