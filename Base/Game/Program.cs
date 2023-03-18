@@ -25,6 +25,7 @@ namespace TestEngine
 
     public class Program
     {
+        const int playerWidth = 493 / 2;
         const int WIDTH = 1280;
         const int HEIGHT = 720;
         const float GRAVITY = 980f;
@@ -38,16 +39,21 @@ namespace TestEngine
         static float movementVelocity = 250f;
 
         static float jumpForce=700;
-        static float xOffset = 0;
+
+
+        static float xOffset = 960 - 640;
+        static float maxXOffset = xOffset * 2;
+
 
         //If main is static all functions must be static
         static void Main(string[] args)
         {
             Game.Initialize("Mortal Kombat XXX",WIDTH,HEIGHT,false);
             InitializePlayers();
+            
             while (true)
             {
-                Render();
+                Update();
             }
         }
         private static void InitializePlayers()
@@ -57,7 +63,7 @@ namespace TestEngine
 
 
         }
-        private static void Render()
+        private static void Update()
         {
             //First, it clears
             Game.Clear();
@@ -65,8 +71,8 @@ namespace TestEngine
             //Then we draw what we want to show
             GetTime();
             InputMovement();
-
-            Game.Draw("bg.png", 0, 0, 1, 1, 0, 550+xOffset, 0);
+            CameraAdjust();
+            Game.Draw("bg.png", 0, 0, 1, 1, 0, xOffset, 0);
          
             Game.Draw(player1.textureName, player1.position.x, player1.position.y, 0.5f, 0.5f, 0,0, 0);
             Game.Draw(player2.textureName, player2.position.x, player2.position.y, 0.5f, 0.5f, 0,0, 0);
@@ -178,6 +184,44 @@ namespace TestEngine
             endTime = currentTime;
         }
 
-       
+        static void CameraAdjust()
+        {
+            //LA CAMARA TIENE QUE ACOMODARSE CUANDO UN JUGADOR SE MUEVA HACIA EL BORDE DE LA PANTALLA Y HAYA FONDO PARA MOVER. PERO SOLO PUEDE MOVERSE
+            //SI EL OTRO JUGADOR QUEDA DENTRO DE LA PANTALLA
+            //EL FONDO TIENE 1920 Y ARRANCA CON UN OFFSET DE 320, porque es la differencia entre el centro de la pantalla y de la imagen
+            LeftAdjust(player1, player2);
+            LeftAdjust(player2, player1);
+            RightAdjust(player1, player2);
+            RightAdjust(player2, player1);
+
+        }
+        static void LeftAdjust(Player a,Player b)
+        {
+            if (a.position.x < 0)
+            {
+                a.position.x = 0;
+                if (xOffset > 0 && b.position.x < 1280 - playerWidth)
+                {
+                    xOffset--;
+                    b.position.x++;
+                }
+
+            }
+
+        }
+        static void RightAdjust(Player a, Player b)
+        {
+            if (a.position.x > 1280 - playerWidth)
+            {
+                a.position.x = 1280-playerWidth;
+                if (xOffset < 640 && b.position.x > 0)
+                {
+                    xOffset++;
+                    b.position.x--;
+                }
+
+            }
+
+        }
     }
 }
