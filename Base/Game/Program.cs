@@ -6,21 +6,112 @@ namespace TestEngine
     public class Player
     {
         // current texture 
-        public string textureName;
-        public  Vector2 position=new Vector2(0,0);
-        public  Vector2 velocity=Vector2.Zero;
-        public Vector2 acceleration= Vector2.Zero;
-        public bool isGrounded=false;
-        public float mass=65;
+        private string textureName;
+
+        private int health = 10;
+        private int damage = 1;
+        private float speed = 1;
+
+        private Vector2 position = new Vector2(0, 0);
+        private Vector2 velocity = Vector2.Zero;
+        private Vector2 acceleration = Vector2.Zero;
+
+        private bool isGrounded = false;
+        public bool IsGrounded => isGrounded;
+
+        private static float mass = 65;
+
+        public int Health
+        {
+            get { return health; }
+
+            set { health = value; }
+        }
+        public void SetPosition(Vector2 pos)
+        {
+            position = pos;
+        }
+
+        public Vector2 Position 
+        {   
+            get { return position; }
+
+            set { position = value;}
+        }
+        public float PosX
+        {
+            get { return position.x; }
+
+            set { position.x = value; }
+            
+        }
+        public float PosY
+        {
+            get { return position.y; }
+
+            set { position.y = value; }
+
+        }
+
+       
        // float movementSpeed=1;
 
        // Vector2 scale;
 
-        public Player(Vector2 startPos, string textureNameString)
+        public Player(string textureNameString, Vector2 startPos)
         {
-            position = new Vector2(startPos.x,startPos.y);
+            position = startPos;
             textureName = textureNameString;
         }
+
+        public void UpdatePosition()
+        {
+            AddForce(new Vector2(0, Program.gravity * mass));
+
+
+            velocity.x += acceleration.x * Program.deltaTime;
+            velocity.y += acceleration.y * Program.deltaTime;
+
+            position.x += velocity.x * Program.deltaTime;
+            position.y += velocity.y * Program.deltaTime;
+
+            acceleration.x = 0;
+            acceleration.y = 0;
+
+            if (position.y > 200)
+            {
+                position.y = 200;
+                isGrounded = true;
+                velocity.y = 0;
+            }
+        }
+        public void AddForce(Vector2 direction)
+        {
+            acceleration = direction / mass;
+        }
+
+        public void Render()
+        {
+            Game.Draw(textureName, position.x, position.y, 0.5f, 0.5f, 0, 0, 0);
+        }
+
+        public void Move(float x, float movementVelocity)
+        {
+            if (IsGrounded)
+            {
+                velocity = new Vector2(x * movementVelocity, velocity.y);
+            }
+
+            // p.velocity *= movementVelocity;
+
+        }
+
+        public void Jump(float jumpMultiplier)
+        {
+            velocity += Vector2.Up*jumpMultiplier;
+            isGrounded= false;
+        }
+
     }
 
     public class Program
@@ -28,9 +119,13 @@ namespace TestEngine
         const int playerWidth = 493 / 2;
         const int WIDTH = 1280;
         const int HEIGHT = 720;
-        const float GRAVITY = 980f;
+        public static float gravity = 980f;
         static Player player1;
         static Player player2;
+
+        static List<Player> players = new List<Player>();
+        //static Player[] players= { player1, player2};
+
         static Vector2 position = new Vector2(0, 0);
 
         public static float deltaTime;
@@ -54,34 +149,47 @@ namespace TestEngine
             while (true)
             {
                 Update();
+                Render();
             }
         }
         private static void InitializePlayers()
         {
-            player1 = new Player(new Vector2(0, 200),"subzero.png");
-            player2 = new Player(new Vector2(1000, 200),"skorpion.png");
-
-
+            player1 = new Player("subzero.png",  new Vector2(0, 200));
+            player2 = new Player("skorpion.png", new Vector2(1000, 200));
+            players.Add(player1);
+            players.Add(player2);
+   
         }
         private static void Update()
         {
-            //First, it clears
-            Game.Clear();
+            GetTime();
 
             //Then we draw what we want to show
-            GetTime();
+
             InputMovement();
-            CameraAdjust();
-            Game.Draw("bg.png", 0, 0, 1, 1, 0, xOffset, 0);
          
-            Game.Draw(player1.textureName, player1.position.x, player1.position.y, 0.5f, 0.5f, 0,0, 0);
-            Game.Draw(player2.textureName, player2.position.x, player2.position.y, 0.5f, 0.5f, 0,0, 0);
+            foreach (var p in players)
+            {
+                p.UpdatePosition();
+              
+            }
+        }
 
-      
+        private static void Render()
+        {
+            Game.Clear();
+            Game.Draw("bg.png", 0, 0, 1, 1, 0, xOffset, 0);
+          
 
-            //Finally, we show it
+            foreach (var character in players)
+            {
+                character.Render();
+            }
+
+            //Game.Debug("dibuje la nave");
             Game.Show();
         }
+
         /// <summary>
         /// Se calcula el movimiento de los jugadores
         /// </summary>
@@ -93,23 +201,21 @@ namespace TestEngine
             float x2 = GetAxisRaw("Horizontal2");
             float y2 = GetAxisRaw("Vertical2");
 
-            if (y1<0 && player1.isGrounded)
+            if (y1 < 0 && player1.IsGrounded)
             {
-                player1.velocity += Vector2.Up *jumpForce;
-                player1.isGrounded=false;
-            }
-            if (y2<0 && player2.isGrounded)
-            {
-          
-                player2.velocity += Vector2.Up* jumpForce;
-                player2.isGrounded = false;
+                player1.Jump(jumpForce);
             }
 
-            RigidBody.Move(player1, x1,movementVelocity);
-            RigidBody.Move(player2, x2, movementVelocity);
+            if (y2 < 0 && player2.IsGrounded)
+            {
+                player2.Jump(jumpForce);
+            }
 
-            RigidBody.UpdateRigidBody(player1,GRAVITY,deltaTime);
-            RigidBody.UpdateRigidBody(player2,GRAVITY,deltaTime);
+            player1.Move(x1,movementVelocity);
+
+            player2.Move(x2,movementVelocity);
+
+
         }
 
         /// <summary>
@@ -119,8 +225,6 @@ namespace TestEngine
         /// <returns>Un valor que puede ser -1, 0 o 1 dependiendo del Input del jugador</returns>
         static int GetAxisRaw(string axis)
         {
-
-            
             switch (axis)
             {
                 case "Horizontal":
@@ -197,13 +301,15 @@ namespace TestEngine
         }
         static void LeftAdjust(Player a,Player b)
         {
-            if (a.position.x < 0)
+
+
+            if (player1.Position.x < 0)
             {
-                a.position.x = 0;
-                if (xOffset > 0 && b.position.x < 1280 - playerWidth)
+                player1.PosX = 0;
+                if (xOffset > 0 && b.Position.x < 1280 - playerWidth)
                 {
                     xOffset--;
-                    b.position.x++;
+                    player1.PosX++;
                 }
 
             }
@@ -211,17 +317,15 @@ namespace TestEngine
         }
         static void RightAdjust(Player a, Player b)
         {
-            if (a.position.x > 1280 - playerWidth)
+            if (player1.Position.x > 1280 - playerWidth)
             {
-                a.position.x = 1280-playerWidth;
-                if (xOffset < 640 && b.position.x > 0)
+                player1.PosX = 1280-playerWidth;
+                if (xOffset < 640 && player1.PosX > 0)
                 {
                     xOffset++;
-                    b.position.x--;
+                    player1.PosX--;
                 }
-
             }
-
         }
     }
 }

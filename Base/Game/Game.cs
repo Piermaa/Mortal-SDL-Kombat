@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace TestEngine
 {
-    public struct Vector2
+    public class Vector2
     {
         public float x, y;
         public Vector2(float xPos, float yPos)
@@ -35,12 +35,15 @@ namespace TestEngine
             return new Vector2(a.x *f, a.y*f);
         }
 
+        public static Vector2 operator /(Vector2 a, float f)
+        {
+            return new Vector2(a.x / f, a.y / f);
+        }
+
         public static Vector2 operator /(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x / b.x, a.y / b.y);
         }
-
-
         public Vector2 Normalize()
         {
             double dX = x;
