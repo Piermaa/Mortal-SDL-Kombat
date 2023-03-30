@@ -4,55 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace TestEngine
 {
-    public class Vector2
-    {
-        public float x, y;
-        public Vector2(float xPos, float yPos)
-        {
-            x = xPos;
-            y = yPos;
-        }
-
-        public static Vector2 Zero  = new Vector2(0 , 0);
-        public static Vector2 Up    = new Vector2(0 , -1);
-        public static Vector2 Down  = new Vector2(0 , 1);
-        public static Vector2 Left  = new Vector2(-1, 0);
-        public static Vector2 Right = new Vector2(1 , 0);
-
-       
-        public static Vector2 operator +(Vector2 a, Vector2 b)
-        {
-            return new Vector2(a.x + b.x, a.y + b.y);
-        }
-        //Esto es para q se puedan sumar los vectores, no hagas preguntas boludas juan
-
-        public static Vector2 operator *(Vector2 a, Vector2 b)
-        {
-            return new Vector2(a.x * b.x, a.y * b.y);
-        }
-        public static Vector2 operator *(Vector2 a,float f)
-        {
-            return new Vector2(a.x *f, a.y*f);
-        }
-
-        public static Vector2 operator /(Vector2 a, float f)
-        {
-            return new Vector2(a.x / f, a.y / f);
-        }
-
-        public static Vector2 operator /(Vector2 a, Vector2 b)
-        {
-            return new Vector2(a.x / b.x, a.y / b.y);
-        }
-        public Vector2 Normalize()
-        {
-            double dX = x;
-            double dY = y;
-            double h = Math.Sqrt((dX*dX+ dY*dY));
-
-            return new Vector2((float)(x/h), (float)(y/h));
-        }
-    }
+    
     public enum Keys
     {
         ESCAPE = 0x01

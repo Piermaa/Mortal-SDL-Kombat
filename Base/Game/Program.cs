@@ -111,17 +111,19 @@ namespace TestEngine
             velocity += Vector2.Up*jumpMultiplier;
             isGrounded= false;
         }
-
+        
     }
 
-    public class Program
+     class Program
     {
-        const int playerWidth = 493 / 2;
-        const int WIDTH = 1280;
-        const int HEIGHT = 720;
+        public static List<GameObject> Hierarchy= new List<GameObject>();
+
+        private const int playerWidth = 493 / 2;
+        private const int WIDTH = 1280;
+        private const int HEIGHT = 720;
         public static float gravity = 980f;
-        static Player player1;
-        static Player player2;
+        private static Player player;
+
 
         static List<Player> players = new List<Player>();
         //static Player[] players= { player1, player2};
@@ -154,10 +156,7 @@ namespace TestEngine
         }
         private static void InitializePlayers()
         {
-            player1 = new Player("subzero.png",  new Vector2(0, 200));
-            player2 = new Player("skorpion.png", new Vector2(1000, 200));
-            players.Add(player1);
-            players.Add(player2);
+     
    
         }
         private static void Update()
@@ -195,27 +194,10 @@ namespace TestEngine
         /// </summary>
         private static void InputMovement()
         {
-            float x1 = GetAxisRaw("Horizontal");
-            float y1 = GetAxisRaw("Vertical");
+            float x = GetAxisRaw("Horizontal");
+            float y = GetAxisRaw("Vertical");
 
-            float x2 = GetAxisRaw("Horizontal2");
-            float y2 = GetAxisRaw("Vertical2");
-
-            if (y1 < 0 && player1.IsGrounded)
-            {
-                player1.Jump(jumpForce);
-            }
-
-            if (y2 < 0 && player2.IsGrounded)
-            {
-                player2.Jump(jumpForce);
-            }
-
-            player1.Move(x1,movementVelocity);
-
-            player2.Move(x2,movementVelocity);
-
-
+            Vector2 dir = new Vector2(x, y);
         }
 
         /// <summary>
@@ -249,29 +231,6 @@ namespace TestEngine
                     }
                     break;
 
-
-
-                case "Horizontal2":
-                    if (Game.GetKey(Keys.LEFT))
-                    {
-                        return -1;
-                    }
-                    if (Game.GetKey(Keys.RIGHT))
-                    {
-                        return 1;
-                    }
-                    break;
-
-                case "Vertical2":
-                    if (Game.GetKey(Keys.UP))
-                    {
-                        return -1;
-                    }
-                    if (Game.GetKey(Keys.DOWN))
-                    {
-                        return 1; // para abajo positivo
-                    }
-                    break;
             }
             return 0;
         }
@@ -288,44 +247,46 @@ namespace TestEngine
             endTime = currentTime;
         }
 
-        static void CameraAdjust()
-        {
-            //LA CAMARA TIENE QUE ACOMODARSE CUANDO UN JUGADOR SE MUEVA HACIA EL BORDE DE LA PANTALLA Y HAYA FONDO PARA MOVER. PERO SOLO PUEDE MOVERSE
-            //SI EL OTRO JUGADOR QUEDA DENTRO DE LA PANTALLA
-            //EL FONDO TIENE 1920 Y ARRANCA CON UN OFFSET DE 320, porque es la differencia entre el centro de la pantalla y de la imagen
-            LeftAdjust(player1, player2);
-            LeftAdjust(player2, player1);
-            RightAdjust(player1, player2);
-            RightAdjust(player2, player1);
+        #region Outdated
+        //static void CameraAdjust()
+        //{
+        //    //LA CAMARA TIENE QUE ACOMODARSE CUANDO UN JUGADOR SE MUEVA HACIA EL BORDE DE LA PANTALLA Y HAYA FONDO PARA MOVER. PERO SOLO PUEDE MOVERSE
+        //    //SI EL OTRO JUGADOR QUEDA DENTRO DE LA PANTALLA
+        //    //EL FONDO TIENE 1920 Y ARRANCA CON UN OFFSET DE 320, porque es la differencia entre el centro de la pantalla y de la imagen
+        //    LeftAdjust(player1, player2);
+        //    LeftAdjust(player2, player1);
+        //    RightAdjust(player1, player2);
+        //    RightAdjust(player2, player1);
 
-        }
-        static void LeftAdjust(Player a,Player b)
-        {
+        //}
+        //static void LeftAdjust(Player a,Player b)
+        //{
 
 
-            if (player1.Position.x < 0)
-            {
-                player1.PosX = 0;
-                if (xOffset > 0 && b.Position.x < 1280 - playerWidth)
-                {
-                    xOffset--;
-                    player1.PosX++;
-                }
+        //    if (player1.Position.x < 0)
+        //    {
+        //        player1.PosX = 0;
+        //        if (xOffset > 0 && b.Position.x < 1280 - playerWidth)
+        //        {
+        //            xOffset--;
+        //            player1.PosX++;
+        //        }
 
-            }
+        //    }
 
-        }
-        static void RightAdjust(Player a, Player b)
-        {
-            if (player1.Position.x > 1280 - playerWidth)
-            {
-                player1.PosX = 1280-playerWidth;
-                if (xOffset < 640 && player1.PosX > 0)
-                {
-                    xOffset++;
-                    player1.PosX--;
-                }
-            }
-        }
+        //}
+        //static void RightAdjust(Player a, Player b)
+        //{
+        //    if (player1.Position.x > 1280 - playerWidth)
+        //    {
+        //        player1.PosX = 1280-playerWidth;
+        //        if (xOffset < 640 && player1.PosX > 0)
+        //        {
+        //            xOffset++;
+        //            player1.PosX--;
+        //        }
+        //    }
+        //}
+        #endregion
     }
 }
