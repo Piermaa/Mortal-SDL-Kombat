@@ -147,12 +147,32 @@ namespace TestEngine
         {
             Game.Initialize("Mortal Kombat XXX",WIDTH,HEIGHT,false);
             InitializePlayers();
-            
+            GameObject juan = new GameObject();
+            juan.transform.position.x += 1;
+            RigidBody juanRb = new RigidBody();
+      
+            juan.AddComponent(juanRb);
+
+            var otrorb = juan.GetComponent<RigidBody>();
+
+            Insta(juan);
+            foreach (var go in Hierarchy)
+            {
+                go.Start(go);
+            }
+           
+           
             while (true)
             {
+                juanRb.AddForce(Vector2.Left * 10);
+                Game.Debug(juan.transform.position.x);
                 Update();
                 Render();
             }
+        }
+        private static void Insta(GameObject newGo)
+        {
+            Hierarchy.Add(newGo);
         }
         private static void InitializePlayers()
         {
@@ -170,7 +190,11 @@ namespace TestEngine
             foreach (var p in players)
             {
                 p.UpdatePosition();
-              
+                
+            }
+            foreach (var go in Hierarchy)
+            {
+                go.Update(deltaTime);
             }
         }
 

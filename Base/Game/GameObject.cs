@@ -10,11 +10,15 @@ namespace TestEngine
 {
     public class GameObject
     {
-        string name;
-        string tag;
+        public Transform transform;
 
         List<IMonoBehaviour> Components = new List<IMonoBehaviour>();
 
+        public GameObject()
+        {
+            transform = new Transform();
+        }
+      
         public void AddComponent(IMonoBehaviour component)
         {
             component.Start(this);
@@ -28,20 +32,25 @@ namespace TestEngine
                 try
                 {
                     var result = (T)item;
+                    
                     return result;
                 }
                 catch (Exception e)
                 {
-
+                    
                 }
             }
-            Console.WriteLine($"Tried getting component of type {nameof(T)} on object {name}, but there is no such component attached");
+            
+            //Console.WriteLine($"Tried getting component of type {nameof(T)} on object {name}, but there is no such component attached");
             return default(T);
         }
-
-        public Transform transform = new Transform();
-
-
+        public void Start(GameObject go)
+        {
+            foreach (var component in Components)
+            {
+                component.Start(go);
+            }
+        }
         public void Update(float deltaTime)
         {
             foreach (var component in Components)
@@ -71,9 +80,9 @@ namespace TestEngine
             position = newPosition;
         }
 
-        public void Start(GameObject gameObject)
+        public void Start(GameObject _gameObject)
         {
-            
+            gameObject = _gameObject;
         }
         public void Update(float deltaTime)
         {

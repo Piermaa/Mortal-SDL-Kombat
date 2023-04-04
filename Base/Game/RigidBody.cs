@@ -10,29 +10,26 @@ namespace TestEngine
     class RigidBody : IMonoBehaviour
     {
         GameObject gameObject;
-        Transform transform;
         public Vector2 velocity = Vector2.Zero;
         public Vector2 acceleration = Vector2.Zero;
-
+       
         float mass=10;
 
-        public void Start(GameObject gameObject)
+        public void Start(GameObject _gameObject)
         {
-            this.gameObject = gameObject;
-            transform = gameObject.GetComponent<Transform>();
+            this.gameObject = _gameObject;
         }
 
         public void Update(float deltaTime)
         {
-
             velocity.x += acceleration.x * deltaTime;
             velocity.y += acceleration.y * deltaTime;
 
-            transform.position.x += velocity.x * deltaTime+ 1/2 * acceleration.x * deltaTime * deltaTime;
-            transform.position.y += velocity.y * deltaTime+ 1/2 * acceleration.y * deltaTime * deltaTime;
+            gameObject.transform.position.x += velocity.x * deltaTime+ 1/2 * acceleration.x * deltaTime * deltaTime;
+            gameObject.transform.position.y += velocity.y * deltaTime+ 1/2 * acceleration.y * deltaTime * deltaTime;
 
             acceleration.x = 0;
-           
+            acceleration.y = 0;
         }
 
         /// <summary>
@@ -66,10 +63,7 @@ namespace TestEngine
                     acceleration.y += direction.y / mass;
                     break;
             }
-     
-
         }
-
     }
     public enum ForceMode
     {
