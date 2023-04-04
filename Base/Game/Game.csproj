@@ -40,6 +40,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RigidBody.cs" />
+    <Compile Include="GameObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bg.png">
