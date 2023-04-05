@@ -9,11 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestEngine</RootNamespace>
     <AssemblyName>Game</AssemblyName>
-<<<<<<< Updated upstream
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-=======
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
->>>>>>> Stashed changes
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -41,7 +37,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CharacterData.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RigidBody.cs" />

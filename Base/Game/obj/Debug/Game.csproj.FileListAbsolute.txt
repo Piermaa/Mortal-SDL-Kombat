@@ -38,17 +38,3 @@ C:\Users\alu602\Downloads\Mortal-SDL-Kombat-main\Base\Game\bin\Debug\subzero.png
 C:\Users\alu602\Downloads\Mortal-SDL-Kombat-main\Base\Game\bin\Debug\Game.exe.config
 C:\Users\alu602\Downloads\Mortal-SDL-Kombat-main\Base\Game\bin\Debug\Game.exe
 C:\Users\alu602\Downloads\Mortal-SDL-Kombat-main\Base\Game\bin\Debug\Game.pdb
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\bg.png
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\Engine.dll
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\otacon.png
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\ship.png
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\skorpion.png
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\subzero.png
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\Game.exe.config
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\Game.exe
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\bin\Debug\Game.pdb
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.AssemblyReference.cache
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.SuggestedBindingRedirects.cache
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.csproj.CoreCompileInputs.cache
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.exe
-D:\Git Repositories\Mortal-SDL-Kombat\Base\Game\obj\Debug\Game.pdb

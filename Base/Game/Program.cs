@@ -5,7 +5,12 @@ namespace TestEngine
 {
     public class Player
     {
-        CharacterData characterData;
+        // current texture 
+        private string textureName;
+
+        private int health = 10;
+        private int damage = 1;
+        private float speed = 1;
 
         private Vector2 position = new Vector2(0, 0);
         private Vector2 velocity = Vector2.Zero;
@@ -16,6 +21,12 @@ namespace TestEngine
 
         private static float mass = 65;
 
+        public int Health
+        {
+            get { return health; }
+
+            set { health = value; }
+        }
         public void SetPosition(Vector2 pos)
         {
             position = pos;
@@ -50,7 +61,7 @@ namespace TestEngine
         public Player(string textureNameString, Vector2 startPos)
         {
             position = startPos;
-            characterData.textureName = textureNameString;
+            textureName = textureNameString;
         }
 
         public void UpdatePosition()
@@ -81,7 +92,7 @@ namespace TestEngine
 
         public void Render()
         {
-            Game.Draw(characterData.textureName, position.x, position.y, 0.5f, 0.5f, 0, 0, 0);
+            Game.Draw(textureName, position.x, position.y, 0.5f, 0.5f, 0, 0, 0);
         }
 
         public void Move(float x, float movementVelocity)
@@ -136,16 +147,15 @@ namespace TestEngine
         {
             Game.Initialize("Mortal Kombat XXX",WIDTH,HEIGHT,false);
             InitializePlayers();
-
             GameObject juan = new GameObject();
             juan.transform.position.x += 1;
             RigidBody juanRb = new RigidBody();
+      
             juan.AddComponent(juanRb);
+
             var otrorb = juan.GetComponent<RigidBody>();
+
             Insta(juan);
-
-            CharacterData character = new CharacterData();
-
             foreach (var go in Hierarchy)
             {
                 go.Start(go);
@@ -155,10 +165,9 @@ namespace TestEngine
             while (true)
             {
                 juanRb.AddForce(Vector2.Left * 10);
-                //Game.Debug(juan.transform.position.x);
+                Game.Debug(juan.transform.position.x);
                 Update();
                 Render();
-                character.Update(deltaTime);
             }
         }
         private static void Insta(GameObject newGo)
