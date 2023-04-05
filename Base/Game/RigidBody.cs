@@ -9,11 +9,11 @@ namespace TestEngine
 {
     class RigidBody : IMonoBehaviour
     {
-        GameObject gameObject;
-        public Vector2 velocity = Vector2.Zero;
-        public Vector2 acceleration = Vector2.Zero;
-       
-        float mass=10;
+        private GameObject gameObject;
+        private Vector2 velocity = Vector2.Zero;
+        private Vector2 acceleration = Vector2.Zero;
+
+        private float mass =10;
 
         public void Start(GameObject _gameObject)
         {

@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace TestEngine
 {
-    class CharacterData : IMonoBehaviour
+    class CharacterData : IMonoBehaviour, IRendereable
     {
-        GameObject gameObject;
-
+        protected GameObject gameObject;
+        protected Transform transform;
         // current texture 
-        public string textureName;
+        public string textureName="none";
 
         // variables 
-        private int health = 3;
-        private int damage = 1;
-        public float moveSpeed = 1;
+        protected int health = 3;
+        protected int damage = 1;
+        protected float moveSpeed = 1;
 
-        private float immunityTime = 2f;
+        protected float immunityTime = 2f;
 
         public int Health
         {
@@ -45,6 +45,7 @@ namespace TestEngine
         public void Start(GameObject _gameObject)
         {
             this.gameObject = _gameObject;
+            transform = gameObject.transform;
         }
 
         public void Update(float deltaTime)
@@ -64,6 +65,11 @@ namespace TestEngine
             {
                 TakeDamage(damage);
             }
+        }
+
+        public void Render()
+        {
+            Game.Draw(textureName, 0, 0, 1, 1, 0, 0, 0);
         }
 
         public void TakeDamage(int amount)

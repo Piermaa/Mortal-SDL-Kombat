@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestEngine
 {
-    public class GameObject
+    public class GameObject : IMonoBehaviour
     {
         public Transform transform;
 
@@ -145,6 +145,12 @@ namespace TestEngine
     {
         void Start(GameObject gameObject);
         void Update(float deltaTime);
+    }
+
+    public interface IRendereable
+    {
+       
+        void Render();
     }
 }
 

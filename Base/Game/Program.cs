@@ -3,130 +3,36 @@ using System.Collections.Generic;
 
 namespace TestEngine
 {
-    public class Player
+    class PlayerCharacter : CharacterData
     {
-        // current texture 
-        private string textureName;
-
-        private int health = 10;
-        private int damage = 1;
-        private float speed = 1;
-
-        private Vector2 position = new Vector2(0, 0);
-        private Vector2 velocity = Vector2.Zero;
-        private Vector2 acceleration = Vector2.Zero;
-
-        private bool isGrounded = false;
-        public bool IsGrounded => isGrounded;
-
-        private static float mass = 65;
-
-        public int Health
-        {
-            get { return health; }
-
-            set { health = value; }
+        public Transform Transform {
+            get {return transform; }
+            set {transform= value; }
         }
-        public void SetPosition(Vector2 pos)
-        {
-            position = pos;
-        }
-
         public Vector2 Position 
         {   
-            get { return position; }
+            get { return transform.position; }
 
-            set { position = value;}
+            set { transform.position = value;}
         }
-        public float PosX
+ 
+        public PlayerCharacter(string textureNameString)
         {
-            get { return position.x; }
-
-            set { position.x = value; }
-            
-        }
-        public float PosY
-        {
-            get { return position.y; }
-
-            set { position.y = value; }
-
-        }
-
-       
-       // float movementSpeed=1;
-
-       // Vector2 scale;
-
-        public Player(string textureNameString, Vector2 startPos)
-        {
-            position = startPos;
             textureName = textureNameString;
         }
-
-        public void UpdatePosition()
-        {
-            AddForce(new Vector2(0, Program.gravity * mass));
-
-
-            velocity.x += acceleration.x * Program.deltaTime;
-            velocity.y += acceleration.y * Program.deltaTime;
-
-            position.x += velocity.x * Program.deltaTime;
-            position.y += velocity.y * Program.deltaTime;
-
-            acceleration.x = 0;
-            acceleration.y = 0;
-
-            if (position.y > 200)
-            {
-                position.y = 200;
-                isGrounded = true;
-                velocity.y = 0;
-            }
-        }
-        public void AddForce(Vector2 direction)
-        {
-            acceleration = direction / mass;
-        }
-
-        public void Render()
-        {
-            Game.Draw(textureName, position.x, position.y, 0.5f, 0.5f, 0, 0, 0);
-        }
-
-        public void Move(float x, float movementVelocity)
-        {
-            if (IsGrounded)
-            {
-                velocity = new Vector2(x * movementVelocity, velocity.y);
-            }
-
-            // p.velocity *= movementVelocity;
-
-        }
-
-        public void Jump(float jumpMultiplier)
-        {
-            velocity += Vector2.Up*jumpMultiplier;
-            isGrounded= false;
-        }
-        
     }
 
      class Program
     {
         public static List<GameObject> Hierarchy= new List<GameObject>();
+        public static List<IRendereable> rendereables = new List<IRendereable>();
 
         private const int playerWidth = 493 / 2;
         private const int WIDTH = 1280;
         private const int HEIGHT = 720;
         public static float gravity = 980f;
-        private static Player player;
 
 
-        static List<Player> players = new List<Player>();
-        //static Player[] players= { player1, player2};
 
         static Vector2 position = new Vector2(0, 0);
 
@@ -141,43 +47,32 @@ namespace TestEngine
         static float xOffset = 960 - 640;
         static float maxXOffset = xOffset * 2;
 
+        static GameObject player;
 
         //If main is static all functions must be static
         static void Main(string[] args)
         {
-            Game.Initialize("Mortal Kombat XXX",WIDTH,HEIGHT,false);
+            Game.Initialize("Rombai de fiesta",WIDTH,HEIGHT,false);
             InitializePlayers();
-            GameObject juan = new GameObject();
-            juan.transform.position.x += 1;
-            RigidBody juanRb = new RigidBody();
-      
-            juan.AddComponent(juanRb);
 
-            var otrorb = juan.GetComponent<RigidBody>();
-
-            Insta(juan);
             foreach (var go in Hierarchy)
             {
                 go.Start(go);
             }
            
-           
             while (true)
             {
-                juanRb.AddForce(Vector2.Left * 10);
-                Game.Debug(juan.transform.position.x);
                 Update();
                 Render();
             }
         }
-        private static void Insta(GameObject newGo)
-        {
-            Hierarchy.Add(newGo);
-        }
+       
         private static void InitializePlayers()
         {
-     
-   
+            player = new GameObject();
+            PlayerCharacter playerData= new PlayerCharacter("Main Ship - Base - Full health.png");
+            player.AddComponent(playerData);
+            rendereables.Add(playerData);
         }
         private static void Update()
         {
@@ -186,31 +81,39 @@ namespace TestEngine
             //Then we draw what we want to show
 
             InputMovement();
-         
-            foreach (var p in players)
-            {
-                p.UpdatePosition();
-                
-            }
+        
             foreach (var go in Hierarchy)
             {
                 go.Update(deltaTime);
             }
+
+            
         }
 
         private static void Render()
         {
             Game.Clear();
             Game.Draw("bg.png", 0, 0, 1, 1, 0, xOffset, 0);
-          
-
-            foreach (var character in players)
+            foreach (var go in rendereables)
             {
-                character.Render();
+                go.Render();
             }
 
             //Game.Debug("dibuje la nave");
             Game.Show();
+        }
+
+
+        /// <summary>
+        /// El GameObject creado es agregado a la jerarquia y se le asigna una posicion
+        /// </summary>
+        /// <param name="newGo"></param>
+        /// <param name="position"></param>
+        private static void Instantiate(GameObject newGo, Vector2 position)
+        {
+            Hierarchy.Add(newGo);
+            newGo.transform.SetPosition(position);
+         
         }
 
         /// <summary>
