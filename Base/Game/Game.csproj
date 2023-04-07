@@ -37,17 +37,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animation.cs" />
-    <Compile Include="Bullet.cs" />
-    <Compile Include="Character.cs" />
-    <Compile Include="BaseCharacter.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="PlayerCharacter.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="RigidBody.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -204,9 +193,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="_Scripts\Enemies\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="_Scripts\Music\MusicPlayer.cs" />
+    <Compile Include="_Scripts\Player\BaseCharacter.cs" />
+    <Compile Include="_Scripts\Player\Bullet.cs" />
+    <Compile Include="_Scripts\Player\Character.cs" />
+    <Compile Include="_Scripts\Player\PlayerCharacter.cs" />
+    <Compile Include="_Scripts\System\Animation.cs" />
+    <Compile Include="_Scripts\System\Collider.cs" />
+    <Compile Include="_Scripts\System\Game.cs" />
+    <Compile Include="_Scripts\System\GameObject.cs" />
+    <Compile Include="_Scripts\System\Program.cs" />
+    <Compile Include="_Scripts\System\RigidBody.cs" />
+    <Compile Include="_Scripts\System\SpriteRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

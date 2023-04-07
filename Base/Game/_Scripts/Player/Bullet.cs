@@ -16,9 +16,9 @@ namespace Game
         float lifeTime = 1;
         float timer = 0;
 
-        bool draw = true;
+        //bool draw = true;
 
-        public bool Draw => draw;
+        //public bool Draw => draw;
 
         public Bullet(float posX, float posY, float rot)
         {
@@ -35,15 +35,15 @@ namespace Game
 
             if (timer >= lifeTime)
             {
-                draw = false;
+            
             }
         }
 
-        public void DrawBullet()
-        {
-            if (draw)
-                Engine.Draw("0.png", _posX, _posY, .25f, .25f, _rot, 145.5f, 86.5f);
-        }
+        //public void DrawBullet()
+        //{
+        //    if (draw)
+        //        Engine.Draw("0.png", _posX, _posY, .25f, .25f, _rot, 145.5f, 86.5f);
+        //}
 
     }
 }

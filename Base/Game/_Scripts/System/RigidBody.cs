@@ -10,14 +10,18 @@ namespace Game
     class RigidBody : IMonoBehaviour
     {
         private GameObject gameObject;
-        private Vector2 velocity = Vector2.Zero;
+        public Vector2 velocity = Vector2.Zero;
         private Vector2 acceleration = Vector2.Zero;
 
         private float mass =10;
 
-        public void Start(GameObject _gameObject)
+        public void Awake(GameObject _gameObject)
         {
             this.gameObject = _gameObject;
+        }
+        public void Start()
+        {
+            
         }
 
         public void Update(float deltaTime)
@@ -25,8 +29,8 @@ namespace Game
             velocity.x += acceleration.x * deltaTime;
             velocity.y += acceleration.y * deltaTime;
 
-            gameObject.transform.position.x += velocity.x * deltaTime+ 1/2 * acceleration.x * deltaTime * deltaTime;
-            gameObject.transform.position.y += velocity.y * deltaTime+ 1/2 * acceleration.y * deltaTime * deltaTime;
+            gameObject.transform.position.x += velocity.x  * deltaTime;
+            gameObject.transform.position.y += velocity.y  * deltaTime;
 
             acceleration.x = 0;
             acceleration.y = 0;

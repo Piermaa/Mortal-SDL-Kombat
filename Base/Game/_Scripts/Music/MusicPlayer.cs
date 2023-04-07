@@ -1,8 +1,8 @@
 ﻿using System.Media;
 
-namespace TestEngine
+namespace Game
 {
-    internal class MusicPlayer : IMonoBehaviour
+    class MusicPlayer : IMonoBehaviour
     {
         GameObject gameObject;
         SoundPlayer soundPlayer = new SoundPlayer("TaylorSong");
@@ -22,6 +22,16 @@ namespace TestEngine
         public void PlaySong()
         {
             soundPlayer.PlayLooping();
+        }
+
+        public void Awake(GameObject gameObject)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Start()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

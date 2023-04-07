@@ -7,15 +7,14 @@ namespace Game
     class Program
     {
         public static List<GameObject> Hierarchy = new List<GameObject>();
-        public static List<IRendereable> rendereables = new List<IRendereable>();
 
         public static List<PlayerCharacter> enemies = new List<PlayerCharacter>();
 
         public event Action OnTriggerEnter;
 
         private const int playerWidth = 493 / 2;
-        private const int WIDTH = 1280;
-        private const int HEIGHT = 720;
+        private const int WIDTH = 1000;
+        private const int HEIGHT = 1080;
         public static float gravity = 980f;
 
 
@@ -33,68 +32,66 @@ namespace Game
         static float xOffset = 960 - 640;
         static float maxXOffset = xOffset * 2;
 
-        static GameObject player;
+        static GameObject playerGameObject;
 
         //If main is static all functions must be static
-        void Main(string[] args)
+        static void Main(string[] args)
         {
-            Engine.Initialize("Rombai de fiesta", WIDTH, HEIGHT, false);
-            InitializePlayers();
-            InitializeMusic();
+            //Considero que lo mas prolijo es que no haya mucho mas en program, 
+            //que cada clase maneje su comportamiento en su propios Callbacks de Monobehaviour
 
-            foreach (var go in Hierarchy)
-            {
-                go.Start(go);
-            }
-
+            Awake();
+            Start();
             while (true)
             {
                 Update();
-                Render();
             }
         }
 
-        private static void InitializePlayers()
-        {
-            player = new GameObject();
-            PlayerCharacter playerData = new PlayerCharacter("Main Ship - Base - Full health.png");
-            player.AddComponent(playerData);
-            rendereables.Add(playerData);
-        }
-
+      
         private static void InitializeMusic()
         {
             SoundPlayer soundPlayer = new SoundPlayer("XP.wav");
             soundPlayer.PlayLooping();
         }
+        private static void Awake()
+        {
+            Engine.Initialize("Rombai de fiesta", WIDTH, HEIGHT, false);
 
+            InitializePlayers();
+            InitializeMusic();
+            foreach (var go in Hierarchy)
+            {
+                go.Awake(go);
+            }
+         
+        }
+        private static void Start()
+        {
+            foreach (var go in Hierarchy)
+            {
+                go.Start();
+            }
+        }
         private static void Update()
         {
+            Engine.Clear();
+            Engine.Draw("ship.png", playerGameObject.transform.position.x, playerGameObject.transform.position.y, 1, 1, 0, 0, 0);
             GetTime();
-
-            //Then we draw what we want to show
-
             InputMovement();
 
             foreach (var go in Hierarchy)
             {
                 go.Update(deltaTime);
             }
-
-
-        }
-
-        private static void Render()
-        {
-            Engine.Clear();
-            Engine.Draw("bg.png", 0, 0, 1, 1, 0, xOffset, 0);
-            foreach (var go in rendereables)
-            {
-                go.Render();
-            }
-
-            //Game.Debug("dibuje la nave");
             Engine.Show();
+        }
+        private static void InitializePlayers()
+        {
+            playerGameObject = new GameObject();
+            PlayerCharacter player = new PlayerCharacter(playerGameObject);
+            playerGameObject.AddComponent(player);
+            Hierarchy.Add(playerGameObject);
         }
 
         void CheckCollisions()
@@ -105,7 +102,7 @@ namespace Game
                 {
                     if (enemy != enemies[i])
                     {
-                        if (enemy.IsBoxColliding(enemies[i].m_Transform))
+                        if (enemy.IsBoxColliding(enemies[i].transform))
                         {
                             OnTriggerEnter?.Invoke();
                         }
@@ -143,7 +140,7 @@ namespace Game
         /// </summary>
         /// <param name="axis">Nombre del eje, pej: Horizontal. Horizontal2 es para las ArrowKeys, input del player 2</param>
         /// <returns>Un valor que puede ser -1, 0 o 1 dependiendo del Input del jugador</returns>
-        static int GetAxisRaw(string axis)
+        public static int GetAxisRaw(string axis)
         {
             switch (axis)
             {
@@ -184,9 +181,6 @@ namespace Game
             deltaTime = currentTime - endTime;
             endTime = currentTime;
         }
-
-
-      
     }
 }
 //    public class Program

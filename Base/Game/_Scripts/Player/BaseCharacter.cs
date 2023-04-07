@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class BaseCharacter : IMonoBehaviour, IRendereable
+    //ABSTRACTA PARA QUE SE LE PUEDAN PONER METODOS QUE SOBREESCRIBAN LOS QUE HEREDEN LA CLASE, TODAVIA NO IMPLEMENTADO
+    abstract class BaseCharacter 
     {
-        protected GameObject gameObject;
-        protected Transform transform;
+        protected GameObject m_GameObject;
+        protected Transform m_Transform;
         // current texture 
         public string textureName="none";
 
@@ -42,35 +43,11 @@ namespace Game
             set { moveSpeed = value; }
         }
 
-        public void Start(GameObject _gameObject)
+        public BaseCharacter(GameObject _gameObject)
         {
-            this.gameObject = _gameObject;
-            transform = gameObject.transform;
+            
         }
 
-        public void Update(float deltaTime)
-        {
-            Death();
-
-            if (immunityTime <= 0)
-            {
-                immunityTime = 0;
-            }
-
-            immunityTime -= deltaTime;
-
-            //Debug keys
-
-            if (Engine.GetKey(Keys.P))
-            {
-                TakeDamage(damage);
-            }
-        }
-
-        public void Render()
-        {
-            Engine.Draw(textureName, 0, 0, 1, 1, 0, 0, 0);
-        }
 
         public void TakeDamage(int amount)
         {

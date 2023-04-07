@@ -21,7 +21,7 @@ namespace Game
       
         public void AddComponent(IMonoBehaviour component)
         {
-            component.Start(this);
+            component.Awake(this);
             Components.Add(component);
         }
 
@@ -44,12 +44,16 @@ namespace Game
             //Console.WriteLine($"Tried getting component of type {nameof(T)} on object {name}, but there is no such component attached");
             return default(T);
         }
-        public void Start(GameObject go)
+        public void Awake(GameObject go)
         {
             foreach (var component in Components)
             {
-                component.Start(go);
+                component.Awake(go);
             }
+        }
+        public void Start()
+        {
+
         }
         public void Update(float deltaTime)
         {
@@ -80,9 +84,13 @@ namespace Game
             position = newPosition;
         }
 
-        public void Start(GameObject _gameObject)
+        public void Awake(GameObject _gameObject)
         {
             gameObject = _gameObject;
+        }
+        public void Start()
+        {
+
         }
         public void Update(float deltaTime)
         {
@@ -141,18 +149,20 @@ namespace Game
         }
     }
 
+    //Estos son metodos que deben ser implementados obligatoriamente para que todos puedan ser llamados desde program compartiendo el nombre
+    //Facilmente con un foreach/for se puede recorrer una lista de IMonobehaviours y llamar su update a cada frame
     public interface IMonoBehaviour
     {
-        void Start(GameObject gameObject);
+        //EN EL AWAKE PONER LOS ADDCOMPONENT
+        void Awake(GameObject gameObject);
+        //ENTONCES EN START  PODEMOS USAR LOS GETCOMPONENT
+        void Start();
         void Update(float deltaTime);
     }
 
 
     //TODO: Cambiar esta interfaz por un componente, SpriteRenderer tal vez, cuyo update sea renderear la textura
-    public interface IRendereable
-    {
-        void Render();
-    }
+
 }
 
 
