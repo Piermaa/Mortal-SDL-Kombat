@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace TestEngine
+namespace Game
 {
-    
     public enum Keys
     {
         ESCAPE = 0x01
@@ -178,7 +177,7 @@ namespace TestEngine
         private static extern TextureData LoadTexture(string path);
     }
 
-    public class Game
+    public class Engine
     {
         private static Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
 
@@ -223,7 +222,7 @@ namespace TestEngine
                 return tex;
             }
         }
-      
+
         public static void Draw(string texture, float x = 0, float y = 0, float scaX = 1, float scaY = 1, float angle = 0, float offsetX = 0, float offsetY = 0)
         {
             Draw(GetTexture(texture), x, y, scaX, scaY, angle, offsetX, offsetY);
@@ -239,7 +238,7 @@ namespace TestEngine
             if (!WindowOpened) return false;
             return GetKey((int)key);
         }
-
+        public static bool GetKeyDown(Keys key) => GetKey((int)key);
 
         [DllImport("Engine.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Draw(int texture, float x, float y, float scaX, float scaY, float angle, float offsetX, float offsetY);

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace TestEngine
+namespace Game
 {
     public class GameObject : IMonoBehaviour
     {
@@ -147,9 +147,10 @@ namespace TestEngine
         void Update(float deltaTime);
     }
 
+
+    //TODO: Cambiar esta interfaz por un componente, SpriteRenderer tal vez, cuyo update sea renderear la textura
     public interface IRendereable
     {
-       
         void Render();
     }
 }
