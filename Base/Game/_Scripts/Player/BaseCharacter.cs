@@ -45,7 +45,13 @@ namespace Game
 
         public BaseCharacter(GameObject _gameObject)
         {
-            
+            m_GameObject = _gameObject;
+            m_Transform = _gameObject.transform;
+            SpriteRenderer spriteRenderer = new SpriteRenderer();
+            spriteRenderer.SetTexture(Engine.GetTexture("ship.png"));
+            RigidBody rb = new RigidBody();
+            m_GameObject.AddComponent(spriteRenderer);
+            m_GameObject.AddComponent(rb);
         }
 
 

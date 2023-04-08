@@ -14,7 +14,7 @@ namespace Game
 
         private const int playerWidth = 493 / 2;
         private const int WIDTH = 1000;
-        private const int HEIGHT = 1080;
+        private const int HEIGHT = 1000;
         public static float gravity = 980f;
 
 
@@ -76,7 +76,7 @@ namespace Game
         private static void Update()
         {
             Engine.Clear();
-            Engine.Draw("ship.png", playerGameObject.transform.position.x, playerGameObject.transform.position.y, 1, 1, 0, 0, 0);
+   
             GetTime();
             InputMovement();
 

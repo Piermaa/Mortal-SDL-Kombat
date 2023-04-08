@@ -205,6 +205,7 @@
     <Compile Include="_Scripts\Player\Character.cs" />
     <Compile Include="_Scripts\Player\PlayerCharacter.cs" />
     <Compile Include="_Scripts\System\Animation.cs" />
+    <Compile Include="_Scripts\System\Animator.cs" />
     <Compile Include="_Scripts\System\Collider.cs" />
     <Compile Include="_Scripts\System\Game.cs" />
     <Compile Include="_Scripts\System\GameObject.cs" />

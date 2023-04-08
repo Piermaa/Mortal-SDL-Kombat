@@ -8,7 +8,7 @@ namespace Game
 {
     class SpriteRenderer : IMonoBehaviour
     {
-        public Texture texture;
+        private Texture texture;
         GameObject gameObject;
         Transform transform;
         public void Awake(GameObject gameObject)
@@ -24,7 +24,16 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            Engine.Draw(texture,transform.position.x, transform.position.y, 0,0,0,0,0);
+      
+            Engine.Draw(texture, transform.position.x, transform.position.y,
+              transform.scale.x, transform.scale.y, transform.rotation,
+              texture.Width/2 * transform.scale.x, texture.Height / 2 * transform.scale.y);
+           
+        }
+
+        public void SetTexture(Texture _texture)
+        {
+            texture = _texture;
         }
     }
 }

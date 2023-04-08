@@ -42,12 +42,10 @@ namespace Game
         {
             Engine.Draw(currentAnimation.CurrentFrame,transform.position.x, transform.position.y, transform.scale.x, transform.scale.y, 0, RealWidth / 2f, RealHeight / 2f);
         }
-
         public void DamageLife(int damage)
         {
             life -= damage;
         }
-
         public void Kill()
         {
 

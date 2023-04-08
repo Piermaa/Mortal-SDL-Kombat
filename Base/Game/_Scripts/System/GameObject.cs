@@ -71,7 +71,7 @@ namespace Game
 
         public Vector2 position = Vector2.Zero;
         public float rotation;
-        public Vector2 scale = Vector2.Zero;
+        public Vector2 scale = new Vector2(1,1);
 
         public void Translate(Vector2 dir)
         {
