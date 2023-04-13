@@ -29,9 +29,17 @@ namespace Game
         {
             foreach (var item in Components)
             {
-                var result = (T)item;
-                return result;
-                
+                try
+                {
+                    var result = (T)item;
+                    return result;
+                }
+                catch (Exception e)
+                {
+
+                }
+          
+
             }
             
             //Console.WriteLine($"Tried getting component of type {nameof(T)} on object {name}, but there is no such component attached");

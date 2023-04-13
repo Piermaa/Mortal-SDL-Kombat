@@ -6,7 +6,8 @@ namespace Game
 {
     #region 12/4 Singletones
     //SOLO GUARDA UNA REF AL PLAYER, LOS DEMAS CHARACTERS SE MANEJAN CON EL MANAGER
-    //
+    //Manager de characters hacer un metodo para tener una copia de la lista que usa y otro para .Add un elemento, es por seguridad
+    // como la lista tiene muchos metodos no se debe permitir el acceso asi tan facil
     #endregion
     class Program
     {
