@@ -52,6 +52,10 @@ namespace Game
             RigidBody rb = new RigidBody();
             m_GameObject.AddComponent(spriteRenderer);
             m_GameObject.AddComponent(rb);
+
+            //TODO: SOLO PARA ENEMIGOS
+            //TODO: QUE SE AÑADAN A LA JERARQUIA TODOS LOS GAMEOBJECTS
+            CharactersManager.Instance.Characters.Add(this);
         }
 
 

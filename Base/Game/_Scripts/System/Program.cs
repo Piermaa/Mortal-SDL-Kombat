@@ -4,6 +4,10 @@ using System.Media;
 
 namespace Game
 {
+    #region 12/4 Singletones
+    //SOLO GUARDA UNA REF AL PLAYER, LOS DEMAS CHARACTERS SE MANEJAN CON EL MANAGER
+    //
+    #endregion
     class Program
     {
         public static List<GameObject> Hierarchy = new List<GameObject>();
@@ -56,7 +60,7 @@ namespace Game
         }
         private static void Awake()
         {
-            Engine.Initialize("Rombai de fiesta", WIDTH, HEIGHT, false);
+            Engine.Initialize("ola de suicidios", WIDTH, HEIGHT, false);
 
             InitializePlayers();
             InitializeMusic();

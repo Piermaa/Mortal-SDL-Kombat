@@ -29,16 +29,9 @@ namespace Game
         {
             foreach (var item in Components)
             {
-                try
-                {
-                    var result = (T)item;
-                    
-                    return result;
-                }
-                catch (Exception e)
-                {
-                    
-                }
+                var result = (T)item;
+                return result;
+                
             }
             
             //Console.WriteLine($"Tried getting component of type {nameof(T)} on object {name}, but there is no such component attached");
@@ -102,10 +95,10 @@ namespace Game
     {
         public float x, y;
 
-        public Vector2(float xPos, float yPos)
+        public Vector2(float p_x, float p_y)
         {
-            x = xPos;
-            y = yPos;
+            x = p_x;
+            y = p_y;
         }
 
         public static Vector2 Zero = new Vector2(0, 0);
@@ -113,8 +106,6 @@ namespace Game
         public static Vector2 Down = new Vector2(0, 1);
         public static Vector2 Left = new Vector2(-1, 0);
         public static Vector2 Right = new Vector2(1, 0);
-
-
         public static Vector2 operator +(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x + b.x, a.y + b.y);

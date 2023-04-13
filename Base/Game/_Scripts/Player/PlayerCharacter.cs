@@ -34,7 +34,7 @@ namespace Game
         }
         public void Update(float deltaTime)
         {
-        
+            Movement();
         }
 
         private void Movement()
