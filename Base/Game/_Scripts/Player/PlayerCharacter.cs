@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class PlayerCharacter : BaseCharacter, IMonoBehaviour
+    class PlayerCharacter :BaseCharacter, IMonoBehaviour
     { 
         public GameObject gameObject
         { get { return m_GameObject; } set { m_GameObject = value; } }
@@ -16,9 +16,12 @@ namespace Game
         RigidBody rb;
         float speed = 300;
 
+        float shootCD=1;
+        float shootTimer;
         //AL CREAR EL SCRIPT SE AGREGAN TODOS LOS COMPONENTES QUE USA PLAYERCHARACTER
-        public PlayerCharacter(GameObject _gameObject) : base(_gameObject)
+        public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName)
         {
+   
             // : base (_gameObject), significa que le pasa el gameObject del que hereda
             //no sobreescribir por las dudas no se si borra el new BaseCharacter(Go _go)
         }
@@ -27,6 +30,7 @@ namespace Game
         {
             rb = _gameObject.GetComponent<RigidBody>();
             transform.SetPosition(new Vector2(500,1000));
+            transform.scale = new Vector2(3,3);
         }
         public void Start()
         { 
@@ -34,6 +38,14 @@ namespace Game
         }
         public void Update(float deltaTime)
         {
+            shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
+            if (Engine.GetKey(Keys.SPACE) && shootTimer==0)
+            {
+                shootTimer = shootCD;
+                var b = new GameObject();
+                Bullet bullet = new Bullet(b,true);
+                b.transform.position = transform.position + Vector2.Up * 10;
+            }
             Movement();
         }
 
@@ -43,38 +55,13 @@ namespace Game
             float y = Program.GetAxisRaw("Vertical");
 
             Vector2 dir = new Vector2(x, y);
-
+            dir =dir.Normalize();
             rb.velocity = dir * speed;
         }
      
        
         //esto tendria que ir en un manager de colisiones supongo
-        public bool IsBoxColliding(Transform p_objB)
-        {
-            float distanceX = Math.Abs(transform.position.x - p_objB.position.x);
-            float distanceY = Math.Abs(transform.position.y - p_objB.position.y);
-
-            float sumHWidths = transform.scale.x/2 + p_objB.scale.x/2;   
-            float sumHHeights = transform.scale.y/2 + p_objB.scale.y/2;
-
-            return distanceX <= sumHWidths && distanceY <= sumHHeights;
         
-        }
-        public bool IsBoxCircleColliding(Transform p_objB)
-        {
-            float distanceX = Math.Abs(transform.position.x - p_objB.position.x);
-            float distanceY = Math.Abs(transform.position.y - p_objB.position.y);
-
-            float sumHWidths = transform.scale.x / 2 + p_objB.scale.x / 2;
-            float sumHHeights = transform.scale.y / 2 + p_objB.scale.y / 2;
-
-            return distanceX <= sumHWidths && distanceY <= sumHHeights;
-
-        }
-
-
-
-
     
     }
 

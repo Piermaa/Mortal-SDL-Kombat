@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Game
 {
     //ABSTRACTA PARA QUE SE LE PUEDAN PONER METODOS QUE SOBREESCRIBAN LOS QUE HEREDEN LA CLASE, TODAVIA NO IMPLEMENTADO
-    abstract class BaseCharacter 
+    class BaseCharacter 
     {
         protected GameObject m_GameObject;
         protected Transform m_Transform;
@@ -43,19 +43,24 @@ namespace Game
             set { moveSpeed = value; }
         }
 
-        public BaseCharacter(GameObject _gameObject)
+        public BaseCharacter(GameObject _gameObject, string textureName)
         {
             m_GameObject = _gameObject;
             m_Transform = _gameObject.transform;
             SpriteRenderer spriteRenderer = new SpriteRenderer();
-            spriteRenderer.SetTexture(Engine.GetTexture("ship.png"));
+            spriteRenderer.SetTexture(Engine.GetTexture(textureName));
             RigidBody rb = new RigidBody();
+            Collider collider= new Collider(m_Transform,30);
+            
             m_GameObject.AddComponent(spriteRenderer);
             m_GameObject.AddComponent(rb);
 
+
+           
+
             //TODO: SOLO PARA ENEMIGOS
             //TODO: QUE SE AÑADAN A LA JERARQUIA TODOS LOS GAMEOBJECTS
-            CharactersManager.Instance.Characters.Add(this);
+
         }
 
 

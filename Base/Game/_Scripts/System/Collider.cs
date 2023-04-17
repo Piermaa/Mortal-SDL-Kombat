@@ -8,6 +8,18 @@ namespace Game
 {
     class Collider
     {
-        Transform transform;
+        private Vector2 position;
+        private float radius;
+
+        public float Radius=>radius;
+        public Vector2 Position => position;
+
+        public Collider(Transform transform,float p_radius)
+        {
+            position = transform.position;
+            radius = p_radius;
+
+            ColliderManager.Instance.AddCollider(this);
+        }
     }
 }

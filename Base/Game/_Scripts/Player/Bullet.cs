@@ -6,37 +6,44 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Bullet
+    public class Bullet : IMonoBehaviour
     {
-        float _speed = 150;
-        float _posX = 0;
-        float _posY = 0;
-        float _rot = 0;
-
-        float lifeTime = 1;
-        float timer = 0;
-
+        private float _speed = 750;
         //bool draw = true;
-
+        private bool ally;
+        public bool Ally => ally;
         //public bool Draw => draw;
-
-        public Bullet(float posX, float posY, float rot)
+        private RigidBody rb;
+        public Bullet(GameObject p_gameObject, bool isAlly)
         {
-            _posX = posX;
-            _posY = posY;
-            _rot = rot;
+            
+
+            p_gameObject.AddComponent(this);
+            ally = isAlly;
+            SpriteRenderer spriteRenderer = new SpriteRenderer();
+            spriteRenderer.SetTexture(Engine.GetTexture("Animations/Player/Bullet.png"));
+ 
+            p_gameObject.AddComponent(spriteRenderer);
+
+            rb = new RigidBody();
+            p_gameObject.AddComponent(rb);
+
+            Collider collider = new Collider(p_gameObject.transform, 30);
         }
 
-        public void Update()
+        public void Awake(GameObject gameObject)
         {
-            _posY -= _speed * Program.deltaTime;
+           
+        }
 
-            timer += Program.deltaTime;
+        public void Start()
+        {
+        }
 
-            if (timer >= lifeTime)
-            {
-            
-            }
+       
+        public void Update(float deltaTime)
+        {
+           rb.velocity = Vector2.Up*_speed;
         }
 
         //public void DrawBullet()

@@ -17,6 +17,8 @@ namespace Game
         public GameObject()
         {
             transform = new Transform();
+            //TODO: MANAGER DE JERARQUIA
+            Program.Hierarchy.Add(this);
         }
       
         public void AddComponent(IMonoBehaviour component)
@@ -138,12 +140,29 @@ namespace Game
         {
             return new Vector2(a.x / b.x, a.y / b.y);
         }
-        public Vector2 Normalize()
+
+        public float Distance()
         {
             double dX = x;
             double dY = y;
             double h = Math.Sqrt((dX * dX + dY * dY));
+            if (x == 0 && y == 0)
+            {
+                return 0;
+            }
+            return (float)h;
+        }
 
+        public Vector2 Normalize()
+        {
+           
+            double dX = x;
+            double dY = y;
+            double h = Math.Sqrt((dX * dX + dY * dY));
+            if (x==0 && y==0)
+            {
+                return Vector2.Zero;
+            }
             return new Vector2((float)(x / h), (float)(y / h));
         }
     }

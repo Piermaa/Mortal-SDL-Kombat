@@ -13,29 +13,20 @@ namespace Game
     {
         public static List<GameObject> Hierarchy = new List<GameObject>();
 
-        public static List<PlayerCharacter> enemies = new List<PlayerCharacter>();
 
-        public event Action OnTriggerEnter;
 
-        private const int playerWidth = 493 / 2;
+
         private const int WIDTH = 1000;
         private const int HEIGHT = 1000;
-        public static float gravity = 980f;
+  
 
 
 
         static Vector2 position = new Vector2(0, 0);
 
         public static float deltaTime;
-        public static DateTime startTime = DateTime.Now;
-        public static float endTime;
-        static float movementVelocity = 250f;
-
-        static float jumpForce = 700;
-
-
-        static float xOffset = 960 - 640;
-        static float maxXOffset = xOffset * 2;
+        static DateTime startTime = DateTime.Now;
+        static float endTime;
 
         static GameObject playerGameObject;
 
@@ -61,9 +52,11 @@ namespace Game
         }
         private static void Awake()
         {
-            Engine.Initialize("ola de suicidios", WIDTH, HEIGHT, false);
+            Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
+            InitializeManagers();
 
             InitializePlayers();
+            InitializeEnemies();
             InitializeMusic();
             foreach (var go in Hierarchy)
             {
@@ -71,6 +64,14 @@ namespace Game
             }
          
         }
+
+        private static void InitializeManagers()
+        {
+            GameObject colMngGo = new GameObject();
+            ColliderManager colMng = new ColliderManager();
+            colMngGo.AddComponent(colMng);
+        }
+
         private static void Start()
         {
             foreach (var go in Hierarchy)
@@ -85,36 +86,49 @@ namespace Game
             GetTime();
             InputMovement();
 
-            foreach (var go in Hierarchy)
+            for(int i=0;i<Hierarchy.Count ;i++)
             {
-                go.Update(deltaTime);
+                Hierarchy[i].Update(deltaTime);
             }
             Engine.Show();
         }
         private static void InitializePlayers()
         {
             playerGameObject = new GameObject();
-            PlayerCharacter player = new PlayerCharacter(playerGameObject);
+            PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png");
             playerGameObject.AddComponent(player);
-            Hierarchy.Add(playerGameObject);
+
+        }
+        private static void InitializeEnemies()
+        {
+            int posX = 100;
+            for (int i =0;i<5 ;i++)
+            {
+                var enemy = new GameObject();
+                EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png");
+                enemy.AddComponent(enemyCharacter);
+                enemy.transform.SetPosition(new Vector2((i*200)+posX,50));
+            }
+
+     
         }
 
-        void CheckCollisions()
-        {
-            foreach (var enemy in enemies)
-            {
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    if (enemy != enemies[i])
-                    {
-                        if (enemy.IsBoxColliding(enemies[i].transform))
-                        {
-                            OnTriggerEnter?.Invoke();
-                        }
-                    }
-                }
-            }
-        }
+        //void CheckCollisions()
+        //{
+        //    foreach (var enemy in enemies)
+        //    {
+        //        for (int i = 0; i < enemies.Count; i++)
+        //        {
+        //            if (enemy != enemies[i])
+        //            {
+        //             //   if (enemy.IsBoxColliding(enemies[i].transform))
+        //                {
+        //                    OnTriggerEnter?.Invoke();
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
         /// <summary>

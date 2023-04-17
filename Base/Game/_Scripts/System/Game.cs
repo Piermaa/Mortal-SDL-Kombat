@@ -238,7 +238,11 @@ namespace Game
             if (!WindowOpened) return false;
             return GetKey((int)key);
         }
-        public static bool GetKeyDown(Keys key) => GetKey((int)key);
+        public static bool GetKeyDown(Keys key)
+        {
+            return GetKey((int)key);
+        }
+
 
         [DllImport("Engine.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Draw(int texture, float x, float y, float scaX, float scaY, float angle, float offsetX, float offsetY);
