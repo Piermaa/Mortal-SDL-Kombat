@@ -12,6 +12,20 @@ namespace Game
     {
         public Transform transform;
 
+        private string tag = "default";
+        public string Tag
+        {
+            get { return tag; }
+            set { tag = value; }
+        }
+
+        private float radius = 25;
+        public float Radius
+        {
+            get { return radius; }
+            set { radius = value; }
+        }
+
         List<IMonoBehaviour> Components = new List<IMonoBehaviour>();
 
         public GameObject()
@@ -20,7 +34,32 @@ namespace Game
             //TODO: MANAGER DE JERARQUIA
             Program.Hierarchy.Add(this);
         }
-      
+        public GameObject(string tag)
+        {
+            transform = new Transform();
+            this.tag = tag;
+            Program.Hierarchy.Add(this);
+
+            switch (tag)
+            {
+                case ("Player"):
+                    ColliderManager.Instance.PlayerCollider = this;
+                    break;
+
+                case ("Enemy"):
+                    ColliderManager.Instance.EnemyColliders.Add(this);
+                    break;
+
+                case ("Bullet"):
+                    ColliderManager.Instance.BulletColliders.Add(this);
+                    break;
+
+                default:
+                    break;
+
+            }
+        }
+
         public void AddComponent(IMonoBehaviour component)
         {
             component.Awake(this);
@@ -146,10 +185,10 @@ namespace Game
             double dX = x;
             double dY = y;
             double h = Math.Sqrt((dX * dX + dY * dY));
-            if (x == 0 && y == 0)
-            {
-                return 0;
-            }
+            //if (x == 0 && y == 0)
+            //{
+            //    return 0;
+            //}
             return (float)h;
         }
 

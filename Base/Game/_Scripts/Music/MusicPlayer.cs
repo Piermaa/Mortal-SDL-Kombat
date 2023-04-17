@@ -4,6 +4,23 @@ namespace Game
 {
     class MusicPlayer : IMonoBehaviour
     {
+
+        #region Singleton
+        private static MusicPlayer instance;
+
+        public static MusicPlayer Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new MusicPlayer();
+                }
+                return instance;
+            }
+        }
+        #endregion
+
         GameObject gameObject;
         SoundPlayer soundPlayer = new SoundPlayer("TaylorSong");
 
@@ -12,11 +29,6 @@ namespace Game
             this.gameObject = gameObject;
 
             //PlaySong();
-        }
-
-        public void Update(float deltaTime)
-        {
-
         }
 
         public void PlaySong()
@@ -32,6 +44,11 @@ namespace Game
         public void Start()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void Update(float deltaTime)
+        {
+
         }
     }
 }

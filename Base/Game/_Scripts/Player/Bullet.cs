@@ -28,7 +28,7 @@ namespace Game
             rb = new RigidBody();
             p_gameObject.AddComponent(rb);
 
-            Collider collider = new Collider(p_gameObject.transform, 30);
+            Collider collider = new Collider(5, p_gameObject);
         }
 
         public void Awake(GameObject gameObject)

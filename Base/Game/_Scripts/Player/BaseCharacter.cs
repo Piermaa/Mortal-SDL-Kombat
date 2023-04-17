@@ -50,7 +50,7 @@ namespace Game
             SpriteRenderer spriteRenderer = new SpriteRenderer();
             spriteRenderer.SetTexture(Engine.GetTexture(textureName));
             RigidBody rb = new RigidBody();
-            Collider collider= new Collider(m_Transform,30);
+            Collider collider= new Collider(5, m_GameObject);
             
             m_GameObject.AddComponent(spriteRenderer);
             m_GameObject.AddComponent(rb);

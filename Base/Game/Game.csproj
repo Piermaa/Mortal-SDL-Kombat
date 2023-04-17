@@ -52,19 +52,21 @@
     <Content Include="ship.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Space Game Music.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="XP.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="_Scripts\Enemies\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="_Scripts\Player\EnemyCharacter.cs" />
+    <Compile Include="Enemies\EnemyCharacter.cs" />
     <Compile Include="_Scripts\Music\MusicPlayer.cs" />
     <Compile Include="_Scripts\Player\BaseCharacter.cs" />
     <Compile Include="_Scripts\Player\Bullet.cs" />

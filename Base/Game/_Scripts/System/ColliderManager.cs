@@ -24,14 +24,23 @@ namespace Game
         }
         #endregion
 
-        private List<Collider> colliders = new List<Collider>();
-
-        public List<Collider> Colliders => colliders;
-
-        public void AddCollider(Collider col)
+        private GameObject playerCollider;
+        public GameObject PlayerCollider
         {
-            colliders.Add(col);
+            get { return playerCollider; }
+            set { playerCollider = value; }
+        }
 
+        private List<GameObject> enemyColliders = new List<GameObject>();
+        public List<GameObject> EnemyColliders => enemyColliders;
+
+        private List<GameObject> bulletColliders = new List<GameObject>();
+        public List<GameObject> BulletColliders => bulletColliders;
+
+        public void AddCollider(GameObject col)
+        {
+            enemyColliders.Add(col);
+            Engine.Debug("Has been added");
         }
 
 
@@ -46,20 +55,23 @@ namespace Game
         //    return distanceX <= sumHWidths && distanceY <= sumHHeights;
 
         //}
-        public bool AreCircleColliding(Collider p_objA, Collider p_objB)
+        public bool AreCircleColliding(GameObject p_objA, GameObject p_objB)
         {
-            float distanceX = Math.Abs(p_objA.Position.x - p_objB.Position.x);
-            float distanceY = Math.Abs(p_objA.Position.y - p_objB.Position.y);
+            float distanceX = p_objA.transform.position.x - p_objB.transform.position.x;
+            float distanceY = p_objA.transform.position.y - p_objB.transform.position.y;
 
-            Vector2 dir = new Vector2(distanceX, distanceY);
+            //float sumHalfWidths = p_objA.Scale.x / 2 + p_objA.Scale.x / 2;
+            //float sumHalfHeight = p_objA.Scale.y / 2 + p_objB.Scale.y / 2;
 
-            return dir.Distance() <= p_objA.Radius+p_objB.Radius;
+            //Vector2 dir = new Vector2(distanceX, distanceY);
 
+            float totalDistance = (float)Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
+
+            return totalDistance < p_objA.Radius + p_objB.Radius;
         }
 
         public void Awake(GameObject gameObject)
         {
-     
         }
 
         public void Start()
@@ -69,13 +81,24 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            for (int i = 0; i < colliders.Count; i++)
+            for (int i = 0; i < enemyColliders.Count; i++)
             {
-                for (int j = 0; j < colliders.Count; j++)
+                if (AreCircleColliding(playerCollider, enemyColliders[i]))
                 {
-                    if (AreCircleColliding(colliders[i], colliders[j]))
+                    Engine.Debug("HAS COLLIDED WITH PLAYER");
+                }
+            }
+
+            if (bulletColliders.Count > 0)
+            {
+                for (int i = 0; i < enemyColliders.Count; i++)
+                {
+                    for (int j = 0; j < bulletColliders.Count; j++)
                     {
-                        //Engine.Debug("collided:" + i + " and " + j);
+                        if (AreCircleColliding(enemyColliders[i], bulletColliders[j]))
+                        {
+                            Engine.Debug("HAS COLLIDED WITH ENEMY");
+                        }
                     }
                 }
             }

@@ -13,20 +13,16 @@ namespace Game
     {
         public static List<GameObject> Hierarchy = new List<GameObject>();
 
-
-
-
         private const int WIDTH = 1000;
         private const int HEIGHT = 1000;
   
-
-
-
         static Vector2 position = new Vector2(0, 0);
 
         public static float deltaTime;
         static DateTime startTime = DateTime.Now;
         static float endTime;
+
+        static bool isPlaying = false;
 
         static GameObject playerGameObject;
 
@@ -47,17 +43,15 @@ namespace Game
       
         private static void InitializeMusic()
         {
-            SoundPlayer soundPlayer = new SoundPlayer("XP.wav");
+            SoundPlayer soundPlayer = new SoundPlayer("Space Game Music.wav");
             soundPlayer.PlayLooping();
         }
         private static void Awake()
         {
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
             InitializeManagers();
-
-            InitializePlayers();
-            InitializeEnemies();
             InitializeMusic();
+
             foreach (var go in Hierarchy)
             {
                 go.Awake(go);
@@ -68,8 +62,9 @@ namespace Game
         private static void InitializeManagers()
         {
             GameObject colMngGo = new GameObject();
-            ColliderManager colMng = new ColliderManager();
-            colMngGo.AddComponent(colMng);
+
+            //ColliderManager colMng = new ColliderManager();
+            colMngGo.AddComponent(ColliderManager.Instance);
         }
 
         private static void Start()
@@ -82,7 +77,7 @@ namespace Game
         private static void Update()
         {
             Engine.Clear();
-   
+            InitializeGame();
             GetTime();
             InputMovement();
 
@@ -92,9 +87,20 @@ namespace Game
             }
             Engine.Show();
         }
+
+        private static void InitializeGame()
+        {
+            if (Engine.GetKey(Keys.A) && !isPlaying)
+            {
+                isPlaying = true;
+                InitializePlayers();
+                InitializeEnemies();
+            }
+        }
+
         private static void InitializePlayers()
         {
-            playerGameObject = new GameObject();
+            playerGameObject = new GameObject("Player");
             PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png");
             playerGameObject.AddComponent(player);
 
@@ -104,13 +110,11 @@ namespace Game
             int posX = 100;
             for (int i =0;i<5 ;i++)
             {
-                var enemy = new GameObject();
+                var enemy = new GameObject("Enemy");
                 EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png");
                 enemy.AddComponent(enemyCharacter);
                 enemy.transform.SetPosition(new Vector2((i*200)+posX,50));
             }
-
-     
         }
 
         //void CheckCollisions()
@@ -140,7 +144,6 @@ namespace Game
         {
             Hierarchy.Add(newGo);
             newGo.transform.SetPosition(position);
-
         }
 
         /// <summary>

@@ -13,6 +13,8 @@ namespace Game
         { get { return m_GameObject; } set { m_GameObject = value; } }
         public Transform transform
         { get { return m_Transform; } set { m_Transform = value; } }
+
+        Collider collider;
         RigidBody rb;
         float speed = 300;
 
@@ -38,15 +40,8 @@ namespace Game
         }
         public void Update(float deltaTime)
         {
-            shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
-            if (Engine.GetKey(Keys.SPACE) && shootTimer==0)
-            {
-                shootTimer = shootCD;
-                var b = new GameObject();
-                Bullet bullet = new Bullet(b,true);
-                b.transform.position = transform.position + Vector2.Up * 10;
-            }
             Movement();
+            Shoot(deltaTime);
         }
 
         private void Movement()
@@ -55,14 +50,21 @@ namespace Game
             float y = Program.GetAxisRaw("Vertical");
 
             Vector2 dir = new Vector2(x, y);
-            dir =dir.Normalize();
+            dir = dir.Normalize();
             rb.velocity = dir * speed;
         }
-     
-       
-        //esto tendria que ir en un manager de colisiones supongo
-        
-    
+
+        private void Shoot(float deltaTime)
+        {
+            shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
+            if (Engine.GetKey(Keys.SPACE) && shootTimer == 0)
+            {
+                shootTimer = shootCD;
+                var b = new GameObject("Bullet");
+                Bullet bullet = new Bullet(b, true);
+                b.transform.position = transform.position + Vector2.Up * 10;
+            }
+        }
     }
 
    
