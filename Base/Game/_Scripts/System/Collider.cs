@@ -20,11 +20,8 @@ namespace Game
 
         public Collider(float p_radius, GameObject _gameObject)
         {
-            gameObject = _gameObject;
 
-            position = _gameObject.transform.position;
-            scale = _gameObject.transform.scale;
-            radius = p_radius;
+      
 
             //ColliderManager.Instance.AddCollider();
             this.gameObject = _gameObject;

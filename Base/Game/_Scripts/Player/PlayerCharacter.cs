@@ -65,6 +65,11 @@ namespace Game
                 b.transform.position = transform.position + Vector2.Up * 10;
             }
         }
+        public override void Death()
+        {
+            Engine.Debug("si es l player que muere mostrr pantalla de derrota");
+            //base.Death();
+        }
     }
 
    

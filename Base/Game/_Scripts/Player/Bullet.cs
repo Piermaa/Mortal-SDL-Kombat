@@ -14,10 +14,11 @@ namespace Game
         public bool Ally => ally;
         //public bool Draw => draw;
         private RigidBody rb;
+        private GameObject gameObject;
         public Bullet(GameObject p_gameObject, bool isAlly)
         {
-            
 
+            gameObject = p_gameObject;
             p_gameObject.AddComponent(this);
             ally = isAlly;
             SpriteRenderer spriteRenderer = new SpriteRenderer();
@@ -43,7 +44,19 @@ namespace Game
        
         public void Update(float deltaTime)
         {
-           rb.velocity = Vector2.Up*_speed;
+            if (ally)
+            {
+                rb.velocity = Vector2.Up * _speed;
+            }
+            else
+            {
+                rb.velocity = Vector2.Down * _speed;
+            }
+
+            if (gameObject.transform.position.y<-10)
+            {
+                gameObject.Destroy();
+            }
         }
 
         //public void DrawBullet()

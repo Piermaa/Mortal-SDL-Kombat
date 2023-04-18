@@ -59,7 +59,25 @@ namespace Game
 
             }
         }
+        public void Destroy()
+        {
+            Engine.Debug("Destroyed!!");
+            Components = null;
+            Program.Hierarchy.Remove(this);
+            
+            switch (tag)
+            {
+                case ("Enemy"):
+                    ColliderManager.Instance.EnemyColliders.Remove(this);
+                    break;
 
+                case ("Bullet"):
+                    ColliderManager.Instance.BulletColliders.Remove(this);
+                    break;
+
+            }
+
+        }
         public void AddComponent(IMonoBehaviour component)
         {
             component.Awake(this);
@@ -138,6 +156,8 @@ namespace Game
         {
 
         }
+
+      
     }
 
     public struct Vector2

@@ -20,7 +20,7 @@ namespace Game
         protected int damage = 1;
         protected float moveSpeed = 1;
 
-        protected float immunityTime = 2f;
+        protected float immunityTime = 0f;
 
         public int Health
         {
@@ -69,16 +69,19 @@ namespace Game
             if (immunityTime <= 0)
             {
                 health -= amount;
-                immunityTime = 2f;
+                if (health<=0)
+                {
+                    Death();
+                }
                 Engine.Debug("Took Damage, acual life is: " + health);
             }
         }
 
-        public void Death()
+        public virtual void Death()
         {
             if (health <= 0)
             {
-                Engine.Debug("Has died");
+                m_GameObject.Destroy();
             }
         }
     }

@@ -42,19 +42,6 @@ namespace Game
             enemyColliders.Add(col);
             Engine.Debug("Has been added");
         }
-
-
-        //public bool IsBoxColliding(Transform p_objB)
-        //{
-        //    float distanceX = Math.Abs(transform.position.x - p_objB.position.x);
-        //    float distanceY = Math.Abs(transform.position.y - p_objB.position.y);
-
-        //    float sumHWidths = transform.scale.x / 2 + p_objB.scale.x / 2;
-        //    float sumHHeights = transform.scale.y / 2 + p_objB.scale.y / 2;
-
-        //    return distanceX <= sumHWidths && distanceY <= sumHHeights;
-
-        //}
         public bool AreCircleColliding(GameObject p_objA, GameObject p_objB)
         {
             float distanceX = p_objA.transform.position.x - p_objB.transform.position.x;
@@ -81,27 +68,43 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            for (int i = 0; i < enemyColliders.Count; i++)
-            {
-                if (AreCircleColliding(playerCollider, enemyColliders[i]))
-                {
-                    Engine.Debug("HAS COLLIDED WITH PLAYER");
-                }
-            }
-
+          
             if (bulletColliders.Count > 0)
             {
-                for (int i = 0; i < enemyColliders.Count; i++)
+                for (int i = 0; i < bulletColliders.Count; i++)
                 {
-                    for (int j = 0; j < bulletColliders.Count; j++)
+
+                    for (int j= 0; j < enemyColliders.Count; j++)
                     {
-                        if (AreCircleColliding(enemyColliders[i], bulletColliders[j]))
+
+                        if (AreCircleColliding(bulletColliders[i], enemyColliders[j]))
                         {
-                            Engine.Debug("HAS COLLIDED WITH ENEMY");
+                            var b = bulletColliders[i].GetComponent<Bullet>();
+                            if (b.Ally)
+                            {
+                                var enemy = enemyColliders[j].GetComponent<EnemyCharacter>();
+                                enemy.TakeDamage(1);
+                                bulletColliders[i].Destroy();
+                                return; //este return es para que al destruir una bala no se pregunte por esta en lo de abajo
+                            }
+                        }
+                        else if (AreCircleColliding(bulletColliders[i], playerCollider))
+                        {
+                            var b = bulletColliders[i].GetComponent<Bullet>();
+                            if (!b.Ally)
+                            {
+                                var player = playerCollider.GetComponent<PlayerCharacter>();
+                                player.TakeDamage(1);
+                                bulletColliders[i].Destroy();
+
+                            }
                         }
                     }
                 }
             }
         }
+
+
+
     }
 }

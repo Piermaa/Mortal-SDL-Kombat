@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace Game
 {
     class EnemyCharacter: BaseCharacter, IMonoBehaviour
-    {   
+    {
+        private float shootCD=2;
+        private float shootTimer;
         public EnemyCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName)
         {
             CharactersManager.Instance.Characters.Add(this);
@@ -26,7 +28,16 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-           
+            shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
+            if (shootTimer == 0)
+            {
+                shootTimer = shootCD;
+                var b = new GameObject("Bullet");
+                Bullet bullet = new Bullet(b, false);
+                b.transform.rotation = 180;
+                b.transform.SetPosition(m_GameObject.transform.position);
+               
+            }
         }
     }
 }
