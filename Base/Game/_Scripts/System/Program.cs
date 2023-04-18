@@ -12,26 +12,19 @@ namespace Game
     class Program
     {
         public static List<GameObject> Hierarchy = new List<GameObject>();
-
         private const int WIDTH = 1000;
         private const int HEIGHT = 1000;
-  
-        static Vector2 position = new Vector2(0, 0);
-
+ 
         public static float deltaTime;
         static DateTime startTime = DateTime.Now;
         static float endTime;
 
         static bool isPlaying = false;
 
-        static GameObject playerGameObject;
 
-        //If main is static all functions must be static
+        //If main is static all functions/vars must be static
         static void Main(string[] args)
         {
-            //Considero que lo mas prolijo es que no haya mucho mas en program, 
-            //que cada clase maneje su comportamiento en su propios Callbacks de Monobehaviour
-
             Awake();
             Start();
             while (true)
@@ -50,14 +43,13 @@ namespace Game
         {
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
             InitializeManagers();
-            InitializeMusic();
+
 
             foreach (var go in Hierarchy)
             {
                 go.Awake(go);
             }
-         
-        }
+        }        
 
         private static void InitializeManagers()
         {
@@ -79,8 +71,11 @@ namespace Game
             Engine.Clear();
             InitializeGame();
             GetTime();
-            InputMovement();
-
+            if (!isPlaying)
+            {
+                var t=Engine.GetTexture("UI/PressEnter.png");
+                Engine.Draw(t, WIDTH/2-t.Width*2, HEIGHT/2-t.Height*2, 5,5,0,0,0);
+            }
             for(int i=0;i<Hierarchy.Count ;i++)
             {
                 Hierarchy[i].Update(deltaTime);
@@ -90,16 +85,19 @@ namespace Game
 
         private static void InitializeGame()
         {
-            if (Engine.GetKey(Keys.A) && !isPlaying)
+            if (Engine.GetKey(Keys.RETURN) && !isPlaying)
             {
+              
                 isPlaying = true;
                 InitializePlayers();
                 InitializeEnemies();
+                InitializeMusic();
             }
         }
 
         private static void InitializePlayers()
         {
+            GameObject playerGameObject;
             playerGameObject = new GameObject("Player");
             PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png");
             playerGameObject.AddComponent(player);
@@ -111,51 +109,13 @@ namespace Game
             for (int i =0;i<5 ;i++)
             {
                 var enemy = new GameObject("Enemy");
-                EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png");
+                EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png", Math.Abs(i*2-3));
                 enemy.AddComponent(enemyCharacter);
                 enemy.transform.SetPosition(new Vector2((i*200)+posX,50));
             }
         }
 
-        //void CheckCollisions()
-        //{
-        //    foreach (var enemy in enemies)
-        //    {
-        //        for (int i = 0; i < enemies.Count; i++)
-        //        {
-        //            if (enemy != enemies[i])
-        //            {
-        //             //   if (enemy.IsBoxColliding(enemies[i].transform))
-        //                {
-        //                    OnTriggerEnter?.Invoke();
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-
-        /// <summary>
-        /// El GameObject creado es agregado a la jerarquia y se le asigna una posicion
-        /// </summary>
-        /// <param name="newGo"></param>
-        /// <param name="position"></param>
-        private static void Instantiate(GameObject newGo, Vector2 position)
-        {
-            Hierarchy.Add(newGo);
-            newGo.transform.SetPosition(position);
-        }
-
-        /// <summary>
-        /// Se calcula el movimiento de los jugadores
-        /// </summary>
-        private static void InputMovement()
-        {
-            float x = GetAxisRaw("Horizontal");
-            float y = GetAxisRaw("Vertical");
-
-            Vector2 dir = new Vector2(x, y);
-        }
+    
 
         /// <summary>
         /// Se obtiene el valor bruto de un eje de movimiento dependiendo de la Input actual 

@@ -10,9 +10,10 @@ namespace Game
     {
         private float shootCD=2;
         private float shootTimer;
-        public EnemyCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName)
+
+        public EnemyCharacter(GameObject _gameObject, string textureName, float attackSpeed) : base(_gameObject, textureName)
         {
-            CharactersManager.Instance.Characters.Add(this);
+            shootCD = attackSpeed;
         }
 
         public void Awake(GameObject gameObject)
@@ -36,7 +37,6 @@ namespace Game
                 Bullet bullet = new Bullet(b, false);
                 b.transform.rotation = 180;
                 b.transform.SetPosition(m_GameObject.transform.position);
-               
             }
         }
     }

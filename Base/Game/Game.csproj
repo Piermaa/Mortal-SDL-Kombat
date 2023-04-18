@@ -55,6 +55,9 @@
     <Content Include="Space Game Music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="UI\PressEnter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="XP.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -72,11 +75,11 @@
     <Compile Include="_Scripts\Player\Bullet.cs" />
     <Compile Include="_Scripts\Player\Character.cs" />
     <Compile Include="_Scripts\Player\PlayerCharacter.cs" />
-    <Compile Include="_Scripts\System\Animation.cs" />
-    <Compile Include="_Scripts\System\Animator.cs" />
-    <Compile Include="_Scripts\System\CharactersManager.cs" />
-    <Compile Include="_Scripts\System\Collider.cs" />
-    <Compile Include="_Scripts\System\ColliderManager.cs" />
+    <Compile Include="_Scripts\Animations\Animation.cs" />
+    <Compile Include="_Scripts\Animations\Animator.cs" />
+    <Compile Include="_Scripts\Discarted\CharactersManager.cs" />
+    <Compile Include="_Scripts\Discarted\Collider.cs" />
+    <Compile Include="_Scripts\System\Collision\ColliderManager.cs" />
     <Compile Include="_Scripts\System\Game.cs" />
     <Compile Include="_Scripts\System\GameObject.cs" />
     <Compile Include="_Scripts\System\Program.cs" />

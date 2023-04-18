@@ -76,7 +76,10 @@ namespace Game
 
                     for (int j= 0; j < enemyColliders.Count; j++)
                     {
-
+                        if (j>= enemyColliders.Count || i >= bulletColliders.Count)
+                        {
+                            return;
+                        }
                         if (AreCircleColliding(bulletColliders[i], enemyColliders[j]))
                         {
                             var b = bulletColliders[i].GetComponent<Bullet>();
@@ -85,7 +88,7 @@ namespace Game
                                 var enemy = enemyColliders[j].GetComponent<EnemyCharacter>();
                                 enemy.TakeDamage(1);
                                 bulletColliders[i].Destroy();
-                                return; //este return es para que al destruir una bala no se pregunte por esta en lo de abajo
+                    
                             }
                         }
                         else if (AreCircleColliding(bulletColliders[i], playerCollider))
