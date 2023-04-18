@@ -16,12 +16,6 @@ namespace Game
             this.gameObject = gameObject;
             transform = gameObject.transform;
         }
-
-        public void Start()
-        {
-           // throw new NotImplementedException();
-        }
-
         public void Update(float deltaTime)
         {
             if(texture != null)

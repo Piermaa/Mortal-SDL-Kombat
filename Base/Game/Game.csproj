@@ -144,9 +144,10 @@
     <Compile Include="_Scripts\Discarted\CharactersManager.cs" />
     <Compile Include="_Scripts\Discarted\Collider.cs" />
     <Compile Include="_Scripts\System\Collision\ColliderManager.cs" />
-    <Compile Include="_Scripts\System\Game.cs" />
+    <Compile Include="_Scripts\System\Game\Game.cs" />
     <Compile Include="_Scripts\System\GameObject.cs" />
-    <Compile Include="_Scripts\System\Program.cs" />
+    <Compile Include="_Scripts\System\Game\GameManager.cs" />
+    <Compile Include="_Scripts\System\Game\Program.cs" />
     <Compile Include="_Scripts\System\RigidBody.cs" />
     <Compile Include="_Scripts\System\SpriteRenderer.cs" />
   </ItemGroup>

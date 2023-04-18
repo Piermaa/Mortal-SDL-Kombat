@@ -11,141 +11,48 @@ namespace Game
     #endregion
     class Program
     {
-        public static List<GameObject> Hierarchy = new List<GameObject>();
-        private const int WIDTH = 1000;
-        private const int HEIGHT = 1000;
- 
         public static float deltaTime;
         static DateTime startTime = DateTime.Now;
         static float endTime;
 
-        static int gameState;
-
-        static bool isPlaying = false;
-
-
+        private const int WIDTH = 1000;
+        private const int HEIGHT = 1000;
         //If main is static all functions/vars must be static
         static void Main(string[] args)
         {
-            Awake();
-            Start();
+            StartEngine();
             while (true)
             {
                 Update();
             }
         }
-
-      
-        private static void InitializeMusic()
+        private static void StartEngine()
         {
-            SoundPlayer soundPlayer = new SoundPlayer("Space Game Music.wav");
-            soundPlayer.PlayLooping();
-        }
-        private static void Awake()
-        {
+            GameManager.Instance.WindowDimensions= new Vector2(WIDTH,HEIGHT);
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
-            InitializeManagers();
-
-
-            foreach (var go in Hierarchy)
-            {
-                go.Awake(go);
-            }
-        }        
-
-        private static void InitializeManagers()
+     
+        }
+        static void GetTime()
         {
-            GameObject colMngGo = new GameObject();
-
-            //ColliderManager colMng = new ColliderManager();
-            colMngGo.AddComponent(ColliderManager.Instance);
+            var currentTime = (float)(DateTime.Now - startTime).TotalSeconds;
+            deltaTime = currentTime - endTime;
+            endTime = currentTime;
         }
 
-        private static void Start()
-        {
-            gameState = 0;
-
-            foreach (var go in Hierarchy)
-            {
-                go.Start();
-            }
-        }
         private static void Update()
         {
             Engine.Clear();
-            InitializeGame();
+     
             GetTime();
-            
-
-            if (!isPlaying)
-            {
-                Texture menuTexture = Engine.GetTexture("UI/PressEnter.png");
-                Texture winTexture = Engine.GetTexture("UI/Win.png");
-
-                switch (gameState)
-                {
-                    case (0):
-                        Engine.Draw(menuTexture, WIDTH / 2 - menuTexture.Width * 2, HEIGHT / 2 - menuTexture.Height * 2, 5, 5, 0, 0, 0);
-                        break;
-
-                    case (1):
-                        Engine.Draw(winTexture, WIDTH / 2 - winTexture.Width * 2, HEIGHT / 2 - winTexture.Height * 2, 3, 3, 0, 0, 0);
-                        break;
-
-                    case (2):
-                        break;
-                }
-            }
-            WinCondition();
-            for (int i=0;i<Hierarchy.Count ;i++)
-            {
-                Hierarchy[i].Update(deltaTime);
-            }
-
-            
+            GameManager.Instance.Update();
             Engine.Show();
         }
 
-        private static void InitializeGame()
-        {
-            if (Engine.GetKey(Keys.RETURN) && !isPlaying)
-            {
-                isPlaying = true;
-                InitializePlayers();
-                InitializeEnemies();
-                //InitializeMusic();
-            }
-        }
+     
 
-        private static void InitializePlayers()
-        {
-            GameObject playerGameObject;
-            playerGameObject = new GameObject("Player");
+    
 
-            PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png");
-            playerGameObject.AddComponent(player);
-        }
 
-        private static void InitializeEnemies()
-        {
-            int posX = 100;
-            for (int i =0;i<5 ;i++)
-            {
-                var enemy = new GameObject("Enemy");
-                EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png", Math.Abs(i*2-3));
-                enemy.AddComponent(enemyCharacter);
-                enemy.transform.SetPosition(new Vector2((i*200)+posX,50));
-            }
-        }
-
-        private static void WinCondition()
-        {
-            if (ColliderManager.Instance.EnemyColliders.Count <= 0 && isPlaying)
-            {
-                isPlaying = false;
-                gameState = 1;
-            }
-        }
 
         //private static void LooseCondition()
         //{
@@ -156,6 +63,7 @@ namespace Game
         //    }
         //}
 
+        //TODO: INPUT.CS
         /// <summary>
         /// Se obtiene el valor bruto de un eje de movimiento dependiendo de la Input actual 
         /// </summary>
@@ -196,12 +104,7 @@ namespace Game
         /// Se obtiene el valor de deltaTime
         /// </summary>
         
-        static void GetTime()
-        {
-            var currentTime = (float)(DateTime.Now - startTime).TotalSeconds;
-            deltaTime = currentTime - endTime;
-            endTime = currentTime;
-        }
+     
     }
 }
 //    public class Program

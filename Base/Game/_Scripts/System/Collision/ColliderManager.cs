@@ -32,16 +32,36 @@ namespace Game
         }
 
         private List<GameObject> enemyColliders = new List<GameObject>();
-        public List<GameObject> EnemyColliders => enemyColliders;
+        public List<GameObject> EnemyColliders
+        {
+            get { 
+               List<GameObject> eCols= enemyColliders; 
+               return eCols;
+            }
+        } 
 
         private List<GameObject> bulletColliders = new List<GameObject>();
-        public List<GameObject> BulletColliders => bulletColliders;
 
-        public void AddCollider(GameObject col)
+       
+        public void RemoveEnemyCollider(GameObject col)
+        {
+            enemyColliders.Remove(col);
+        }
+        public void RemoveBulletCollider(GameObject col)
+        {
+            bulletColliders.Remove(col);
+        }
+
+
+        public void AddEnemyCollider(GameObject col)
         {
             enemyColliders.Add(col);
-            Engine.Debug("Has been added");
         }
+        public void AddBulletCollider(GameObject col)
+        {
+            bulletColliders.Add(col);
+        }
+
         public bool AreCircleColliding(GameObject p_objA, GameObject p_objB)
         {
             float distanceX = p_objA.transform.position.x - p_objB.transform.position.x;
@@ -61,10 +81,6 @@ namespace Game
         {
         }
 
-        public void Start()
-        {
-           
-        }
 
         public void Update(float deltaTime)
         {

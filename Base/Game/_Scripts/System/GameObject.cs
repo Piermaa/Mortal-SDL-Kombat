@@ -32,13 +32,13 @@ namespace Game
         {
             transform = new Transform();
             //TODO: MANAGER DE JERARQUIA
-            Program.Hierarchy.Add(this);
+            GameManager.Instance.AddGameObject(this);
         }
         public GameObject(string tag)
         {
             transform = new Transform();
             this.tag = tag;
-            Program.Hierarchy.Add(this);
+            GameManager.Instance.AddGameObject(this);
 
             switch (tag)
             {
@@ -47,36 +47,29 @@ namespace Game
                     break;
 
                 case ("Enemy"):
-                    ColliderManager.Instance.EnemyColliders.Add(this);
+                    ColliderManager.Instance.AddEnemyCollider(this);
                     break;
 
                 case ("Bullet"):
-                    ColliderManager.Instance.BulletColliders.Add(this);
+                    ColliderManager.Instance.AddBulletCollider(this);
                     break;
-
-                default:
-                    break;
-
             }
         }
         public void Destroy()
         {
-            Engine.Debug("Destroyed!!");
             Components = null;
-            Program.Hierarchy.Remove(this);
+            GameManager.Instance.RemoveGameObject(this);
             
             switch (tag)
             {
                 case ("Enemy"):
-                    ColliderManager.Instance.EnemyColliders.Remove(this);
+                    ColliderManager.Instance.RemoveEnemyCollider(this);
                     break;
 
                 case ("Bullet"):
-                    ColliderManager.Instance.BulletColliders.Remove(this);
+                    ColliderManager.Instance.RemoveBulletCollider(this);
                     break;
-
             }
-
         }
         public void AddComponent(IMonoBehaviour component)
         {
@@ -111,10 +104,7 @@ namespace Game
                 component.Awake(go);
             }
         }
-        public void Start()
-        {
 
-        }
         public void Update(float deltaTime)
         {
             foreach (var component in Components)
@@ -147,10 +137,6 @@ namespace Game
         public void Awake(GameObject _gameObject)
         {
             gameObject = _gameObject;
-        }
-        public void Start()
-        {
-
         }
         public void Update(float deltaTime)
         {
@@ -232,8 +218,7 @@ namespace Game
     {
         //EN EL AWAKE PONER LOS ADDCOMPONENT
         void Awake(GameObject gameObject);
-        //ENTONCES EN START  PODEMOS USAR LOS GETCOMPONENT
-        void Start();
+
         void Update(float deltaTime);
     }
 

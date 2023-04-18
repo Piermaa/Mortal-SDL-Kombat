@@ -42,10 +42,7 @@ namespace Game
             transform.SetPosition(new Vector2(500,1000));
             transform.scale = new Vector2(3,3);
         }
-        public void Start()
-        {
-            
-        }
+
         public void Update(float deltaTime)
         {
             engineGameObject.transform.SetPosition(new Vector2(transform.position.x, transform.position.y + 30));
@@ -76,7 +73,7 @@ namespace Game
         }
         public override void Death()
         {
-            Engine.Debug("si es l player que muere mostrr pantalla de derrota");
+            GameManager.Instance.Win();
             //base.Death();
         }
     }

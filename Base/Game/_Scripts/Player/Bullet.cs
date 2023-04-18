@@ -17,7 +17,6 @@ namespace Game
         private GameObject gameObject;
         public Bullet(GameObject p_gameObject, bool isAlly)
         {
-
             gameObject = p_gameObject;
             p_gameObject.AddComponent(this);
             ally = isAlly;
@@ -29,7 +28,7 @@ namespace Game
             rb = new RigidBody();
             p_gameObject.AddComponent(rb);
 
-            Collider collider = new Collider(5, p_gameObject);
+            //Collider collider = new Collider(5, p_gameObject);
         }
 
         public void Awake(GameObject gameObject)
@@ -37,11 +36,6 @@ namespace Game
            
         }
 
-        public void Start()
-        {
-        }
-
-       
         public void Update(float deltaTime)
         {
             if (ally)

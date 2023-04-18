@@ -37,11 +37,6 @@ namespace Game
 
             animations = new Dictionary<string, Animation>();
         }
-        public void Start()
-        {
-
-        }
-
         public void Update(float deltaTime)
         {
             spriteRenderer.SetTexture(currentAnimation.CurrentFrame);

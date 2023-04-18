@@ -24,12 +24,6 @@ namespace Game
         GameObject gameObject;
         SoundPlayer soundPlayer = new SoundPlayer("TaylorSong");
 
-        public void Start(GameObject gameObject)
-        {
-            this.gameObject = gameObject;
-
-            //PlaySong();
-        }
 
         public void PlaySong()
         {
@@ -38,12 +32,7 @@ namespace Game
 
         public void Awake(GameObject gameObject)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void Start()
-        {
-            throw new System.NotImplementedException();
+            this.gameObject = gameObject;
         }
 
         public void Update(float deltaTime)

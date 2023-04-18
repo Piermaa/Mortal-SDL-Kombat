@@ -19,11 +19,6 @@ namespace Game
         {
             this.gameObject = _gameObject;
         }
-        public void Start()
-        {
-            
-        }
-
         public void Update(float deltaTime)
         {
             velocity.x += acceleration.x * deltaTime;

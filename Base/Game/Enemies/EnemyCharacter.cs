@@ -22,11 +22,6 @@ namespace Game
             gameObject.transform.rotation = 180;
         }
 
-        public void Start()
-        {
-            
-        }
-
         public void Update(float deltaTime)
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
