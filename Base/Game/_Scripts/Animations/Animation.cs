@@ -5,26 +5,31 @@ namespace Game
     public class Animation
     {
         private string id;
-        private bool isLoopEnabled;
-        private List<Texture> frames;
+        private bool isLoop;
+        private List<Texture> textures;
         private float speed = 0;
         private float currentAnimationTime = 0;
-        private int currentFrameIndex = 0;
+        private int currentFrame = 0;
 
         public string Id => id;
-        public Texture CurrentFrame => frames[currentFrameIndex];
+        public Texture CurrentFrame => textures[currentFrame];
 
-        public Animation(string id, List<Texture> frames, float speed, bool isLoopEnabled)
+        public Animation(string name, float speed, List<Texture> textures,  bool isLoop)
         {
-            this.id = id;
-            this.frames = frames;
+            this.id = name;
             this.speed = speed;
-            this.isLoopEnabled = isLoopEnabled;
+            this.isLoop = isLoop;
+            this.currentFrame = 0;
+
+            if (textures != null)
+            {
+                this.textures = textures;
+            }
         }
 
         public void Reset()
         {
-            this.currentFrameIndex = 0;
+            this.currentFrame = 0;
             this.currentAnimationTime = 0;
         }
 
@@ -34,18 +39,18 @@ namespace Game
 
             if (currentAnimationTime >= speed)
             {
-                currentFrameIndex++;
+                currentFrame++;
                 currentAnimationTime = 0;
 
-                if (currentFrameIndex >= frames.Count)
+                if (currentFrame >= textures.Count)
                 {
-                    if (isLoopEnabled)
+                    if (isLoop)
                     {
-                        currentFrameIndex = 0;
+                        currentFrame = 0;
                     }
                     else
                     {
-                        currentFrameIndex = frames.Count - 1;
+                        currentFrame = textures.Count - 1;
                     }
                 }
             }

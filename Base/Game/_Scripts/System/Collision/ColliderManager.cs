@@ -86,7 +86,7 @@ namespace Game
                             if (b.Ally)
                             {
                                 var enemy = enemyColliders[j].GetComponent<EnemyCharacter>();
-                                enemy.TakeDamage(1);
+                                enemy.TakeDamage(3);
                                 bulletColliders[i].Destroy();
                     
                             }

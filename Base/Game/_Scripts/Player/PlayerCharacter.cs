@@ -14,6 +14,7 @@ namespace Game
         public Transform transform
         { get { return m_Transform; } set { m_Transform = value; } }
 
+        GameObject engineGameObject;
         Collider collider;
         RigidBody rb;
         float speed = 300;
@@ -23,9 +24,16 @@ namespace Game
         //AL CREAR EL SCRIPT SE AGREGAN TODOS LOS COMPONENTES QUE USA PLAYERCHARACTER
         public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName)
         {
-   
             // : base (_gameObject), significa que le pasa el gameObject del que hereda
-            //no sobreescribir por las dudas no se si borra el new BaseCharacter(Go _go)
+
+            engineGameObject = new GameObject();
+            engineGameObject.transform.scale = new Vector2(2.5f, 2.5f);
+
+            SpriteRenderer engineSpriteRenderer = new SpriteRenderer();
+            Animator engineAnimator = new Animator();
+
+            engineGameObject.AddComponent(engineSpriteRenderer);
+            engineGameObject.AddComponent(engineAnimator);
         }
 
         public void Awake(GameObject _gameObject)
@@ -35,11 +43,12 @@ namespace Game
             transform.scale = new Vector2(3,3);
         }
         public void Start()
-        { 
-       
+        {
+            
         }
         public void Update(float deltaTime)
         {
+            engineGameObject.transform.SetPosition(new Vector2(transform.position.x, transform.position.y + 30));
             Movement();
             Shoot(deltaTime);
         }

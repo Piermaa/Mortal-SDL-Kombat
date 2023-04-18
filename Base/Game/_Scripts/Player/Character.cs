@@ -75,7 +75,7 @@ namespace Game
                 animationFrames.Add(Engine.GetTexture($"{p_path}{i}.png"));
             }
 
-            Animation animation = new Animation(p_animationID, animationFrames, p_animationSpeed, true);
+            Animation animation = new Animation(p_animationID, p_animationSpeed, animationFrames, true);
 
             return animation;
         }
@@ -92,7 +92,7 @@ namespace Game
                 idleFrames.Add(Engine.GetTexture($"Textures/Animations/Idle/{i}.png"));
             }
 
-            Animation idleAnimation = new Animation("Idle", idleFrames, 0.2f, true);
+            Animation idleAnimation = new Animation("Idle", 0.2f, idleFrames, true);
             animations.Add(idleAnimation);
 
             return animations;
