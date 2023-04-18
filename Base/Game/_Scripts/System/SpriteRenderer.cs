@@ -24,9 +24,12 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            Engine.Draw(texture, transform.position.x, transform.position.y,
+            if(texture != null)
+            {
+                Engine.Draw(texture, transform.position.x, transform.position.y,
               transform.scale.x, transform.scale.y, transform.rotation,
-              texture.Width/2 * transform.scale.x, texture.Height / 2 * transform.scale.y);
+              texture.Width / 2 * transform.scale.x, texture.Height / 2 * transform.scale.y);
+            }
         }
 
         public void SetTexture(Texture _texture)

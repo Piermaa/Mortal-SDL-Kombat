@@ -40,6 +40,9 @@
     <Content Include="Animations\Enemy\Kla%27ed - Fighter - Base.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Animations\Engines\Engine 0.png" />
+    <Content Include="Animations\Engines\Engine 1.png" />
+    <Content Include="Animations\Engines\Engine 2.png" />
     <Content Include="Animations\Player\Bullet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -55,7 +58,68 @@
     <Content Include="Space Game Music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\Animations\Engine\0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Animations\Engine\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Animations\Engine\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Animations\Idle\0.png" />
+    <Content Include="Textures\Animations\Idle\1.png" />
+    <Content Include="Textures\Animations\Idle\2.png" />
+    <Content Include="Textures\Animations\Idle\3.png" />
+    <Content Include="Textures\Animations\player\idle1.png" />
+    <Content Include="Textures\Animations\player\idle10.png" />
+    <Content Include="Textures\Animations\player\idle11.png" />
+    <Content Include="Textures\Animations\player\idle12.png" />
+    <Content Include="Textures\Animations\player\idle2.png" />
+    <Content Include="Textures\Animations\player\idle3.png" />
+    <Content Include="Textures\Animations\player\idle4.png" />
+    <Content Include="Textures\Animations\player\idle5.png" />
+    <Content Include="Textures\Animations\player\idle6.png" />
+    <Content Include="Textures\Animations\player\idle7.png" />
+    <Content Include="Textures\Animations\player\idle8.png" />
+    <Content Include="Textures\Animations\player\idle9.png" />
+    <Content Include="Textures\Animations\player\idle_left1.png" />
+    <Content Include="Textures\Animations\player\idle_left10.png" />
+    <Content Include="Textures\Animations\player\idle_left11.png" />
+    <Content Include="Textures\Animations\player\idle_left12.png" />
+    <Content Include="Textures\Animations\player\idle_left2.png" />
+    <Content Include="Textures\Animations\player\idle_left3.png" />
+    <Content Include="Textures\Animations\player\idle_left4.png" />
+    <Content Include="Textures\Animations\player\idle_left5.png" />
+    <Content Include="Textures\Animations\player\idle_left6.png" />
+    <Content Include="Textures\Animations\player\idle_left7.png" />
+    <Content Include="Textures\Animations\player\idle_left8.png" />
+    <Content Include="Textures\Animations\player\idle_left9.png" />
+    <Content Include="Textures\Animations\player\jump1.png" />
+    <Content Include="Textures\Animations\player\jump2.png" />
+    <Content Include="Textures\Animations\player\jump_left1.png" />
+    <Content Include="Textures\Animations\player\jump_left2.png" />
+    <Content Include="Textures\Animations\player\run1.png" />
+    <Content Include="Textures\Animations\player\run2.png" />
+    <Content Include="Textures\Animations\player\run3.png" />
+    <Content Include="Textures\Animations\player\run4.png" />
+    <Content Include="Textures\Animations\player\run5.png" />
+    <Content Include="Textures\Animations\player\run6.png" />
+    <Content Include="Textures\Animations\player\run7.png" />
+    <Content Include="Textures\Animations\player\run8.png" />
+    <Content Include="Textures\Animations\player\run_left1.png" />
+    <Content Include="Textures\Animations\player\run_left2.png" />
+    <Content Include="Textures\Animations\player\run_left3.png" />
+    <Content Include="Textures\Animations\player\run_left4.png" />
+    <Content Include="Textures\Animations\player\run_left5.png" />
+    <Content Include="Textures\Animations\player\run_left6.png" />
+    <Content Include="Textures\Animations\player\run_left7.png" />
+    <Content Include="Textures\Animations\player\run_left8.png" />
+    <Content Include="Textures\ship.png" />
     <Content Include="UI\PressEnter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UI\Win.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XP.wav">

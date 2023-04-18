@@ -19,6 +19,8 @@ namespace Game
         static DateTime startTime = DateTime.Now;
         static float endTime;
 
+        static int gameState;
+
         static bool isPlaying = false;
 
 
@@ -61,6 +63,8 @@ namespace Game
 
         private static void Start()
         {
+            gameState = 0;
+
             foreach (var go in Hierarchy)
             {
                 go.Start();
@@ -71,15 +75,34 @@ namespace Game
             Engine.Clear();
             InitializeGame();
             GetTime();
+            
+
             if (!isPlaying)
             {
-                var t=Engine.GetTexture("UI/PressEnter.png");
-                Engine.Draw(t, WIDTH/2-t.Width*2, HEIGHT/2-t.Height*2, 5,5,0,0,0);
+                Texture menuTexture = Engine.GetTexture("UI/PressEnter.png");
+                Texture winTexture = Engine.GetTexture("UI/Win.png");
+
+                switch (gameState)
+                {
+                    case (0):
+                        Engine.Draw(menuTexture, WIDTH / 2 - menuTexture.Width * 2, HEIGHT / 2 - menuTexture.Height * 2, 5, 5, 0, 0, 0);
+                        break;
+
+                    case (1):
+                        Engine.Draw(winTexture, WIDTH / 2 - winTexture.Width * 2, HEIGHT / 2 - winTexture.Height * 2, 3, 3, 0, 0, 0);
+                        break;
+
+                    case (2):
+                        break;
+                }
             }
-            for(int i=0;i<Hierarchy.Count ;i++)
+            WinCondition();
+            for (int i=0;i<Hierarchy.Count ;i++)
             {
                 Hierarchy[i].Update(deltaTime);
             }
+
+            
             Engine.Show();
         }
 
@@ -87,11 +110,10 @@ namespace Game
         {
             if (Engine.GetKey(Keys.RETURN) && !isPlaying)
             {
-              
                 isPlaying = true;
                 InitializePlayers();
                 InitializeEnemies();
-                InitializeMusic();
+                //InitializeMusic();
             }
         }
 
@@ -99,10 +121,11 @@ namespace Game
         {
             GameObject playerGameObject;
             playerGameObject = new GameObject("Player");
+
             PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png");
             playerGameObject.AddComponent(player);
-
         }
+
         private static void InitializeEnemies()
         {
             int posX = 100;
@@ -115,7 +138,23 @@ namespace Game
             }
         }
 
-    
+        private static void WinCondition()
+        {
+            if (ColliderManager.Instance.EnemyColliders.Count <= 0 && isPlaying)
+            {
+                isPlaying = false;
+                gameState = 1;
+            }
+        }
+
+        //private static void LooseCondition()
+        //{
+        //    if ( playerLife <= 0)
+        //    {
+        //        isPlaying = false;
+        //        gameState = 2;
+        //    }
+        //}
 
         /// <summary>
         /// Se obtiene el valor bruto de un eje de movimiento dependiendo de la Input actual 
@@ -149,14 +188,14 @@ namespace Game
                     break;
 
             }
+
             return 0;
         }
-
-
 
         /// <summary>
         /// Se obtiene el valor de deltaTime
         /// </summary>
+        
         static void GetTime()
         {
             var currentTime = (float)(DateTime.Now - startTime).TotalSeconds;
