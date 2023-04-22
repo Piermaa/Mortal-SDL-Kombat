@@ -8,7 +8,7 @@ namespace Game
 {
     class Animator : IMonoBehaviour
     {
-        public Dictionary<string, Animation> animations;
+        //public Dictionary<string, Animation> animations;
 
         SpriteRenderer spriteRenderer;
         GameObject gameObject;
@@ -35,7 +35,7 @@ namespace Game
             this.gameObject = gameObject;
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-            animations = new Dictionary<string, Animation>();
+            //animations = new Dictionary<string, Animation>();
         }
         public void Update(float deltaTime)
         {

@@ -16,13 +16,14 @@ namespace Game
             this.gameObject = gameObject;
             transform = gameObject.transform;
         }
+
         public void Update(float deltaTime)
         {
             if(texture != null)
             {
                 Engine.Draw(texture, transform.position.x, transform.position.y,
-              transform.scale.x, transform.scale.y, transform.rotation,
-              texture.Width / 2 * transform.scale.x, texture.Height / 2 * transform.scale.y);
+                transform.scale.x, transform.scale.y, transform.rotation,
+                texture.Width / 2 * transform.scale.x, texture.Height / 2 * transform.scale.y);
             }
         }
 

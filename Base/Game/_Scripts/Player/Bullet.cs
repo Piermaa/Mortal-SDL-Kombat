@@ -9,26 +9,26 @@ namespace Game
     public class Bullet : IMonoBehaviour
     {
         private float _speed = 750;
-        //bool draw = true;
+
+        // Si es ally va para arriba y no colisiona con el player
+        // Si no es ally va hacia abajo y colisiona con el player
         private bool ally;
         public bool Ally => ally;
-        //public bool Draw => draw;
-        private RigidBody rb;
+
+        private RigidBody rb = new RigidBody();
         private GameObject gameObject;
         public Bullet(GameObject p_gameObject, bool isAlly)
         {
             gameObject = p_gameObject;
             p_gameObject.AddComponent(this);
             ally = isAlly;
+
             SpriteRenderer spriteRenderer = new SpriteRenderer();
             spriteRenderer.SetTexture(Engine.GetTexture("Animations/Player/Bullet.png"));
- 
+
+            // Añadimos los componentes al GameObject
             p_gameObject.AddComponent(spriteRenderer);
-
-            rb = new RigidBody();
             p_gameObject.AddComponent(rb);
-
-            //Collider collider = new Collider(5, p_gameObject);
         }
 
         public void Awake(GameObject gameObject)
@@ -40,24 +40,19 @@ namespace Game
         {
             if (ally)
             {
-                rb.velocity = Vector2.Up * _speed;
-            }
-            else
-            {
-                rb.velocity = Vector2.Down * _speed;
+                rb.Velocity = Vector2.Up * _speed;
             }
 
-            if (gameObject.transform.position.y<-10)
+            else
+            {
+                rb.Velocity = Vector2.Down * _speed;
+            }
+
+            // Trigger para destruir las balas que se van de la pantalla
+            if (gameObject.transform.position.y <- 10 || gameObject.transform.position.y >= 800)
             {
                 gameObject.Destroy();
             }
         }
-
-        //public void DrawBullet()
-        //{
-        //    if (draw)
-        //        Engine.Draw("0.png", _posX, _posY, .25f, .25f, _rot, 145.5f, 86.5f);
-        //}
-
     }
 }

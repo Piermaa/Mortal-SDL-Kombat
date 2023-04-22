@@ -17,6 +17,7 @@ namespace Game
 
         private const int WIDTH = 720;
         private const int HEIGHT = 720;
+
         //If main is static all functions/vars must be static
         static void Main(string[] args)
         {
@@ -33,12 +34,16 @@ namespace Game
         }
         private static void StartEngine()
         {
+            // Singleton del GameManager
+
             GameManager.Instance.WindowDimensions= new Vector2(WIDTH,HEIGHT);
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
      
         }
         static void GetTime()
         {
+            // Calcular el DeltaTime
+
             var currentTime = (float)(DateTime.Now - startTime).TotalSeconds;
             deltaTime = currentTime - endTime;
             endTime = currentTime;
@@ -46,27 +51,17 @@ namespace Game
 
         private static void Update()
         {
+            // Limpia elcanvas
             Engine.Clear();
      
+            
+            // Calcula el tiempo
             GetTime();
+
+            // Muestra lo que tiene que mostrar en ese nuevo frame
             GameManager.Instance.Update();
             Engine.Show();
         }
-
-     
-
-    
-
-
-
-        //private static void LooseCondition()
-        //{
-        //    if ( playerLife <= 0)
-        //    {
-        //        isPlaying = false;
-        //        gameState = 2;
-        //    }
-        //}
 
         //TODO: INPUT.CS
         /// <summary>
@@ -104,138 +99,6 @@ namespace Game
 
             return 0;
         }
-
-        /// <summary>
-        /// Se obtiene el valor de deltaTime
-        /// </summary>
-        
      
     }
 }
-//    public class Program
-//    {
-//        //variables deltatime
-//        public static float deltaTime;
-//        static DateTime lastFrameTime = DateTime.Now;
-
-//        static float _posY = 305;
-//        static float _posX = 305;
-//        static float _speed = 100;
-
-//        static float _rot = 0;
-
-//        static Character ship;
-//        static Character pp;
-
-//        static List<Bullet> bullets = new List<Bullet>();
-
-//        static Animation currentAnimation = null;
-//        static Animation idle;
-
-//        static List<Character> characters = new List<Character>();
-
-//        void Main(string[] args)
-//        {
-//            Engine.Initialize();
-//            pp = new Character(new Vector2(100,100));
-//            ship = new Character(new Vector2(150,100));
-//            idle = CreateAnimation();
-//            currentAnimation = idle;
-
-//            characters.Add(pp);
-//            characters.Add(ship);
-
-//            SoundPlayer myplayer = new SoundPlayer("Sounds/XP.wav");
-//            //myplayer.PlayLooping();
-
-//            while (true)
-//            {
-//                calcDeltatime();
-
-//                Update();
-//                Draw();
-//            }
-//        }
-
-//        static void Update()
-//        {
-//            if (Engine.GetKey(Keys.SPACE))
-//            {
-//               pp.AddMove(new Vector2(10 * deltaTime, 10 * deltaTime));
-//            }
-
-//            for (int i = 0; i < bullets.Count; i++)
-//            {
-//                bullets[i].Update();
-//            }
-
-
-//            foreach (var character in characters)
-//            {
-//                for (int i = 0; i < characters.Count; i++)
-//                {
-//                    if(character != characters[i])
-//                        if (character.IsBoxColliding(characters[i]))
-//                        {
-//                            Engine.Debug("ESTOY COLISIONANDO");
-//                        }
-//                }
-//            }
-
-//            //currentAnimation.Update();
-//            ship.Update();
-//            pp.Update();
-//        }
-
-//        static void Draw()
-//        {
-//            Engine.Clear();
-
-           
-//            ship.Render();
-//            pp.Render();
-//            for (int i = 0; i < bullets.Count; i++)
-//            {
-//                if (!bullets[i].Draw)
-//                {
-//                    bullets.RemoveAt(i);
-//                }
-//            }
-
-//            for (int i = 0; i < bullets.Count; i++)
-//            {
-//                bullets[i].DrawBullet();
-//            }
-
-//            Engine.Show();
-//        }
-
-//        static void calcDeltatime()
-//        {
-//            TimeSpan deltaSpan = DateTime.Now - lastFrameTime;
-//            deltaTime = (float)deltaSpan.TotalSeconds;
-//            lastFrameTime = DateTime.Now;
-//        }
-
-
-//        static void Shoot()
-//        {
-//            bullets.Add(new Bullet(_posX + 230, _posY + 60, _rot));
-//        }
-
-//        private static Animation CreateAnimation()
-//        {
-//            // Idle Animation
-//            List<Texture> idleFrames = new List<Texture>();
-
-//            for (int i = 0; i < 4; i++)
-//            {
-//                idleFrames.Add(Engine.GetTexture($"{i}.png"));
-//            }
-
-//            Animation idleAnimation = new Animation("Idle", idleFrames, 2, true);
-
-//            return idleAnimation;
-//        }
-//    }
-//}

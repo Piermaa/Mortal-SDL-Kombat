@@ -20,6 +20,8 @@ namespace Game
             }
         }
         #endregion
+        
+        // Para dibujar sprites en pantalla
         private Vector2 windowDimensions;
 
         public Vector2 WindowDimensions
@@ -31,6 +33,9 @@ namespace Game
         private int gameState;
 
         private static List<GameObject> hierarchy = new List<GameObject>();
+
+        // La lista es privada,por eso se crea una función pública para añadir o sacar elementos
+        // Es mas seguro trabajar de esta forma
         public void AddGameObject(GameObject go)
         {
             hierarchy.Add(go);
@@ -53,10 +58,11 @@ namespace Game
                 Texture menuTexture = Engine.GetTexture("UI/PressEnter.png");
                 Texture winTexture = Engine.GetTexture("UI/Win.png");
 
+                // Textura a dibujar dependiendo del estado del juego (Menu, Ganar y Perder)
+
                 switch (gameState)
                 {
                     case (0):
-                        
                         Engine.Draw(menuTexture, windowDimensions.x / 2 - menuTexture.Width * 2, windowDimensions.y / 2 - menuTexture.Height * 2, 5, 5, 0, 0, 0);
                         break;
 
@@ -71,6 +77,8 @@ namespace Game
             }
             else
             {
+                // Update de cada elemento de la jerarquía
+
                 for (int i = 0; i < hierarchy.Count; i++)
                 {
                     hierarchy[i].Update(Program.deltaTime);
@@ -100,8 +108,7 @@ namespace Game
                 InitializeManagers();
                 InitializePlayers();
                 InitializeEnemies();
-                InitializeMusic();
-               
+                //InitializeMusic();
             }
         }
 
@@ -130,7 +137,6 @@ namespace Game
         public bool CheckGameOver()
         {
             return (ColliderManager.Instance.EnemyColliders.Count <= 0 && isPlaying);
-       
         }
 
         public void Win()
@@ -139,6 +145,7 @@ namespace Game
             gameState = 1;
             hierarchy.Clear();
         }
+
         public void GameOver()
         {
             isPlaying = false;
