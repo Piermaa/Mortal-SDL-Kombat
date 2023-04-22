@@ -30,10 +30,14 @@ namespace Game
 
         public GameObject()
         {
+            // Se le asigna el transform
             transform = new Transform();
-            //TODO: MANAGER DE JERARQUIA
+
+            // Se agrega a la jerarquía asi ya tiene la funcionalidad de Awake y Update
             GameManager.Instance.AddGameObject(this);
         }
+
+        // Lo mismo que el otro constructor pero para identificar las colisiones
         public GameObject(string tag)
         {
             transform = new Transform();
@@ -55,11 +59,17 @@ namespace Game
                     break;
             }
         }
+
         public void Destroy()
         {
+            // Se le sacan los componentes
             Components = null;
+
+            // Se sacan los objetos de la jerarquía
             GameManager.Instance.RemoveGameObject(this);
             
+
+            // Se remueven de la lista de colliders (GameObjects)
             switch (tag)
             {
                 case ("Enemy"):
@@ -71,11 +81,26 @@ namespace Game
                     break;
             }
         }
+
         public void AddComponent(IMonoBehaviour component)
         {
             component.Awake(this);
+
+            // Se agrega a la lista de componentes del GameObject
             Components.Add(component);
         }
+
+
+        /* T es cualquiera tipo de dato pero tiene que heredar si o si de la interfaz IMonoBehaviour
+           Para cada elemento en la lista de componentes va a intentar convertirlo al tipo de objeto que se pide
+
+           Te pide GetComponent Rigidbody, va a chequear si T es un Rigidbody (Downcasting)
+           Si el downcasting se puede realizar, se devuelve el Rigidbody, sino se devuelve null
+
+           Si falla el downcasting tira una excepción y se interrumpe el programa
+           Try intentará ejecutar las instrucciones entre llaves sin que el programa se interrumpa
+           Catch hará que si hay una excepción, que pase algo si es que la haya
+         */ 
 
         public T GetComponent<T>() where T : IMonoBehaviour
         {
@@ -86,17 +111,16 @@ namespace Game
                     var result = (T)item;
                     return result;
                 }
+
                 catch (Exception e)
                 {
 
                 }
-          
-
             }
             
-            //Console.WriteLine($"Tried getting component of type {nameof(T)} on object {name}, but there is no such component attached");
             return default(T);
         }
+
         public void Awake(GameObject go)
         {
             foreach (var component in Components)
@@ -142,8 +166,6 @@ namespace Game
         {
 
         }
-
-      
     }
 
     public struct Vector2
@@ -161,29 +183,35 @@ namespace Game
         public static Vector2 Down = new Vector2(0, 1);
         public static Vector2 Left = new Vector2(-1, 0);
         public static Vector2 Right = new Vector2(1, 0);
+
+        //Suma de vectores
         public static Vector2 operator +(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x + b.x, a.y + b.y);
         }
-        //Esto es para q se puedan sumar los vectores
 
+        // Multiplicación de vectores
         public static Vector2 operator *(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x * b.x, a.y * b.y);
         }
+        
+        // Multiplicación de vector con float
         public static Vector2 operator *(Vector2 a, float f)
         {
             return new Vector2(a.x * f, a.y * f);
         }
-
-        public static Vector2 operator /(Vector2 a, float f)
-        {
-            return new Vector2(a.x / f, a.y / f);
-        }
-
+        
+        // División de vectores
         public static Vector2 operator /(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x / b.x, a.y / b.y);
+        }
+
+        // División de vector con float
+        public static Vector2 operator /(Vector2 a, float f)
+        {
+            return new Vector2(a.x / f, a.y / f);
         }
 
         public float Distance()
@@ -191,19 +219,16 @@ namespace Game
             double dX = x;
             double dY = y;
             double h = Math.Sqrt((dX * dX + dY * dY));
-            //if (x == 0 && y == 0)
-            //{
-            //    return 0;
-            //}
+
             return (float)h;
         }
 
         public Vector2 Normalize()
         {
-           
             double dX = x;
             double dY = y;
             double h = Math.Sqrt((dX * dX + dY * dY));
+
             if (x==0 && y==0)
             {
                 return Vector2.Zero;
@@ -216,12 +241,8 @@ namespace Game
     //Facilmente con un foreach/for se puede recorrer una lista de IMonobehaviours y llamar su update a cada frame
     public interface IMonoBehaviour
     {
-   
         void Awake(GameObject gameObject);
 
         void Update(float deltaTime);
- 
     }
 }
-
-

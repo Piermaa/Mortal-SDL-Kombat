@@ -30,9 +30,11 @@ namespace Game
             {
                 shootTimer = shootCD;
                 var b = new GameObject("Bullet");
+
+                // La bala se inicializa con Ally = false para que baje y pueda colisionar con el player
                 Bullet bullet = new Bullet(b, false);
                 b.transform.rotation = 180;
-                b.transform.SetPosition(m_GameObject.transform.position);
+                b.transform.SetPosition(gameObject.transform.position);
             }
         }
     }

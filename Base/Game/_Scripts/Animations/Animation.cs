@@ -48,6 +48,7 @@ namespace Game
                     {
                         currentFrame = 0;
                     }
+
                     else
                     {
                         currentFrame = textures.Count - 1;
