@@ -216,15 +216,12 @@ namespace Game
     //Facilmente con un foreach/for se puede recorrer una lista de IMonobehaviours y llamar su update a cada frame
     public interface IMonoBehaviour
     {
-        //EN EL AWAKE PONER LOS ADDCOMPONENT
+   
         void Awake(GameObject gameObject);
 
         void Update(float deltaTime);
+ 
     }
-
-
-    //TODO: Cambiar esta interfaz por un componente, SpriteRenderer tal vez, cuyo update sea renderear la textura
-
 }
 
 

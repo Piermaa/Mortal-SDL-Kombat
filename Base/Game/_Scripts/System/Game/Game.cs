@@ -179,6 +179,8 @@ namespace Game
 
     public class Engine
     {
+        static List<int> buttonsDown= new List<int>();
+        static Keys actualKey;
         private static Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
 
         public static bool WindowOpened { get; private set; }
@@ -240,8 +242,45 @@ namespace Game
         }
         public static bool GetKeyDown(Keys key)
         {
-            return GetKey((int)key);
+            int newK = (int)key;
+            if (GetKey(key))
+            {
+                if (buttonsDown.Contains(newK))
+                {
+                    return false;
+                }
+                else
+                {
+                    buttonsDown.Add(newK);
+                    return true;
+                }
+            }
+            else
+            {
+                if (buttonsDown.Contains(newK))
+                {
+                    buttonsDown.Remove(newK);
+                }
+            }
+            return false;
         }
+
+        //public static bool GetKeyDown(Keys key)
+        //{
+        //    if (!WindowOpened) return false;
+        //    actualKey = key;
+        //    if (GetKey((int)key))
+        //    {
+        //       if(actualKey)
+        //        { }
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //        actualKey =Keys.no
+        //    }
+
+        //}
 
 
         [DllImport("Engine.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -15,14 +15,19 @@ namespace Game
         static DateTime startTime = DateTime.Now;
         static float endTime;
 
-        private const int WIDTH = 1000;
-        private const int HEIGHT = 1000;
+        private const int WIDTH = 720;
+        private const int HEIGHT = 720;
         //If main is static all functions/vars must be static
         static void Main(string[] args)
         {
             StartEngine();
             while (true)
             {
+                if (Engine.GetKeyDown(Keys.T))
+                {
+                    Engine.Debug("T");
+
+                }
                 Update();
             }
         }

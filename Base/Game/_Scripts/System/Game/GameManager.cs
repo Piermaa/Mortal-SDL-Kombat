@@ -47,6 +47,7 @@ namespace Game
             {
                 Win();
             }
+
             if (!isPlaying)
             {
                 Texture menuTexture = Engine.GetTexture("UI/PressEnter.png");
@@ -106,10 +107,11 @@ namespace Game
 
         private static void InitializePlayers()
         {
+            var engineGameObject = new GameObject();
             GameObject playerGameObject;
             playerGameObject = new GameObject("Player");
-
-            PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png");
+            
+            PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png",engineGameObject);
             playerGameObject.AddComponent(player);
         }
 
@@ -121,7 +123,7 @@ namespace Game
                 var enemy = new GameObject("Enemy");
                 EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png", Math.Abs(i * 2 - 3));
                 enemy.AddComponent(enemyCharacter);
-                enemy.transform.SetPosition(new Vector2((i * 200) + posX, 50));
+                enemy.transform.SetPosition(new Vector2((i * 130) + posX, 50));
             }
         }
 
@@ -135,11 +137,13 @@ namespace Game
         {
             isPlaying = false;
             gameState = 1;
+            hierarchy.Clear();
         }
         public void GameOver()
         {
             isPlaying = false;
             gameState = 2;
+            hierarchy.Clear();
         }
     }
 }

@@ -137,7 +137,6 @@
     <Compile Include="_Scripts\Music\MusicPlayer.cs" />
     <Compile Include="_Scripts\Player\BaseCharacter.cs" />
     <Compile Include="_Scripts\Player\Bullet.cs" />
-    <Compile Include="_Scripts\Player\Character.cs" />
     <Compile Include="_Scripts\Player\PlayerCharacter.cs" />
     <Compile Include="_Scripts\Animations\Animation.cs" />
     <Compile Include="_Scripts\Animations\Animator.cs" />

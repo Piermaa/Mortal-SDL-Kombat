@@ -43,21 +43,20 @@ namespace Game
             set { moveSpeed = value; }
         }
 
-        public BaseCharacter(GameObject _gameObject, string textureName)
+        public BaseCharacter(GameObject _gameObject)
         {
             m_GameObject = _gameObject;
             m_Transform = _gameObject.transform;
-            SpriteRenderer spriteRenderer = new SpriteRenderer();
-            spriteRenderer.SetTexture(Engine.GetTexture(textureName));
+           
             RigidBody rb = new RigidBody();
-            Collider collider= new Collider(5, m_GameObject);
-            
-            m_GameObject.AddComponent(spriteRenderer);
             m_GameObject.AddComponent(rb);
+        }
 
-            //TODO: SOLO PARA ENEMIGOS
-            //TODO: QUE SE AÑADAN A LA JERARQUIA TODOS LOS GAMEOBJECTS
-
+        protected void AddSprite(string p_textureName)
+        {
+            SpriteRenderer spriteRenderer = new SpriteRenderer();
+            spriteRenderer.SetTexture(Engine.GetTexture(p_textureName));
+            m_GameObject.AddComponent(spriteRenderer);
         }
 
 

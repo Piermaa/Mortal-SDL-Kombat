@@ -11,8 +11,9 @@ namespace Game
         private float shootCD=2;
         private float shootTimer;
 
-        public EnemyCharacter(GameObject _gameObject, string textureName, float attackSpeed) : base(_gameObject, textureName)
+        public EnemyCharacter(GameObject _gameObject, string textureName, float attackSpeed) : base(_gameObject)
         {
+            AddSprite(textureName);
             shootCD = attackSpeed;
         }
 

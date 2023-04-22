@@ -22,11 +22,11 @@ namespace Game
         float shootCD=1;
         float shootTimer;
         //AL CREAR EL SCRIPT SE AGREGAN TODOS LOS COMPONENTES QUE USA PLAYERCHARACTER
-        public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName)
+        public PlayerCharacter(GameObject _gameObject, string textureName,GameObject p_engineGameObject) : base(_gameObject)
         {
-            // : base (_gameObject), significa que le pasa el gameObject del que hereda
 
-            engineGameObject = new GameObject();
+            engineGameObject= p_engineGameObject;
+      
             engineGameObject.transform.scale = new Vector2(2.5f, 2.5f);
 
             SpriteRenderer engineSpriteRenderer = new SpriteRenderer();
@@ -34,12 +34,14 @@ namespace Game
 
             engineGameObject.AddComponent(engineSpriteRenderer);
             engineGameObject.AddComponent(engineAnimator);
+
+            AddSprite(textureName);
         }
 
         public void Awake(GameObject _gameObject)
         {
             rb = _gameObject.GetComponent<RigidBody>();
-            transform.SetPosition(new Vector2(500,1000));
+            transform.SetPosition(new Vector2(720/2,600));
             transform.scale = new Vector2(3,3);
         }
 
@@ -73,7 +75,7 @@ namespace Game
         }
         public override void Death()
         {
-            GameManager.Instance.Win();
+            GameManager.Instance.GameOver();
             //base.Death();
         }
     }
