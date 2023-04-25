@@ -116,6 +116,9 @@
     <Content Include="Textures\Animations\player\run_left7.png" />
     <Content Include="Textures\Animations\player\run_left8.png" />
     <Content Include="Textures\ship.png" />
+    <Content Include="UI\Fail.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="UI\PressEnter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -134,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enemies\EnemyCharacter.cs" />
+    <Compile Include="InputManager.cs" />
     <Compile Include="_Scripts\Music\MusicPlayer.cs" />
     <Compile Include="_Scripts\Player\BaseCharacter.cs" />
     <Compile Include="_Scripts\Player\Bullet.cs" />

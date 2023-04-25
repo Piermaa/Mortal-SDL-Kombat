@@ -57,21 +57,22 @@ namespace Game
             {
                 Texture menuTexture = Engine.GetTexture("UI/PressEnter.png");
                 Texture winTexture = Engine.GetTexture("UI/Win.png");
+                Texture looseTexture = Engine.GetTexture("UI/Fail.png");
 
                 // Textura a dibujar dependiendo del estado del juego (Menu, Ganar y Perder)
 
                 switch (gameState)
                 {
                     case (0):
-                        Engine.Draw(menuTexture, windowDimensions.x / 2 - menuTexture.Width * 2, windowDimensions.y / 2 - menuTexture.Height * 2, 5, 5, 0, 0, 0);
+                        Engine.Draw(menuTexture, windowDimensions.x / 2.2f - menuTexture.Width * 2, windowDimensions.y / 2 - menuTexture.Height * 2, 5, 5, 0, 0, 0);
                         break;
 
                     case (1):
-                        Engine.Draw(winTexture, 0, windowDimensions.y / 4, 0.5f, 0.5f, 0, 0, 0);
+                        Engine.Draw(winTexture, 100, windowDimensions.y / 4, 0.3f, 0.3f, 0, 0, 0);
                         break;
 
                     case (2):
-                        Engine.Debug("perdiste wn");
+                        Engine.Draw(looseTexture, 0, windowDimensions.y / 5, 0.5f, 0.5f, 0, 0, 0);
                         break;
                 }
             }
@@ -108,7 +109,7 @@ namespace Game
                 InitializeManagers();
                 InitializePlayers();
                 InitializeEnemies();
-                //InitializeMusic();
+                InitializeMusic();
             }
         }
 
@@ -124,13 +125,13 @@ namespace Game
 
         private static void InitializeEnemies()
         {
-            int posX = 100;
+            int posX = 75;
             for (int i = 0; i < 5; i++)
             {
                 var enemy = new GameObject("Enemy");
                 EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png", Math.Abs(i * 2 - 3));
                 enemy.AddComponent(enemyCharacter);
-                enemy.transform.SetPosition(new Vector2((i * 130) + posX, 50));
+                enemy.transform.SetPosition(new Vector2((i * 140) + posX, 50));
             }
         }
 

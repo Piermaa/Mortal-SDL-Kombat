@@ -60,8 +60,8 @@ namespace Game
 
         private void Movement()
         {
-            float x = Program.GetAxisRaw("Horizontal");
-            float y = Program.GetAxisRaw("Vertical");
+            float x = InputManager.GetAxisRaw("Horizontal");
+            float y = InputManager.GetAxisRaw("Vertical");
 
             Vector2 dir = new Vector2(x, y);
             dir = dir.Normalize();

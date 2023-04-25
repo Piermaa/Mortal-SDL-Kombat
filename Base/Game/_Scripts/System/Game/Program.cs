@@ -69,36 +69,7 @@ namespace Game
         /// </summary>
         /// <param name="axis">Nombre del eje, pej: Horizontal. Horizontal2 es para las ArrowKeys, input del player 2</param>
         /// <returns>Un valor que puede ser -1, 0 o 1 dependiendo del Input del jugador</returns>
-        public static int GetAxisRaw(string axis)
-        {
-            switch (axis)
-            {
-                case "Horizontal":
-                    if (Engine.GetKey(Keys.A))
-                    {
-                        return -1;
-                    }
-                    if (Engine.GetKey(Keys.D))
-                    {
-                        return 1;
-                    }
-                    break;
-
-                case "Vertical":
-                    if (Engine.GetKey(Keys.W))
-                    {
-                        return -1;
-                    }
-                    if (Engine.GetKey(Keys.S))
-                    {
-                        return 1; // para abajo positivo
-                    }
-                    break;
-
-            }
-
-            return 0;
-        }
+        
      
     }
 }

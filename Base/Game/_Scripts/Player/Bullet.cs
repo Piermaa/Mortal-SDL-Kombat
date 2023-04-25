@@ -9,6 +9,7 @@ namespace Game
     public class Bullet : IMonoBehaviour
     {
         private float _speed = 750;
+        private float _enemySpeed = 500;
 
         // Si es ally va para arriba y no colisiona con el player
         // Si no es ally va hacia abajo y colisiona con el player
@@ -45,7 +46,7 @@ namespace Game
 
             else
             {
-                rb.Velocity = Vector2.Down * _speed;
+                rb.Velocity = Vector2.Down * _enemySpeed;
             }
 
             // Trigger para destruir las balas que se van de la pantalla
