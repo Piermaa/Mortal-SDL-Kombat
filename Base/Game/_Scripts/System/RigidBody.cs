@@ -45,6 +45,8 @@ namespace Game
             acceleration.y = 0;
         }
 
+        public void Render(){ }
+
         #region NO USADO
         /// <summary>
         /// Se suma una fuerza al Vector de aceleración del jugador. Esta fuerza depende de la masa del objeto

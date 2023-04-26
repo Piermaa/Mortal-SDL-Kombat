@@ -32,7 +32,7 @@ namespace Game
         private bool isPlaying;
         private int gameState;
 
-        private static List<GameObject> hierarchy = new List<GameObject>();
+        private List<GameObject> hierarchy = new List<GameObject>();
 
         // La lista es privada,por eso se crea una función pública para añadir o sacar elementos
         // Es mas seguro trabajar de esta forma
@@ -61,7 +61,7 @@ namespace Game
 
                 // Textura a dibujar dependiendo del estado del juego (Menu, Ganar y Perder)
 
-                switch (gameState)
+                switch (gameState)//TODO: Cambiar numeros magicos por un enum
                 {
                     case (0):
                         Engine.Draw(menuTexture, windowDimensions.x / 2.2f - menuTexture.Width * 2, windowDimensions.y / 2 - menuTexture.Height * 2, 5, 5, 0, 0, 0);
@@ -85,16 +85,21 @@ namespace Game
                     hierarchy[i].Update(Program.deltaTime);
                 }
 
+                for (int i = 0; i < hierarchy.Count; i++)
+                {
+                    hierarchy[i].Render();
+                }
+
             }
         }
 
-        private static void InitializeMusic()
+        private void InitializeMusic()
         {
             SoundPlayer soundPlayer = new SoundPlayer("Space Game Music.wav");
             soundPlayer.PlayLooping();
         }
 
-        private static void InitializeManagers()
+        private void InitializeManagers()
         {
             GameObject colMngGo = new GameObject();
 
@@ -106,14 +111,23 @@ namespace Game
             if (Engine.GetKey(Keys.RETURN) && !isPlaying)
             {
                 isPlaying = true;
+                InitializeBackground();
                 InitializeManagers();
                 InitializePlayers();
                 InitializeEnemies();
                 InitializeMusic();
             }
         }
+        private void InitializeBackground()
+        {
+            var background = new GameObject();
+            var bg = new SpriteRenderer();
+            bg.SetTexture(Engine.GetTexture("Textures/Backgrounds/bgSpace.png"));
+            background.transform.SetPosition(new Vector2(0,200));
+            background.AddComponent(bg);
+        }
 
-        private static void InitializePlayers()
+        private void InitializePlayers()
         {
             var engineGameObject = new GameObject();
             GameObject playerGameObject;
@@ -123,7 +137,7 @@ namespace Game
             playerGameObject.AddComponent(player);
         }
 
-        private static void InitializeEnemies()
+        private void InitializeEnemies()
         {
             int posX = 75;
             for (int i = 0; i < 5; i++)

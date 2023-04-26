@@ -37,5 +37,10 @@ namespace Game
                 b.transform.SetPosition(gameObject.transform.position);
             }
         }
+
+        public void Render()
+        {
+            
+        }
     }
 }

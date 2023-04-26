@@ -121,5 +121,9 @@ namespace Game
                 }
             }
         }
+        public void Render()
+        {
+
+        }
     }
 }

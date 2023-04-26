@@ -1,5 +1,5 @@
 ﻿using System.Media;
-
+//NO UTILIZADO TODAVIA, ACA VAMOS A IMPLEMENTAR LO DE DIRECTX AUDIO
 namespace Game
 {
     class MusicPlayer : IMonoBehaviour
@@ -39,5 +39,10 @@ namespace Game
         {
 
         }
+        public void Render()
+        {
+
+        }
+
     }
 }

@@ -13,22 +13,22 @@ namespace Game
             switch (axis)
             {
                 case "Horizontal":
-                    if (Engine.GetKey(Keys.A))
+                    if (Engine.GetKey(Keys.A) || Engine.GetKey(Keys.LEFT))
                     {
                         return -1;
                     }
-                    if (Engine.GetKey(Keys.D))
+                    if (Engine.GetKey(Keys.D) || Engine.GetKey(Keys.RIGHT))
                     {
                         return 1;
                     }
                     break;
 
                 case "Vertical":
-                    if (Engine.GetKey(Keys.W))
+                    if (Engine.GetKey(Keys.W) || Engine.GetKey(Keys.UP))
                     {
                         return -1;
                     }
-                    if (Engine.GetKey(Keys.S))
+                    if (Engine.GetKey(Keys.S) || Engine.GetKey(Keys.DOWN))
                     {
                         return 1; // para abajo positivo
                     }

@@ -55,5 +55,6 @@ namespace Game
                 gameObject.Destroy();
             }
         }
+        public void Render() { }
     }
 }

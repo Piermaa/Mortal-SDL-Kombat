@@ -9,25 +9,15 @@ namespace Game
 {
     class PlayerCharacter :BaseCharacter, IMonoBehaviour
     {
-        public Transform Transform
-        { 
-            get 
-            { 
-                return base.transform; 
-            } 
+    
 
-            set 
-            { 
-                base.transform = value; 
-            } 
-        }
+        private GameObject engineGameObject;
+        private RigidBody rb;
+        private float speed = 300;
 
-        GameObject engineGameObject;
-        RigidBody rb;
-        float speed = 300;
-
-        float shootCD=1;
-        float shootTimer;
+        private float shootCD =1;
+        private float shootTimer;
+        private const string ENGINEANIMATION = "Engine";
 
         // Al crear el script se agregan todos los componentes
         public PlayerCharacter(GameObject _gameObject, string textureName,GameObject p_engineGameObject) : base(_gameObject)
@@ -37,6 +27,8 @@ namespace Game
 
             SpriteRenderer engineSpriteRenderer = new SpriteRenderer();
             Animator engineAnimator = new Animator();
+            engineAnimator.CreateAnimation(ENGINEANIMATION,"Textures/Animations/Engine/",3,0.1f);
+            engineAnimator.SetAnimation(ENGINEANIMATION);
 
             engineGameObject.AddComponent(engineSpriteRenderer);
             engineGameObject.AddComponent(engineAnimator);
@@ -47,16 +39,22 @@ namespace Game
         public void Awake(GameObject _gameObject)
         {
             rb = _gameObject.GetComponent<RigidBody>();
-            Transform.SetPosition(new Vector2(720/2,600));
-            Transform.scale = new Vector2(3, 3);
+            transform.SetPosition(new Vector2(720/2,600));
+            transform.scale = new Vector2(3, 3);
         }
 
         public void Update(float deltaTime)
         {
-            engineGameObject.transform.SetPosition(new Vector2(Transform.position.x, Transform.position.y + 30));
+            engineGameObject.transform.SetPosition(new Vector2(transform.position.x, transform.position.y + 30));
             Movement();
             Shoot(deltaTime);
         }
+
+        public void Render()
+        {
+       
+        }
+
 
         private void Movement()
         {
@@ -78,7 +76,7 @@ namespace Game
 
                 // Se crea la bala como Ally asi sube y puede colisionar con los enemigos
                 Bullet bullet = new Bullet(b, true);
-                b.transform.position = Transform.position + Vector2.Up * 10;
+                b.transform.position = transform.position + Vector2.Up * 10;
             }
         }
 

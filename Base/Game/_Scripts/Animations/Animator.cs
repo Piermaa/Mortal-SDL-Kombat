@@ -8,60 +8,50 @@ namespace Game
 {
     class Animator : IMonoBehaviour
     {
-        //public Dictionary<string, Animation> animations;
+        private Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
 
-        SpriteRenderer spriteRenderer;
-        GameObject gameObject;
+        private SpriteRenderer spriteRenderer;
+        private GameObject gameObject;
 
-        Animation engineAnimation;
-        Animation currentAnimation;
+        private Animation currentAnimation;
 
-        public Animator ()
-        {
-            var engineTextures = new List<Texture>();
-
-            for (int i = 0; i < 3; i++)
-            {
-                engineTextures.Add(Engine.GetTexture("Textures/Animations/Engine/" + i + ".png"));
-            }
-
-            engineAnimation = new Animation("EngineAnimation", 0.1f, engineTextures, true);
-
-            currentAnimation = engineAnimation;
-        }
 
         public void Awake(GameObject gameObject)
         {
             this.gameObject = gameObject;
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
             //animations = new Dictionary<string, Animation>();
         }
         public void Update(float deltaTime)
         {
             spriteRenderer.SetTexture(currentAnimation.CurrentFrame);
-
             currentAnimation.Update();
         }
+        public void Render()
+        {
 
-        private void CreateAnimation(string p_animationID, string p_path, int p_texturesAmount, float p_animationSpeed, string key)
+        }
+
+        public void CreateAnimation(string p_animationID, string p_path, int p_texturesAmount, float p_animationSpeed)
         {
             // Idle Animation
             List<Texture> animationFrames = new List<Texture>();
 
-            for (int i = 1; i < p_texturesAmount; i++)
+            for (int i = 0; i < p_texturesAmount; i++)
             {
                 animationFrames.Add(Engine.GetTexture($"{p_path}{i}.png"));
             }
 
             Animation animation = new Animation(p_animationID, p_animationSpeed, animationFrames,  true);
-            //animations.Add(key, animation);
-            //return animation;
-
-            
+            animations.Add(p_animationID, animation);
         }
 
-        private List<Animation> GetPlayerAnimations()
+        public void SetAnimation(string animationName)
+        {
+            currentAnimation = animations[animationName];
+        }
+
+        public List<Animation> GetPlayerAnimations()
         {
             List<Animation> animations = new List<Animation>();
 
