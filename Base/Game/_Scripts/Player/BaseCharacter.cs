@@ -9,12 +9,12 @@ namespace Game
 {
     class BaseCharacter 
     {
-        //Protected es privada pero todas las clases que hereden de BaseCharacter pueden acceder
+        //Protected es privada pero todas las clases que hereden de BaseCharacter pueden acceder a esas propiedades
 
         protected GameObject gameObject;
         protected Transform transform;
 
-        public string textureName="none";
+        private string textureName="none";
 
         protected int health = 3;
         protected int damage = 1;

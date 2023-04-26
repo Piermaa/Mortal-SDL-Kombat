@@ -12,8 +12,8 @@ namespace Game
     class Program
     {
         public static float deltaTime;
-        static DateTime startTime = DateTime.Now;
-        static float endTime;
+        private static DateTime startTime = DateTime.Now;
+        private static float endTime;
 
         private const int WIDTH = 720;
         private const int HEIGHT = 720;

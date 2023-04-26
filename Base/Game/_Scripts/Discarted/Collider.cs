@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Collider
+    class Collider : Monobehaviour
     {
         public GameObject gameObject;
 
@@ -21,10 +21,17 @@ namespace Game
         public Collider(float p_radius, GameObject _gameObject)
         {
 
-      
-
             //ColliderManager.Instance.AddCollider();
             this.gameObject = _gameObject;
+        }
+
+        public override void Awake(GameObject gameObject)
+        {
+        
+        }
+        public override void Update(float deltaTime)
+        {
+    
         }
     }
 }
