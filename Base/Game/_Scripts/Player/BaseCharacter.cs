@@ -59,7 +59,7 @@ namespace Game
    
         }
     }
-    class BaseCharacter : IDamageable
+    class BaseCharacter // : IDamageable
     {
         //Protected es privada pero todas las clases que hereden de BaseCharacter pueden acceder a esas propiedades
 
@@ -111,7 +111,5 @@ namespace Game
                 gameObject.Destroy();
             }
         }
-
-   
     }
 }

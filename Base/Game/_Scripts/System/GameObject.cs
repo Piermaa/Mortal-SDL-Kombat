@@ -10,6 +10,8 @@ namespace Game
 {
     public class GameObject : IMonoBehaviour
     {
+        public event Action OnDestroy;
+
         public Transform transform;
 
         private string tag = "default";
@@ -80,6 +82,7 @@ namespace Game
                     ColliderManager.Instance.RemoveBulletCollider(this);
                     break;
             }
+            OnDestroy?.Invoke();
         }
 
         public void AddComponent(IMonoBehaviour component)
@@ -114,7 +117,7 @@ namespace Game
 
                 catch (Exception e)
                 {
-
+             
                 }
             }
             
@@ -136,15 +139,6 @@ namespace Game
                 component.Update(deltaTime);
             }
         }
-
-        public void Render()
-        {
-            foreach (var component in Components)
-            {
-                component.Render();
-            }
-        }
-
     }
 
 
@@ -157,7 +151,6 @@ namespace Game
 
         void Update(float deltaTime);
 
-        void Render();
     }
 
     abstract class Monobehaviour

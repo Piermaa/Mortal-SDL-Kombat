@@ -24,11 +24,6 @@ namespace Game
             StartEngine();
             while (true)
             {
-                if (Engine.GetKeyDown(Keys.T))
-                {
-                    Engine.Debug("T");
-
-                }
                 Update();
             }
         }
@@ -38,12 +33,12 @@ namespace Game
 
             GameManager.Instance.WindowDimensions= new Vector2(WIDTH,HEIGHT);
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
-     
+            GameManager.Instance.ScenesCreation();
+            GameManager.Instance.ChangeScene(GameManager.Instance.MENU_KEY_Getter);
         }
         static void GetTime()
         {
             // Calcular el DeltaTime
-
             var currentTime = (float)(DateTime.Now - startTime).TotalSeconds;
             deltaTime = currentTime - endTime;
             endTime = currentTime;
@@ -63,13 +58,11 @@ namespace Game
             Engine.Show();
         }
 
-        //TODO: INPUT.CS
+        //TODO: poner en INPUT.CS
         /// <summary>
         /// Se obtiene el valor bruto de un eje de movimiento dependiendo de la Input actual 
         /// </summary>
         /// <param name="axis">Nombre del eje, pej: Horizontal. Horizontal2 es para las ArrowKeys, input del player 2</param>
         /// <returns>Un valor que puede ser -1, 0 o 1 dependiendo del Input del jugador</returns>
-        
-     
     }
 }

@@ -20,7 +20,21 @@ namespace Game
             }
         }
         #endregion
+        private const string MENU_KEY = "Menu";
+        private const string GAME_KEY="Game";
+        private const string GAMEOVER_KEY="GameOver";
+
+        public string MENU_KEY_Getter=>MENU_KEY;
         
+
+        private Dictionary<string,Scene> scenes=new Dictionary<string, Scene>();
+
+        private Scene currentScene;
+        public Scene CurrentScene
+        {
+            get {return currentScene; }
+        }
+
         // Para dibujar sprites en pantalla
         private Vector2 windowDimensions;
 
@@ -38,11 +52,11 @@ namespace Game
         // Es mas seguro trabajar de esta forma
         public void AddGameObject(GameObject go)
         {
-            hierarchy.Add(go);
+           currentScene.Hierarchy.Add(go);
         }
         public void RemoveGameObject(GameObject go)
         {
-            hierarchy.Remove(go);
+           currentScene.Hierarchy.Remove(go);
         }
 
         public void Update()
@@ -78,21 +92,26 @@ namespace Game
             }
             else
             {
-                // Update de cada elemento de la jerarquía
-
-                for (int i = 0; i < hierarchy.Count; i++)
-                {
-                    hierarchy[i].Update(Program.deltaTime);
-                }
-
-                for (int i = 0; i < hierarchy.Count; i++)
-                {
-                    hierarchy[i].Render();
-                }
-
+                currentScene.Update();
+                currentScene.Render();
             }
         }
-
+        private void CreateScene(string sceneName)
+        {
+            Scene newScene = new Scene();
+            scenes.Add(sceneName, newScene);
+        }
+        public void ScenesCreation()
+        {
+            CreateScene(MENU_KEY);
+            CreateScene(GAME_KEY);
+            CreateScene(GAMEOVER_KEY);
+        }
+        public void ChangeScene(string sceneToChange)
+        {
+            currentScene = scenes[sceneToChange];
+        }
+        
         private void InitializeMusic()
         {
             SoundPlayer soundPlayer = new SoundPlayer("Space Game Music.wav");
@@ -111,6 +130,7 @@ namespace Game
             if (Engine.GetKey(Keys.RETURN) && !isPlaying)
             {
                 isPlaying = true;
+                ChangeScene(GAME_KEY);
                 InitializeBackground();
                 InitializeManagers();
                 InitializePlayers();
