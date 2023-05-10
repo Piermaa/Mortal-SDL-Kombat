@@ -7,7 +7,59 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class BaseCharacter 
+    //otra interfas
+    public interface IRendereable
+    {
+        //requiere tranform y el 
+        void Render(Texture p_texture, Vector2 p_position, Vector2 p_scale,float p_rotation,Vector2 p_offset);
+    }
+
+
+    //m_ para variables locales
+    //parametros p_
+    //le pone On porque sabe que van a ser eventos
+    public delegate void OnLifeChanged(int p_actualLife);
+    public delegate void OnDestroyed(IDamageable p_IDamageable);
+    public interface IDamageable
+    {
+        int HitPoints { get; set; }
+        bool IsDestroyed { get; set; }
+
+        event OnLifeChanged OnLifeChanged;
+        event OnDestroyed OnDestroyed;
+
+        void TakeDamage(int amount);
+        void Death();
+    }
+    class Box : IDamageable
+    {
+        int m_hitPoints = 10;
+        bool m_isDestroyed = false;
+        public int HitPoints 
+        {
+            get => m_hitPoints;
+            set => m_hitPoints=value;
+        }
+        public bool IsDestroyed
+        {
+            get => m_isDestroyed;
+            set => m_isDestroyed=value;
+        }
+
+        public event OnLifeChanged OnLifeChanged;
+        public event OnDestroyed OnDestroyed;
+
+        public void Death()
+        {
+            OnDestroyed?.Invoke(this);
+        }
+
+        public void TakeDamage(int amount)
+        {
+   
+        }
+    }
+    class BaseCharacter : IDamageable
     {
         //Protected es privada pero todas las clases que hereden de BaseCharacter pueden acceder a esas propiedades
 
@@ -59,5 +111,7 @@ namespace Game
                 gameObject.Destroy();
             }
         }
+
+   
     }
 }
