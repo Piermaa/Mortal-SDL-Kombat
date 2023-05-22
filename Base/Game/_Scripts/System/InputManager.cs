@@ -8,6 +8,11 @@ namespace Game
 {
     internal class InputManager
     {
+        /// <summary>
+        /// Se obtiene el valor bruto de un eje de movimiento dependiendo de la Input actual 
+        /// </summary>
+        /// <param name="axis">Nombre del eje, pej: Horizontal. Horizontal2 es para las ArrowKeys, input del player 2</param>
+        /// <returns>Un valor que puede ser -1, 0 o 1 dependiendo del Input del jugador</returns>
         public static int GetAxisRaw(string axis)
         {
             switch (axis)

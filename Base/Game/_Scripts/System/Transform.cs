@@ -34,10 +34,6 @@ namespace Game
         {
 
         }
-        public void Render()
-        {
-            
-        }
     }
 
     public struct Vector2

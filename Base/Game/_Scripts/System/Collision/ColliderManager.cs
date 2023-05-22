@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
+
     class ColliderManager : IMonoBehaviour
     {
         #region Singleton
@@ -31,47 +32,42 @@ namespace Game
             set { playerCollider = value; }
         }
 
-        private List<GameObject> enemyColliders = new List<GameObject>();
+        private List<GameObject> enemies = new List<GameObject>();
         public List<GameObject> EnemyColliders
         {
             get
             {
-                List<GameObject> eCols = enemyColliders;
+                List<GameObject> eCols = enemies;
                 return eCols;
             }
         }
 
-        private List<GameObject> bulletColliders = new List<GameObject>();
+        private List<BulletPrefab> bullets = new List<BulletPrefab>();
 
         public void AddEnemyCollider(GameObject col)
         {
-            enemyColliders.Add(col);
+            enemies.Add(col);
         }
 
-        public void AddBulletCollider(GameObject col)
+        public void AddBulletCollider(BulletPrefab col)
         {
-            bulletColliders.Add(col);
+            bullets.Add(col);
         }
 
         public void RemoveEnemyCollider(GameObject col)
         {
-            enemyColliders.Remove(col);
+            enemies.Remove(col);
         }
 
-        public void RemoveBulletCollider(GameObject col)
+        public void RemoveBulletCollider(BulletPrefab col)
         {
-            bulletColliders.Remove(col);
+            bullets.Remove(col);
         }
 
         public bool AreCircleColliding(GameObject p_objA, GameObject p_objB)
         {
             float distanceX = p_objA.transform.position.x - p_objB.transform.position.x;
             float distanceY = p_objA.transform.position.y - p_objB.transform.position.y;
-
-            //float sumHalfWidths = p_objA.Scale.x / 2 + p_objA.Scale.x / 2;
-            //float sumHalfHeight = p_objA.Scale.y / 2 + p_objB.Scale.y / 2;
-
-            //Vector2 dir = new Vector2(distanceX, distanceY);
 
             float totalDistance = (float)Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
 
@@ -85,45 +81,44 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            for (int i = 0; i < bulletColliders.Count; i++)
+            for (int i = 0; i < bullets.Count; i++)
             {
-                for (int j = 0; j < enemyColliders.Count; j++)
+                for (int j = 0; j < enemies.Count; j++)
                 {
                     // Por si se agregan balas antes de que se haga el chequeo de la función
-                    if (j >= enemyColliders.Count || i >= bulletColliders.Count)
+                    if ((j >= enemies.Count || i >= bullets.Count))
                     {
                         return;
                     }
-
+                    if (!enemies[j].IsEnabled || !bullets[i].IsEnabled)
+                    {
+                        return;
+                    }
                     // Chequeamos la colisión entre la balla y el enemigo
-                    if (AreCircleColliding(bulletColliders[i], enemyColliders[j]))
+                    if (AreCircleColliding(bullets[i], enemies[j]))
                     {
                         //Se guarda una referencia de la bullet
-                        var b = bulletColliders[i].GetComponent<Bullet>();
+                        var b = bullets[i].GetComponent<Bullet>();
                         if (b.Ally)
                         {
-                            var enemy = enemyColliders[j].GetComponent<EnemyCharacter>();
+                            var enemy = enemies[j].GetComponent<EnemyCharacter>();
                             enemy.TakeDamage(3);
-                            bulletColliders[i].Destroy();
+                            bullets[i].Disable();
                         }
                     }
 
-                    else if (AreCircleColliding(bulletColliders[i], playerCollider))
+                    else if (AreCircleColliding(bullets[i], playerCollider))
                     {
-                        var b = bulletColliders[i].GetComponent<Bullet>();
+                        var b = bullets[i].GetComponent<Bullet>();
                         if (!b.Ally)
                         {
                             var player = playerCollider.GetComponent<PlayerCharacter>();
                             player.TakeDamage(1);
-                            bulletColliders[i].Destroy();
+                            bullets[i].Disable();
                         }
                     }
                 }
             }
-        }
-        public void Render()
-        {
-
         }
     }
 }

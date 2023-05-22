@@ -9,13 +9,11 @@ namespace Game
 {
     class PlayerCharacter :BaseCharacter, IMonoBehaviour
     {
-    
-
         private GameObject engineGameObject;
         private RigidBody rb;
         private float speed = 300;
 
-        private float shootCD =1;
+        private float shootCD =0.2f;
         private float shootTimer;
         private const string ENGINEANIMATION = "Engine";
 
@@ -50,12 +48,6 @@ namespace Game
             Shoot(deltaTime);
         }
 
-        public void Render()
-        {
-       
-        }
-
-
         private void Movement()
         {
             float x = InputManager.GetAxisRaw("Horizontal");
@@ -72,11 +64,8 @@ namespace Game
             if (Engine.GetKey(Keys.SPACE) && shootTimer <= 0)
             {
                 shootTimer = shootCD;
-                var b = new GameObject("Bullet");
-
-                // Se crea la bala como Ally asi sube y puede colisionar con los enemigos
-                Bullet bullet = new Bullet(b, true);
-                b.transform.position = transform.position + Vector2.Up * 10;
+                var bulletGameObject = Program.bullets.GetObjectFromPool();
+                bulletGameObject.BulletReset(transform.position, 0, true);
             }
         }
 

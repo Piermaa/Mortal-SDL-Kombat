@@ -9,13 +9,21 @@ namespace Game
     class SpriteRenderer : IMonoBehaviour
     {
         private int layer=1;
+        public bool Enabled
+        {
+            get { return enabled; }
+            set
+            { 
+                enabled = value;
+            }
+        }
         public int Layer
         {
             set
             {
-                scene.LayersManager.RemoveFromLayer(this, layer); //lo saco de la layer en que esta
+                GameManager.Instance.CurrentScene.LayersManager.RemoveFromLayer(this, layer); //lo saco de la layer en que esta
                 layer = value;//le cambio el valor de layer
-                scene.LayersManager.AddToLayer(this, layer); //lo cambio de layer
+                GameManager.Instance.CurrentScene.LayersManager.AddToLayer(this, layer); //lo cambio de layer
             }
             get { return layer; } 
         }
@@ -23,6 +31,7 @@ namespace Game
         private Texture texture;
         private GameObject gameObject;
         private Transform transform;
+        private bool enabled;
         public void Awake(GameObject gameObject)
         {
             this.gameObject = gameObject;
@@ -40,7 +49,7 @@ namespace Game
 
         public void Render()
         {
-            if (texture != null)
+            if (texture != null && gameObject.IsEnabled)
             {
                 Engine.Draw(texture, transform.position.x, transform.position.y,
                 transform.scale.x, transform.scale.y, transform.rotation,

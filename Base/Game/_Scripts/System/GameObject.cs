@@ -8,8 +8,20 @@ using System.Threading.Tasks;
 
 namespace Game
 {
+    //para descartar errores de tipeo
+    public static class TagManager
+    {
+        public const string PLAYER_TAG = "Player";
+        public const string ENEMY_TAG = "Enemy";
+        public const string BULLET_TAG = "Bullet";
+    }
     public class GameObject : IMonoBehaviour
     {
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set {isEnabled=value; }
+        }
         public event Action OnDestroy;
 
         public Transform transform;
@@ -20,7 +32,7 @@ namespace Game
             get { return tag; }
             set { tag = value; }
         }
-
+        private bool isEnabled = true;
         private float radius = 25;
         public float Radius
         {
@@ -48,16 +60,12 @@ namespace Game
 
             switch (tag)
             {
-                case ("Player"):
+                case (TagManager.PLAYER_TAG):
                     ColliderManager.Instance.PlayerCollider = this;
                     break;
 
-                case ("Enemy"):
+                case (TagManager.ENEMY_TAG):
                     ColliderManager.Instance.AddEnemyCollider(this);
-                    break;
-
-                case ("Bullet"):
-                    ColliderManager.Instance.AddBulletCollider(this);
                     break;
             }
         }
@@ -72,14 +80,12 @@ namespace Game
             
 
             // Se remueven de la lista de colliders (GameObjects)
+
+            //TODO PREFABS DE ENEMIGOS
             switch (tag)
             {
-                case ("Enemy"):
+                case (TagManager.ENEMY_TAG):
                     ColliderManager.Instance.RemoveEnemyCollider(this);
-                    break;
-
-                case ("Bullet"):
-                    ColliderManager.Instance.RemoveBulletCollider(this);
                     break;
             }
             OnDestroy?.Invoke();
@@ -134,9 +140,12 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            foreach (var component in Components)
+            if (isEnabled)
             {
-                component.Update(deltaTime);
+                foreach (var component in Components)
+                {
+                    component.Update(deltaTime);
+                }
             }
         }
     }

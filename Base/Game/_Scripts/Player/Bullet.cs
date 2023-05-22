@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Bullet : IMonoBehaviour
+    class Bullet : IMonoBehaviour
     {
         private float _speed = 750;
         private float _enemySpeed = 500;
@@ -14,11 +14,16 @@ namespace Game
         // Si es ally va para arriba y no colisiona con el player
         // Si no es ally va hacia abajo y colisiona con el player
         private bool ally;
-        public bool Ally => ally;
+        public bool Ally
+        {
+            get { return ally; }    
+            set { ally = value; }
+        } 
 
         private RigidBody rb = new RigidBody();
-        private GameObject gameObject;
-        public Bullet(GameObject p_gameObject, bool isAlly)
+        private BulletPrefab gameObject;
+
+        public Bullet(BulletPrefab p_gameObject, bool isAlly)
         {
             gameObject = p_gameObject;
             p_gameObject.AddComponent(this);
@@ -30,7 +35,11 @@ namespace Game
             // Añadimos los componentes al GameObject
             p_gameObject.AddComponent(spriteRenderer);
             p_gameObject.AddComponent(rb);
+
+            //OnDie += Program.bullets.AddToPool;
         }
+
+        // Asbjørn Thirslund (Brackeys, inspirarse para el juego Móvil)
 
         public void Awake(GameObject gameObject)
         {
@@ -50,11 +59,12 @@ namespace Game
             }
 
             // Trigger para destruir las balas que se van de la pantalla
+
+            //TODO: pull de objetos
             if (gameObject.transform.position.y <- 10 || gameObject.transform.position.y >= 800)
             {
-                gameObject.Destroy();
+                gameObject.Disable();
             }
         }
-        public void Render() { }
     }
 }

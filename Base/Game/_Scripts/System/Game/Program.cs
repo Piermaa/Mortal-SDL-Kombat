@@ -17,8 +17,12 @@ namespace Game
 
         private const int WIDTH = 720;
         private const int HEIGHT = 720;
+        
 
-        //If main is static all functions/vars must be static
+        //TODO: POOLER PARA TENER POOLS DE PREFABS
+        public static Pool<BulletPrefab> bullets = new Pool<BulletPrefab>();
+      //  public static Pool<BulletPrefab> enemyBullets = new Pool<BulletPrefab>();
+
         static void Main(string[] args)
         {
             StartEngine();
@@ -49,7 +53,6 @@ namespace Game
             // Limpia elcanvas
             Engine.Clear();
      
-            
             // Calcula el tiempo
             GetTime();
 
@@ -57,12 +60,5 @@ namespace Game
             GameManager.Instance.Update();
             Engine.Show();
         }
-
-        //TODO: poner en INPUT.CS
-        /// <summary>
-        /// Se obtiene el valor bruto de un eje de movimiento dependiendo de la Input actual 
-        /// </summary>
-        /// <param name="axis">Nombre del eje, pej: Horizontal. Horizontal2 es para las ArrowKeys, input del player 2</param>
-        /// <returns>Un valor que puede ser -1, 0 o 1 dependiendo del Input del jugador</returns>
     }
 }
