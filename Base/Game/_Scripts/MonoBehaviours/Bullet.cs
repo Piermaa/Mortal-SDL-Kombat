@@ -30,7 +30,7 @@ namespace Game
             ally = isAlly;
 
             SpriteRenderer spriteRenderer = new SpriteRenderer();
-            spriteRenderer.SetTexture(Engine.GetTexture("Animations/Player/Bullet.png"));
+            spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Bullet.png"));
 
             // Añadimos los componentes al GameObject
             p_gameObject.AddComponent(spriteRenderer);

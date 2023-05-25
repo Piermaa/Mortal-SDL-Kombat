@@ -37,26 +37,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Animations\Enemy\0.png">
+    <Content Include="Textures\Animations\Enemy\0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Animations\Engines\Engine 0.png">
+    <Content Include="Textures\Player\Bullet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Animations\Engines\Engine 1.png" />
-    <Content Include="Animations\Engines\Engine 2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Animations\Player\Bullet.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Animations\Player\Player.png">
+    <Content Include="Textures\Player\Player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Engine.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ship.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Space Game Music.wav">
@@ -79,13 +69,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\ship.png" />
-    <Content Include="UI\Fail.png">
+    <Content Include="Textures\UI\Fail.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="UI\PressEnter.png">
+    <Content Include="Textures\UI\PressEnter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="UI\Win.png">
+    <Content Include="Textures\UI\Win.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XP.wav">
@@ -99,29 +89,27 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enemies\EnemyCharacter.cs" />
-    <Compile Include="EnemyFactory.cs" />
-    <Compile Include="_Scripts\Prefabs\BulletPrefab.cs" />
-    <Compile Include="_Scripts\System\Game\LayersManager.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\Enemies\EnemyCharacter.cs" />
+    <Compile Include="_Scripts\System\EnemyFactory.cs" />
+    <Compile Include="_Scripts\GameObjects\Prefabs\BulletPrefab.cs" />
+    <Compile Include="_Scripts\System\Managers\LayersManager.cs" />
     <Compile Include="_Scripts\System\Game\Scene.cs" />
-    <Compile Include="_Scripts\System\InputManager.cs" />
-    <Compile Include="_Scripts\Music\MusicPlayer.cs" />
-    <Compile Include="_Scripts\Player\BaseCharacter.cs" />
-    <Compile Include="_Scripts\Player\Bullet.cs" />
-    <Compile Include="_Scripts\Player\PlayerCharacter.cs" />
+    <Compile Include="_Scripts\System\Managers\InputManager.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\Music\MusicPlayer.cs" />
+    <Compile Include="_Scripts\System\BaseCharacter.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\Bullet.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\Player\PlayerCharacter.cs" />
     <Compile Include="_Scripts\Animations\Animation.cs" />
     <Compile Include="_Scripts\Animations\Animator.cs" />
-    <Compile Include="_Scripts\Discarted\CharactersManager.cs" />
-    <Compile Include="_Scripts\Discarted\Collider.cs" />
-    <Compile Include="_Scripts\System\Collision\ColliderManager.cs" />
+    <Compile Include="_Scripts\System\Managers\ColliderManager.cs" />
     <Compile Include="_Scripts\System\Game\Game.cs" />
-    <Compile Include="_Scripts\System\GameObject.cs" />
-    <Compile Include="_Scripts\System\Game\GameManager.cs" />
+    <Compile Include="_Scripts\GameObjects\GameObject.cs" />
+    <Compile Include="_Scripts\System\Managers\GameManager.cs" />
     <Compile Include="_Scripts\System\Game\Program.cs" />
     <Compile Include="_Scripts\System\Pool.cs" />
-    <Compile Include="_Scripts\System\RigidBody.cs" />
-    <Compile Include="_Scripts\System\SpriteRenderer.cs" />
-    <Compile Include="_Scripts\System\Transform.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\RigidBody.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\SpriteRenderer.cs" />
+    <Compile Include="_Scripts\GameObjects\Transform.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

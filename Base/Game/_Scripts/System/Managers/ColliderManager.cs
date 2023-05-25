@@ -64,6 +64,13 @@ namespace Game
             bullets.Remove(col);
         }
 
+        public void Reset()
+        {
+            bullets.Clear();
+            enemies.Clear();
+            playerCollider = null;
+        }
+
         public bool AreCircleColliding(GameObject p_objA, GameObject p_objB)
         {
             float distanceX = p_objA.transform.position.x - p_objB.transform.position.x;

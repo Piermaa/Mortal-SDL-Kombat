@@ -4,7 +4,6 @@ namespace Game
 {
     class MusicPlayer : IMonoBehaviour
     {
-
         #region Singleton
         private static MusicPlayer instance;
 
@@ -21,9 +20,8 @@ namespace Game
         }
         #endregion
 
-        GameObject gameObject;
-        SoundPlayer soundPlayer = new SoundPlayer("TaylorSong");
-
+        private GameObject gameObject;
+        private SoundPlayer soundPlayer = new SoundPlayer("TaylorSong");
 
         public void PlaySong()
         {
@@ -39,10 +37,5 @@ namespace Game
         {
 
         }
-        public void Render()
-        {
-
-        }
-
     }
 }

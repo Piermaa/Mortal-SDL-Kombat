@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    //otra interfas
-    public interface IRendereable
-    {
-        //requiere tranform y el 
-        void Render(Texture p_texture, Vector2 p_position, Vector2 p_scale,float p_rotation,Vector2 p_offset);
-    }
-
-
     //m_ para variables locales
     //parametros p_
     //le pone On porque sabe que van a ser eventos
     public delegate void OnLifeChanged(int p_actualLife);
     public delegate void OnDestroyed(IDamageable p_IDamageable);
+    
+    /// <summary>
+    /// PlayerCharacter y EnemyCharacter van a tener esta funcion, pero cada uno la implementa distinto, entonces usamos una interfaz
+    /// </summary>
+    public interface IDamagable
+    {
+        void TakeDamage(int amount);
+        void Death();
+    }
+
     public interface IDamageable
     {
         int HitPoints { get; set; }
@@ -27,9 +29,6 @@ namespace Game
 
         event OnLifeChanged OnLifeChanged;
         event OnDestroyed OnDestroyed;
-
-        void TakeDamage(int amount);
-        void Death();
     }
     class Box : IDamageable
     {
@@ -56,60 +55,42 @@ namespace Game
 
         public void TakeDamage(int amount)
         {
-   
+            OnLifeChanged?.Invoke(amount);
         }
     }
-    class BaseCharacter // : IDamageable
+    class BaseCharacter 
     {
         //Protected es privada pero todas las clases que hereden de BaseCharacter pueden acceder a esas propiedades
-
         protected GameObject gameObject;
         protected Transform transform;
-
-        private string textureName="none";
+        protected SpriteRenderer spriteRenderer;
 
         protected int health = 3;
         protected int damage = 1;
         protected float moveSpeed = 1;
-
         protected float immunityTime = 0f;
 
         // Constructor de la clase BaseCharacter
-        public BaseCharacter (GameObject _gameObject)
+        public BaseCharacter (GameObject _gameObject, string textureName)
         {
             gameObject = _gameObject;
             transform = _gameObject.transform;
            
             RigidBody rb = new RigidBody();
             gameObject.AddComponent(rb);
+            AddSprite(textureName);
         }
 
+        /// <summary>
+        /// Agrega el componente SpriteRenderer, y le establece la textura
+        /// </summary>
+        /// <param name="p_textureName">Nombre de la textura que se le establecera al SpriteRenderer</param>
         protected void AddSprite(string p_textureName)
         {
-            SpriteRenderer spriteRenderer = new SpriteRenderer();
+            spriteRenderer = new SpriteRenderer();
+           // spriteRenderer.Layer = 3;
             spriteRenderer.SetTexture(Engine.GetTexture(p_textureName));
             gameObject.AddComponent(spriteRenderer);
-        }
-        
-        public void TakeDamage(int amount)
-        {
-            if (immunityTime <= 0)
-            {
-                health -= amount;
-                if (health<=0)
-                {
-                    Death();
-                }
-                Engine.Debug("Took Damage, acual life is: " + health);
-            }
-        }
-
-        public virtual void Death()
-        {
-            if (health <= 0)
-            {
-                gameObject.Destroy();
-            }
         }
     }
 }

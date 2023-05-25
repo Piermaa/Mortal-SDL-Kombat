@@ -35,7 +35,7 @@ namespace Game
         {
             IsEnabled=false;
             ColliderManager.Instance.RemoveBulletCollider(this);
-            Program.bullets.AddToPool(this);
+            GameManager.Instance.bullets.AddToPool(this);
         }
     }
 }

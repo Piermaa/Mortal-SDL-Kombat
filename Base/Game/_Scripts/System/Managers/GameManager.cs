@@ -45,8 +45,9 @@ namespace Game
 
         private bool isPlaying;
         private int gameState;
+        private GameObject playerGameObject;
 
-        private List<GameObject> hierarchy = new List<GameObject>();
+        public Pool<BulletPrefab> bullets;
 
         // La lista es privada,por eso se crea una función pública para añadir o sacar elementos
         // Es mas seguro trabajar de esta forma
@@ -69,9 +70,9 @@ namespace Game
 
             if (!isPlaying)
             {
-                Texture menuTexture = Engine.GetTexture("UI/PressEnter.png");
-                Texture winTexture = Engine.GetTexture("UI/Win.png");
-                Texture looseTexture = Engine.GetTexture("UI/Fail.png");
+                Texture menuTexture = Engine.GetTexture("Textures/UI/PressEnter.png");
+                Texture winTexture = Engine.GetTexture("Textures/UI/Win.png");
+                Texture looseTexture = Engine.GetTexture("Textures/UI/Fail.png");
 
                 // Textura a dibujar dependiendo del estado del juego (Menu, Ganar y Perder)
 
@@ -101,6 +102,7 @@ namespace Game
             Scene newScene = new Scene();
             scenes.Add(sceneName, newScene);
         }
+    
         public void ScenesCreation()
         {
             CreateScene(MENU_KEY);
@@ -121,7 +123,8 @@ namespace Game
         private void InitializeManagers()
         {
             GameObject colMngGo = new GameObject();
-
+            ColliderManager.Instance.Reset();
+            bullets= new Pool<BulletPrefab>();
             colMngGo.AddComponent(ColliderManager.Instance);
         }
 
@@ -149,11 +152,9 @@ namespace Game
 
         private void InitializePlayers()
         {
-            var engineGameObject = new GameObject();
-            GameObject playerGameObject;
             playerGameObject = new GameObject("Player");
             
-            PlayerCharacter player = new PlayerCharacter(playerGameObject, "Animations/Player/Player.png",engineGameObject);
+            PlayerCharacter player = new PlayerCharacter(playerGameObject, "Textures/Player/Player.png");
             playerGameObject.AddComponent(player);
         }
 
@@ -169,6 +170,11 @@ namespace Game
             }
         }
 
+        private void ResetGame()
+        {
+            currentScene.Reset();
+        }
+
         public bool CheckGameOver()
         {
             return (ColliderManager.Instance.EnemyColliders.Count <= 0 && isPlaying);
@@ -178,14 +184,13 @@ namespace Game
         {
             isPlaying = false;
             gameState = 1;
-            hierarchy.Clear();
         }
 
         public void GameOver()
         {
             isPlaying = false;
             gameState = 2;
-            hierarchy.Clear();
+            ResetGame();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Game
 
                     //PEJ return new EnemyCharacter(p_gameObject,NORMAL ,0.1f);
                     //siendo normal la key de la animacion
-                    return new EnemyCharacter(p_gameObject,NORMAL,0.1f);
+                    return new EnemyCharacter(p_gameObject,NORMAL,1);
                     break;
 
                 case TypeOfEnemy.Heavy:
@@ -34,7 +34,7 @@ namespace Game
                     break;
 
                 case TypeOfEnemy.Boss:
-                    return new EnemyCharacter(p_gameObject,BOSS,1);
+                    return new EnemyCharacter(p_gameObject,BOSS,3);
                     break;
             }
             return default;

@@ -15,7 +15,14 @@ namespace Game
         public const string ENEMY_TAG = "Enemy";
         public const string BULLET_TAG = "Bullet";
     }
-    public class GameObject : IMonoBehaviour
+
+    public interface IMonoBehaviour
+    {
+        void Awake(GameObject gameObject);
+
+        void Update(float deltaTime);
+    }
+    public class GameObject
     {
         public bool IsEnabled
         {
@@ -33,6 +40,7 @@ namespace Game
             set { tag = value; }
         }
         private bool isEnabled = true;
+        private bool destroyed;
         private float radius = 25;
         public float Radius
         {
@@ -73,22 +81,21 @@ namespace Game
         public void Destroy()
         {
             // Se le sacan los componentes
-            Components = null;
+
+            OnDestroy?.Invoke();
+          //  Components.Clear();
+            Components = new List<IMonoBehaviour>();
 
             // Se sacan los objetos de la jerarquía
             GameManager.Instance.RemoveGameObject(this);
-            
 
             // Se remueven de la lista de colliders (GameObjects)
 
             //TODO PREFABS DE ENEMIGOS
-            switch (tag)
+            if(tag == TagManager.ENEMY_TAG)
             {
-                case (TagManager.ENEMY_TAG):
-                    ColliderManager.Instance.RemoveEnemyCollider(this);
-                    break;
+                ColliderManager.Instance.RemoveEnemyCollider(this);
             }
-            OnDestroy?.Invoke();
         }
 
         public void AddComponent(IMonoBehaviour component)
@@ -98,7 +105,6 @@ namespace Game
             // Se agrega a la lista de componentes del GameObject
             Components.Add(component);
         }
-
 
         /* T es cualquiera tipo de dato pero tiene que heredar si o si de la interfaz IMonoBehaviour
            Para cada elemento en la lista de componentes va a intentar convertirlo al tipo de objeto que se pide
@@ -126,7 +132,6 @@ namespace Game
              
                 }
             }
-            
             return default(T);
         }
 
@@ -147,34 +152,6 @@ namespace Game
                     component.Update(deltaTime);
                 }
             }
-        }
-    }
-
-
-    //POSIBLEMENTE SEA MEJOR CAMBIAR POR UNA CLASE CON METODOS VIRTUAL, PORQUE HAY CLASES QUE NO NECESITAN USAR EL AWAKE Y/O RENDER
-    //Estos son metodos que deben ser implementados obligatoriamente para que todos puedan ser llamados desde program compartiendo el nombre
-    //Facilmente con un foreach/for se puede recorrer una lista de IMonobehaviours y llamar su update a cada frame
-    public interface IMonoBehaviour
-    {
-        void Awake(GameObject gameObject);
-
-        void Update(float deltaTime);
-
-    }
-
-    abstract class Monobehaviour
-    {
-        public virtual void Awake(GameObject gameObject)
-        {
-        }
-        public virtual void Update(float deltaTime) 
-        {
-
-        }
-
-        public virtual void Render()
-        {
-
         }
     }
 }

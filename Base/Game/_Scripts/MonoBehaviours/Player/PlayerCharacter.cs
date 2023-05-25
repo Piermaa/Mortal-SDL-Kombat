@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class PlayerCharacter :BaseCharacter, IMonoBehaviour
+    class PlayerCharacter : BaseCharacter, IMonoBehaviour, IDamagable
     {
         private GameObject engineGameObject;
         private RigidBody rb;
@@ -19,21 +19,20 @@ namespace Game
         private const string IDLE = "Idle";
 
         // Al crear el script se agregan todos los componentes
-        public PlayerCharacter(GameObject _gameObject, string textureName,GameObject p_engineGameObject) : base(_gameObject)
+        // 
+        public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName) // : base hace como de "pasamanos", como la clase de la que hereda (BaseCharacter) necesita en su constructor estos parametros, PlayerCharacter los pide al ser construido y se los pasa
         {
-            engineGameObject= p_engineGameObject;
+            engineGameObject = new GameObject();
             engineGameObject.transform.scale = new Vector2(2.5f, 2.5f);
-
             SpriteRenderer engineSpriteRenderer = new SpriteRenderer();
+           // engineSpriteRenderer.Layer = 1;
             Animator engineAnimator = new Animator();
 
-            engineAnimator.CreateAnimation(ENGINEANIMATION,"Textures/Animations/Engine/",3,0.1f);
+            engineAnimator.CreateAnimation(ENGINEANIMATION,"Textures/Animations/Engine/",3,0.1f,true);
             engineAnimator.SetAnimation(ENGINEANIMATION);
 
             engineGameObject.AddComponent(engineSpriteRenderer);
             engineGameObject.AddComponent(engineAnimator);
-
-            AddSprite(textureName);
         }
 
         public void Awake(GameObject _gameObject)
@@ -50,6 +49,9 @@ namespace Game
             Shoot(deltaTime);
         }
 
+        /// <summary>
+        /// Se mueve al jugador con fuerzas en base las inputs
+        /// </summary>
         private void Movement()
         {
             float x = InputManager.GetAxisRaw("Horizontal");
@@ -60,19 +62,41 @@ namespace Game
             rb.Velocity = dir * speed;
         }
 
+        /// <summary>
+        /// Detecta si se pulsa Espacio, en caso de que si, se dispara. Tiene cooldown. Usa ObjectPooler
+        /// </summary>
+        /// <param name="deltaTime"></param>
         private void Shoot(float deltaTime)
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
             if (Engine.GetKey(Keys.SPACE) && shootTimer <= 0)
             {
                 shootTimer = shootCD;
-                var bulletGameObject = Program.bullets.GetObjectFromPool();
+                var bulletGameObject = GameManager.Instance.bullets.GetObjectFromPool();
                 bulletGameObject.BulletReset(transform.position, 0, true);
             }
         }
 
-        // Se overridea la virtual void para que cumpla otra función
-        public override void Death()
+        /// <summary>
+        /// Se resta vida al character si no esta invulnerable
+        /// </summary>
+        /// <param name="amount">Cantidad de daño que tomara</param>
+        public void TakeDamage(int amount)
+        {
+            if (immunityTime <= 0)
+            {
+                health -= amount;
+                if (health <= 0)
+                {
+                    Death();
+                }
+                Engine.Debug("Took Damage, acual life is: " + health);
+            }
+        }
+        /// <summary>
+        /// Termina el juego
+        /// </summary>
+        public void Death()
         {
             GameManager.Instance.GameOver();
         }

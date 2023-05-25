@@ -8,7 +8,6 @@ namespace Game
 {
     class SpriteRenderer : IMonoBehaviour
     {
-        private int layer=1;
         public bool Enabled
         {
             get { return enabled; }
@@ -17,28 +16,20 @@ namespace Game
                 enabled = value;
             }
         }
-        public int Layer
-        {
-            set
-            {
-                GameManager.Instance.CurrentScene.LayersManager.RemoveFromLayer(this, layer); //lo saco de la layer en que esta
-                layer = value;//le cambio el valor de layer
-                GameManager.Instance.CurrentScene.LayersManager.AddToLayer(this, layer); //lo cambio de layer
-            }
-            get { return layer; } 
-        }
+ 
         private Scene scene;
         private Texture texture;
         private GameObject gameObject;
         private Transform transform;
         private bool enabled;
+        private int layer = 2;
+
         public void Awake(GameObject gameObject)
         {
             this.gameObject = gameObject;
             transform = gameObject.transform;
 
-            scene=GameManager.Instance.CurrentScene; // para cachear y no tener que escribir todo esto devuelta 2 veces
-            scene.LayersManager.AddToLayer(this);
+            GameManager.Instance.CurrentScene.LayersManager.sprites.Add(this);
             gameObject.OnDestroy += Destroy;
         }
 
@@ -62,10 +53,15 @@ namespace Game
             texture = _texture;
         }
 
+        /// <summary>
+        /// Se saca de la Layer
+        /// </summary>
         private void Destroy()
         {
             Engine.Debug("DEStroyed!!");
-            scene.LayersManager.RemoveFromLayer(this, layer);
+            // GameManager.Instance.CurrentScene.LayersManager.RemoveFromLayer(this, layer);
+            GameManager.Instance.CurrentScene.LayersManager.sprites.Remove(this);
+            gameObject.OnDestroy -= Destroy;
         }
     }
 }
