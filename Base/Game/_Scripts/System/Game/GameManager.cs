@@ -162,10 +162,10 @@ namespace Game
             int posX = 75;
             for (int i = 0; i < 5; i++)
             {
-                var enemy = new GameObject("Enemy");
-                EnemyCharacter enemyCharacter = new EnemyCharacter(enemy, "Animations/Enemy/Kla'ed - Fighter - Base.png", Math.Abs(i * 2 - 3));
-                enemy.AddComponent(enemyCharacter);
-                enemy.transform.SetPosition(new Vector2((i * 140) + posX, 50));
+                var enemyGameObject = new GameObject("Enemy"); //ACA EL FACTORY
+                EnemyCharacter enemyCharacter = EnemyFactory.CreateEnemy(enemyGameObject,TypeOfEnemy.Normal);
+                enemyGameObject.AddComponent(enemyCharacter);
+                enemyGameObject.transform.SetPosition(new Vector2((i * 140) + posX, 50));
             }
         }
 

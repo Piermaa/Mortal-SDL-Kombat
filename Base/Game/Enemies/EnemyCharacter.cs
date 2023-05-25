@@ -10,20 +10,24 @@ namespace Game
     {
         private float shootCD=2;
         private float shootTimer;
-        //Animator explosionAnimator = new Animator();
-        //SpriteRenderer explosionSpriteRenderer = new SpriteRenderer();
+        private Animator explosionAnimator = new Animator();
 
         private const string EXPLOSIONANIMATION = "Explosion";
+        private const string NORMAL_ENEMY_IDLE = "NormalEnemyIdle";
+        //tipo HEAVY IDLE, NORMAL IDLE, BOSSIDLE
 
         public EnemyCharacter(GameObject _gameObject, string textureName, float attackSpeed) : base(_gameObject)
         {
-            // Usé las mismas que el de los engines porque me quedé sin internet y no pude buscar otras xd
-            //explosionAnimator.CreateAnimation(EXPLOSIONANIMATION, "Textures/Animations/Engine/", 3, 0.1f);
-            //_gameObject.AddComponent(explosionAnimator);
-            //_gameObject.AddComponent(explosionSpriteRenderer);
-
             AddSprite(textureName);
             shootCD = attackSpeed;
+
+            _gameObject.AddComponent(explosionAnimator);
+            //RESPECTO AL FACTORY: ACA SE SETEAN LOS SPRITES POR CULPA DEL ANIMATOR ENTONCES ACA TENES QUE HACER QUE EL 
+            //PARAMETRO SEA EL STRING QUE VA EN SETANIMATION
+            //LAS ANIMACIONES HACELAS ANTES DE INSTANCIAR EL ENEMIGO!!
+            explosionAnimator.CreateAnimation(EXPLOSIONANIMATION, "Textures/Animations/Engine/", 3, 0.1f);
+            explosionAnimator.CreateAnimation(NORMAL_ENEMY_IDLE, "Animations/Enemy/", 1, 0.1f);
+            explosionAnimator.SetAnimation(NORMAL_ENEMY_IDLE);
         }
 
         public void Awake(GameObject gameObject)
@@ -43,10 +47,9 @@ namespace Game
             }
         }
 
-        //public override void Death()
-        //{
-        //    explosionAnimator.SetAnimation(EXPLOSIONANIMATION);
-        //    base.Death();
-        //}
+        public override void Death()
+        {
+            explosionAnimator.SetAnimation(EXPLOSIONANIMATION);
+        }
     }
 }

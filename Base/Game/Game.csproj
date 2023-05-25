@@ -37,7 +37,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Animations\Enemy\Kla%27ed - Fighter - Base.png">
+    <Content Include="Animations\Enemy\0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Animations\Engines\Engine 0.png">

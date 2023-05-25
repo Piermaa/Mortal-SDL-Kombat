@@ -16,6 +16,7 @@ namespace Game
         private float shootCD =0.2f;
         private float shootTimer;
         private const string ENGINEANIMATION = "Engine";
+        private const string IDLE = "Idle";
 
         // Al crear el script se agregan todos los componentes
         public PlayerCharacter(GameObject _gameObject, string textureName,GameObject p_engineGameObject) : base(_gameObject)
@@ -25,6 +26,7 @@ namespace Game
 
             SpriteRenderer engineSpriteRenderer = new SpriteRenderer();
             Animator engineAnimator = new Animator();
+
             engineAnimator.CreateAnimation(ENGINEANIMATION,"Textures/Animations/Engine/",3,0.1f);
             engineAnimator.SetAnimation(ENGINEANIMATION);
 

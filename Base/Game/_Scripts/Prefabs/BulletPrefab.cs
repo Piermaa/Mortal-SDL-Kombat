@@ -17,7 +17,6 @@ namespace Game
             bulletBehaviour = new Bullet(this, false);
             AddComponent(bulletBehaviour);
             spriteRenderer = GetComponent<SpriteRenderer>();               
-
         }
         public void Reset(Vector2 resetPosition, float rot)
         {

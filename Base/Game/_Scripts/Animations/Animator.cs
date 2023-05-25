@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,35 +19,29 @@ namespace Game
 
         private Animation currentAnimation;
 
-
         public void Awake(GameObject gameObject)
         {
             this.gameObject = gameObject;
             spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            //animations = new Dictionary<string, Animation>();
         }
         public void Update(float deltaTime)
         {
             spriteRenderer.SetTexture(currentAnimation.CurrentFrame);
             currentAnimation.Update();
         }
-        public void Render()
-        {
-
-        }
 
         public void CreateAnimation(string p_animationID, string p_path, int p_texturesAmount, float p_animationSpeed)
         {
-            // Idle Animation
             List<Texture> animationFrames = new List<Texture>();
 
+            //
             for (int i = 0; i < p_texturesAmount; i++)
             {
                 animationFrames.Add(Engine.GetTexture($"{p_path}{i}.png"));
             }
 
             Animation animation = new Animation(p_animationID, p_animationSpeed, animationFrames,  true);
-            animations.Add(p_animationID, animation);
+            animations.Add(p_animationID, animation); 
         }
 
         public void SetAnimation(string animationName)
