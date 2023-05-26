@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Transform : IMonoBehaviour
+    public class Transform
     {
         // Private Variables
         public GameObject gameObject;
@@ -15,24 +15,9 @@ namespace Game
         public float rotation;
         public Vector2 scale = new Vector2(1, 1);
 
-        public void Translate(Vector2 dir)
-        {
-            position.x += dir.x;
-            position.y += dir.y;
-        }
-
         public void SetPosition(Vector2 newPosition)
         {
             position = newPosition;
-        }
-
-        public void Awake(GameObject _gameObject)
-        {
-            gameObject = _gameObject;
-        }
-        public void Update(float deltaTime)
-        {
-
         }
     }
 
@@ -90,7 +75,6 @@ namespace Game
 
             return (float)h;
         }
-
         public Vector2 Normalize()
         {
             double dX = x;
@@ -104,6 +88,4 @@ namespace Game
             return new Vector2((float)(x / h), (float)(y / h));
         }
     }
-
-
 }

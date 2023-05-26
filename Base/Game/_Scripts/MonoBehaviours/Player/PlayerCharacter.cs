@@ -24,7 +24,7 @@ namespace Game
         {
             engineGameObject = new GameObject();
             engineGameObject.transform.scale = new Vector2(2.5f, 2.5f);
-            SpriteRenderer engineSpriteRenderer = new SpriteRenderer();
+            SpriteRenderer engineSpriteRenderer = new SpriteRenderer(1);
            // engineSpriteRenderer.Layer = 1;
             Animator engineAnimator = new Animator();
 
@@ -83,6 +83,7 @@ namespace Game
         /// <param name="amount">Cantidad de daño que tomara</param>
         public void TakeDamage(int amount)
         {
+            Engine.Debug($"Player took {amount} damage");
             if (immunityTime <= 0)
             {
                 health -= amount;
@@ -90,7 +91,6 @@ namespace Game
                 {
                     Death();
                 }
-                Engine.Debug("Took Damage, acual life is: " + health);
             }
         }
         /// <summary>

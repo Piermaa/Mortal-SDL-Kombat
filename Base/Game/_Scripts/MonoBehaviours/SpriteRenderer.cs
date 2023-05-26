@@ -22,14 +22,24 @@ namespace Game
         private GameObject gameObject;
         private Transform transform;
         private bool enabled;
-        private int layer = 2;
+        private int currentLayer;
+
+        public SpriteRenderer()
+        {
+            currentLayer = 2;
+        }
+
+        public SpriteRenderer(int customLayer)
+        {
+            currentLayer= customLayer;
+        }
 
         public void Awake(GameObject gameObject)
         {
             this.gameObject = gameObject;
             transform = gameObject.transform;
 
-            GameManager.Instance.CurrentScene.LayersManager.sprites.Add(this);
+            GameManager.Instance.CurrentScene.LayersManager.AddSpriteToLayer(currentLayer,this);
             gameObject.OnDestroy += Destroy;
         }
 
@@ -58,10 +68,8 @@ namespace Game
         /// </summary>
         private void Destroy()
         {
-            Engine.Debug("DEStroyed!!");
-            // GameManager.Instance.CurrentScene.LayersManager.RemoveFromLayer(this, layer);
-            GameManager.Instance.CurrentScene.LayersManager.sprites.Remove(this);
             gameObject.OnDestroy -= Destroy;
+            GameManager.Instance.CurrentScene.LayersManager.RemoveSprite(currentLayer, this);
         }
     }
 }

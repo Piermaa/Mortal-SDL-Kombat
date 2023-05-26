@@ -24,32 +24,30 @@ namespace Game
     }
     public class GameObject
     {
+        public Transform transform;
+        public event Action OnDestroy;
         public bool IsEnabled
         {
             get { return isEnabled; }
             set {isEnabled=value; }
         }
-        public event Action OnDestroy;
-
-        public Transform transform;
-
-        private string tag = "default";
         public string Tag
         {
             get { return tag; }
             set { tag = value; }
         }
-        private bool isEnabled = true;
-        private bool destroyed;
-        private float radius = 25;
         public float Radius
         {
             get { return radius; }
             set { radius = value; }
         }
 
-        List<IMonoBehaviour> Components = new List<IMonoBehaviour>();
+        private List<IMonoBehaviour> Components = new List<IMonoBehaviour>();
 
+        private string tag = "default";
+        private bool isEnabled = true;
+        private float radius = 25;
+    
         public GameObject()
         {
             // Se le asigna el transform
@@ -83,15 +81,14 @@ namespace Game
             // Se le sacan los componentes
 
             OnDestroy?.Invoke();
-          //  Components.Clear();
-            Components = new List<IMonoBehaviour>();
+            Components.Clear();
 
             // Se sacan los objetos de la jerarquía
             GameManager.Instance.RemoveGameObject(this);
 
             // Se remueven de la lista de colliders (GameObjects)
 
-            //TODO PREFABS DE ENEMIGOS
+            //TODO: PREFABS DE ENEMIGOS
             if(tag == TagManager.ENEMY_TAG)
             {
                 ColliderManager.Instance.RemoveEnemyCollider(this);
@@ -147,9 +144,9 @@ namespace Game
         {
             if (isEnabled)
             {
-                foreach (var component in Components)
+                for (int i = 0; i < Components.Count; i++)
                 {
-                    component.Update(deltaTime);
+                    Components[i].Update(deltaTime);
                 }
             }
         }

@@ -8,15 +8,14 @@ namespace Game
 {
     class BulletPrefab : GameObject, IPooledObject
     {
-        SpriteRenderer spriteRenderer;
         Bullet bulletBehaviour;
+
         public BulletPrefab()
         {
             Engine.Debug("NON POOLED, CREATED!!!!!!!!------");
             ColliderManager.Instance.AddBulletCollider(this);
             bulletBehaviour = new Bullet(this, false);
-            AddComponent(bulletBehaviour);
-            spriteRenderer = GetComponent<SpriteRenderer>();               
+            AddComponent(bulletBehaviour);           
         }
         public void Reset(Vector2 resetPosition, float rot)
         {
@@ -25,12 +24,15 @@ namespace Game
         }
         public void BulletReset(Vector2 resetPosition, float rot, bool isAlly)
         {
-            ColliderManager.Instance.AddBulletCollider(this);
             IsEnabled = true;
             bulletBehaviour.Ally = isAlly;
             Reset(resetPosition,rot);
+            ColliderManager.Instance.AddBulletCollider(this);
         }
 
+        /// <summary>
+        /// Se borra del collider manager este gameobject para que no sea tomado en cuenta en las colisiones
+        /// </summary>
         public void Disable()
         {
             IsEnabled=false;

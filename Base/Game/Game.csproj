@@ -37,6 +37,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="music.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\Animations\Enemy\0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -92,19 +95,19 @@
     <Compile Include="_Scripts\MonoBehaviours\Enemies\EnemyCharacter.cs" />
     <Compile Include="_Scripts\System\EnemyFactory.cs" />
     <Compile Include="_Scripts\GameObjects\Prefabs\BulletPrefab.cs" />
-    <Compile Include="_Scripts\System\Managers\LayersManager.cs" />
+    <Compile Include="_Scripts\Managers\LayersManager.cs" />
     <Compile Include="_Scripts\System\Game\Scene.cs" />
-    <Compile Include="_Scripts\System\Managers\InputManager.cs" />
+    <Compile Include="_Scripts\Managers\InputManager.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Music\MusicPlayer.cs" />
-    <Compile Include="_Scripts\System\BaseCharacter.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\BaseCharacter.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Bullet.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Player\PlayerCharacter.cs" />
     <Compile Include="_Scripts\Animations\Animation.cs" />
     <Compile Include="_Scripts\Animations\Animator.cs" />
-    <Compile Include="_Scripts\System\Managers\ColliderManager.cs" />
+    <Compile Include="_Scripts\Managers\ColliderManager.cs" />
     <Compile Include="_Scripts\System\Game\Game.cs" />
     <Compile Include="_Scripts\GameObjects\GameObject.cs" />
-    <Compile Include="_Scripts\System\Managers\GameManager.cs" />
+    <Compile Include="_Scripts\Managers\GameManager.cs" />
     <Compile Include="_Scripts\System\Game\Program.cs" />
     <Compile Include="_Scripts\System\Pool.cs" />
     <Compile Include="_Scripts\MonoBehaviours\RigidBody.cs" />

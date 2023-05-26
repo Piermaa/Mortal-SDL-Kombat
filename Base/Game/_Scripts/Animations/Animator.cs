@@ -49,7 +49,6 @@ namespace Game
             
             return animations[p_animationID];
         }
-
       
         /// <summary>
         /// Se setea la animacion actual del player
@@ -59,30 +58,6 @@ namespace Game
         {
             currentAnimation = animations[animationName];
             currentAnimation.Reset();
-        }
-
-        public Animation GetAnimation(string animationKey)
-        {
-            return animations[animationKey];
-        }
-
-
-        public List<Animation> GetPlayerAnimations()
-        {
-            List<Animation> animations = new List<Animation>();
-
-            // Idle Animation
-            List<Texture> idleFrames = new List<Texture>();
-
-            for (int i = 0; i < 4; i++)
-            {
-                idleFrames.Add(Engine.GetTexture($"Textures/Animations/Idle/{i}.png"));
-            }
-
-            Animation idleAnimation = new Animation("Idle", 0.2f, idleFrames, true);
-            animations.Add(idleAnimation);
-
-            return animations;
         }
     }
 }

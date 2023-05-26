@@ -8,11 +8,11 @@ namespace Game
 {
     class Scene
     {
-        private List<GameObject> hierarchy;
-        public List<GameObject> Hierarchy => hierarchy;
-      
-        private LayersManager layersManager;
         public LayersManager LayersManager => layersManager;
+        public List<GameObject> Hierarchy => hierarchy;
+
+        private List<GameObject> hierarchy;
+        private LayersManager layersManager;
 
         public Scene()
         {
@@ -34,10 +34,8 @@ namespace Game
 
         public void Reset()
         {
-            foreach (var go in hierarchy)
-            {
-                go.Destroy();
-            }
+            layersManager.Reset();
+            hierarchy.Clear();
         }
     }
 }

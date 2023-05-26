@@ -44,11 +44,16 @@ namespace Game
             if (shootTimer == 0)
             {
                 shootTimer = shootCD;
+                Engine.Debug("Enemy shot");
                 var bulletGameObject = GameManager.Instance.bullets.GetObjectFromPool();
                 bulletGameObject.BulletReset(transform.position, 180, false);
             }
         }
 
+        /// <summary>
+        /// Recibe daño, no chequea inmunidad
+        /// </summary>
+        /// <param name="amount"></param>
         public void TakeDamage(int amount)
         {
             health -= amount;
@@ -56,7 +61,6 @@ namespace Game
             {
                 Death();
             }
-            Engine.Debug("Took Damage, acual life is: " + health);
         }
 
         public void Death()
@@ -66,6 +70,7 @@ namespace Game
 
         private void Destroy()
         {
+            deathAnimation.onAnimationFinish -= Destroy;
             gameObject.Destroy();
         }
     }
