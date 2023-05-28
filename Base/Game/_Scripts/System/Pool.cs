@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    //TODO: EVENTO ON DISABLE, EVENTO ON DESTROY ON ENABLE, ETC ETC
     public interface IPooledObject
     {
         void Reset(Vector2 resetPosition, float rotation);
@@ -16,33 +15,22 @@ namespace Game
      Si hay objetos disponibles en m_poolObjects, lo asignaremos a una variable, la removemos de la lista y la agregamos
     la lista de inUseObjects. Finalmente retornamos ese objecto de tipo T. Si no hay objetos en la lista de disponibles, 
     retornará nulo.
-     
-     
      * */
 
-    //INTERFAZ DE IPOOLEDOBJECT
-    //EVENTO AL MORIR, SUSCRIBIR EL EVENTO AL RESETEAR, DESUSCRIBIR AL DESACTUVAR
-    //QUE LA INTEFAZ IMPLEMENTE RESET Y ACTION ONDIE
-    // EMBELLECER .ENABLED
     public class Pool<T> where T: new()
     {
         private List<T> m_inUseObjects;
         private List<T> m_poolObjects;
-        //private Queue<T> m_poolObjects;
         public Pool()
         {
             m_inUseObjects = new List<T>();
             m_poolObjects = new List<T>();
-            //_poolObjects = new Queue<T>();
-        }
-        public Pool(int size)
-        {
-            m_inUseObjects = new List<T>();
-            m_poolObjects = new List<T>();
-
-            //m_poolObjects = new List<T>(size);
         }
 
+        /// <summary>
+        /// Se obtiene on objeto de la la pool de objetos, si no hay, se crea uno
+        /// </summary>
+        /// <returns>Devuelve el objeto pedido, si no hubo, se creo</returns>
         public T GetObjectFromPool()
         {
             if (m_poolObjects.Count > 0)
@@ -57,6 +45,10 @@ namespace Game
             return newAvailableObj;
         }
 
+        /// <summary>
+        /// Se agrega un elemento a la lista de objetos pooleados
+        /// </summary>
+        /// <param name="p_obj">Objeto a instertar en la pool</param>
         public void AddToPool(object p_obj)
         {
          
@@ -71,9 +63,7 @@ namespace Game
                 throw;
             }
             m_inUseObjects.Remove(objectPooled);
-     
-             m_poolObjects.Add(objectPooled);
-            
+            m_poolObjects.Add(objectPooled);
         }
     }
 }

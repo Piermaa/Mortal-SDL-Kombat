@@ -17,11 +17,6 @@ namespace Game
 
         private const int WIDTH = 720;
         private const int HEIGHT = 720;
-        
-
-        //TODO: POOLER PARA TENER POOLS DE PREFABS
-        public static Pool<BulletPrefab> bullets = new Pool<BulletPrefab>();
-      //  public static Pool<BulletPrefab> enemyBullets = new Pool<BulletPrefab>();
 
         static void Main(string[] args)
         {
@@ -31,15 +26,16 @@ namespace Game
                 Update();
             }
         }
+
         private static void StartEngine()
         {
             // Singleton del GameManager
-
             GameManager.Instance.WindowDimensions= new Vector2(WIDTH,HEIGHT);
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
             GameManager.Instance.ScenesCreation();
             GameManager.Instance.ChangeScene(GameManager.Instance.MENU_KEY_Getter);
         }
+
         static void GetTime()
         {
             // Calcular el DeltaTime
