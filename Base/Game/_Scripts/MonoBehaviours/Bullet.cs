@@ -28,18 +28,19 @@ namespace Game
             gameObject = p_gameObject;
             p_gameObject.AddComponent(this);
             ally = isAlly;
+            p_gameObject.transform.scale = new Vector2(0.1f, 0.1f);
 
             SpriteRenderer spriteRenderer = new SpriteRenderer();
-            spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Bullet.png"));
-            //if (isAlly == true)
-            //{
-            //    spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil.png"));
-            //}
+            //spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Bullet.png"));
+            if (isAlly)
+            {
+                spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil.png"));
+            }
 
-            //else if (isAlly == false)
-            //{
-            //    spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil2.png"));
-            //}
+            else
+            {
+                spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil2.png"));
+            }
 
             // Añadimos los componentes al GameObject
             p_gameObject.AddComponent(spriteRenderer);

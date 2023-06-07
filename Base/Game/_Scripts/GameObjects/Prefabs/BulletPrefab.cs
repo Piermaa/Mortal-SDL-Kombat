@@ -9,13 +9,15 @@ namespace Game
     class BulletPrefab : GameObject, IPooledObject
     {
         Bullet bulletBehaviour;
+        SpriteRenderer spriteRenderer;
 
         public BulletPrefab()
         {
             Engine.Debug("NON POOLED, CREATED!!!!!!!!------");
             ColliderManager.Instance.AddBulletCollider(this);
             bulletBehaviour = new Bullet(this, false);
-            AddComponent(bulletBehaviour);           
+            AddComponent(bulletBehaviour);
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
         public void Reset(Vector2 resetPosition, float rot)
         {
@@ -26,6 +28,19 @@ namespace Game
         {
             IsEnabled = true;
             bulletBehaviour.Ally = isAlly;
+
+            if (isAlly)
+            {
+                spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil.png"));
+                transform.scale = new Vector2(0.1f, 0.1f);
+            }
+
+            else
+            {
+                spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil2.png"));
+                transform.scale = new Vector2(0.2f, 0.2f);
+
+            }
 
             Reset(resetPosition,rot);
             ColliderManager.Instance.AddBulletCollider(this);
