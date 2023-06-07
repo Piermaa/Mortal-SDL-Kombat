@@ -133,7 +133,7 @@ namespace Game
                 InitializeManagers();
                 InitializePlayers();
                 InitializeEnemies();
-                InitializeMusic();
+                //InitializeMusic();
             }
         }
         private void InitializeBackground()

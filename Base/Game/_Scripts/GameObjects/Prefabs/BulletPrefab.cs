@@ -26,6 +26,7 @@ namespace Game
         {
             IsEnabled = true;
             bulletBehaviour.Ally = isAlly;
+
             Reset(resetPosition,rot);
             ColliderManager.Instance.AddBulletCollider(this);
         }
@@ -33,6 +34,7 @@ namespace Game
         /// <summary>
         /// Se borra del collider manager este gameobject para que no sea tomado en cuenta en las colisiones
         /// </summary>
+
         public void Disable()
         {
             IsEnabled=false;

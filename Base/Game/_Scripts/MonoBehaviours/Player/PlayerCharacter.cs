@@ -73,7 +73,7 @@ namespace Game
             {
                 shootTimer = shootCD;
                 var bulletGameObject = GameManager.Instance.bullets.GetObjectFromPool();
-                bulletGameObject.BulletReset(transform.position, 0, true);
+                bulletGameObject.BulletReset(transform.position, 270, true);
             }
         }
 

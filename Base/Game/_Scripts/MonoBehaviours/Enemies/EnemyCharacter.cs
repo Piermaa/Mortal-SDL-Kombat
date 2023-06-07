@@ -46,7 +46,7 @@ namespace Game
                 shootTimer = shootCD;
                 Engine.Debug("Enemy shot");
                 var bulletGameObject = GameManager.Instance.bullets.GetObjectFromPool();
-                bulletGameObject.BulletReset(transform.position, 180, false);
+                bulletGameObject.BulletReset(transform.position, 90, false);
             }
         }
 

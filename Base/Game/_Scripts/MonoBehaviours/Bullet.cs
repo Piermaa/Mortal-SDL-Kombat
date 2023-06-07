@@ -31,6 +31,15 @@ namespace Game
 
             SpriteRenderer spriteRenderer = new SpriteRenderer();
             spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Bullet.png"));
+            //if (isAlly == true)
+            //{
+            //    spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil.png"));
+            //}
+
+            //else if (isAlly == false)
+            //{
+            //    spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil2.png"));
+            //}
 
             // Añadimos los componentes al GameObject
             p_gameObject.AddComponent(spriteRenderer);
