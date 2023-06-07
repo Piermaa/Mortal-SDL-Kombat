@@ -16,10 +16,10 @@ namespace Game
 
         private Animation currentAnimation;
 
-        public void Awake(GameObject gameObject)
+        public void Awake(GameObject p_gameObject)
         {
-            this.gameObject = gameObject;
-            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            this.gameObject = p_gameObject;
+            spriteRenderer = p_gameObject.GetComponent<SpriteRenderer>();
         }
         public void Update(float deltaTime)
         {
@@ -38,6 +38,7 @@ namespace Game
         {
             List<Texture> animationFrames = new List<Texture>();
 
+            //gameObject.transform.scale = new Vector2(0.2f, 0.2f);
             //
             for (int i = 0; i < p_texturesAmount; i++)
             {

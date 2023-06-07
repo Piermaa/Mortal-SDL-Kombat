@@ -14,16 +14,17 @@ namespace Game
         private Animation deathAnimation;
         private const string EXPLOSIONANIMATION = "Explosion";
         private const string NORMAL_ENEMY_IDLE = "NormalEnemyIdle";
+
         //tipo HEAVY IDLE, NORMAL IDLE, BOSSIDLE
 
-        public EnemyCharacter(GameObject _gameObject, string textureName, float attackSpeed) : base(_gameObject, textureName)
+        public EnemyCharacter(GameObject _gameObject, string textureName, float attackSpeed, string texturePath) : base(_gameObject, textureName)
         {
             shootCD = attackSpeed;
             _gameObject.AddComponent(animator);
             //RESPECTO AL FACTORY: ACA SE SETEAN LOS SPRITES POR CULPA DEL ANIMATOR ENTONCES ACA TENES QUE HACER QUE EL 
             //PARAMETRO SEA EL STRING QUE VA EN SETANIMATION
             //LAS ANIMACIONES HACELAS ANTES DE INSTANCIAR EL ENEMIGO!!
-            animator.CreateAnimation(NORMAL_ENEMY_IDLE, "Textures/Animations/Enemy/", 1, 0.1f,true);
+            animator.CreateAnimation(NORMAL_ENEMY_IDLE, texturePath, 1, 0.1f,true);
             animator.SetAnimation(NORMAL_ENEMY_IDLE);
 
             //creas una animacion de muerte y la guardas
@@ -34,7 +35,6 @@ namespace Game
 
         public void Awake(GameObject gameObject)
         {
-            gameObject.transform.scale = new Vector2(3, 3);
             gameObject.transform.rotation = 180;
         }
 

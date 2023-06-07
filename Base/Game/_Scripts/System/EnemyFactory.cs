@@ -14,27 +14,27 @@ namespace Game
  
     static class EnemyFactory
     {
-        private const string NORMAL="0";
-        private const string HEAVY="0";
-        private const string BOSS="0";
+        private const string NORMAL= "0";
+        private const string HEAVY= "0";
+        private const string BOSS= "0";
 
         public static EnemyCharacter CreateEnemy(GameObject p_gameObject,TypeOfEnemy type)
         {
             switch (type)
             {
                 case TypeOfEnemy.Normal:
-
-                    //PEJ return new EnemyCharacter(p_gameObject,NORMAL ,0.1f);
-                    //siendo normal la key de la animacion
-                    return new EnemyCharacter(p_gameObject,NORMAL,1);
+                    p_gameObject.transform.scale = new Vector2(3, 3);
+                    return new EnemyCharacter(p_gameObject,NORMAL,1, "Textures/Animations/Enemy/NormalEnemy/");
                     break;
 
                 case TypeOfEnemy.Heavy:
-                    return new EnemyCharacter(p_gameObject,HEAVY,0.2f);
+                    p_gameObject.transform.scale = new Vector2(0.5f, 0.5f);
+                    return new EnemyCharacter(p_gameObject,HEAVY,0.2f, "Textures/Animations/Enemy/HeavyEnemy/");
                     break;
 
                 case TypeOfEnemy.Boss:
-                    return new EnemyCharacter(p_gameObject,BOSS,3);
+                    p_gameObject.transform.scale = new Vector2(0.2f, 0.2f);
+                    return new EnemyCharacter(p_gameObject,BOSS,3, "Textures/Animations/Enemy/BossEnemy/");
                     break;
             }
             return default;
