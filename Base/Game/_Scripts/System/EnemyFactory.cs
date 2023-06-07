@@ -28,12 +28,12 @@ namespace Game
                     break;
 
                 case TypeOfEnemy.Heavy:
-                    p_gameObject.transform.scale = new Vector2(0.5f, 0.5f);
-                    return new EnemyCharacter(p_gameObject,HEAVY,0.2f, "Textures/Animations/Enemy/HeavyEnemy/");
+                    p_gameObject.transform.scale = new Vector2(0.25f, 0.25f);
+                    return new EnemyCharacter(p_gameObject,HEAVY,1, "Textures/Animations/Enemy/HeavyEnemy/");
                     break;
 
                 case TypeOfEnemy.Boss:
-                    p_gameObject.transform.scale = new Vector2(0.2f, 0.2f);
+                    p_gameObject.transform.scale = new Vector2(0.5f, 0.5f);
                     return new EnemyCharacter(p_gameObject,BOSS,3, "Textures/Animations/Enemy/BossEnemy/");
                     break;
             }
