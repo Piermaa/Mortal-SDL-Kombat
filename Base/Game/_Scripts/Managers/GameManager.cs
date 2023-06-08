@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Media;
 namespace Game
 {
+    //TODO: EMPROLIJAR ESTE CODIGO, HACE MUCHAS COSAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
     class GameManager
     {
         #region Singleton
@@ -89,6 +91,7 @@ namespace Game
             {
                 currentScene.Update();
                 currentScene.Render();
+                Program.GetBPM(); //TODO: class BPMManager o algo asi, no nec monobehaviour
             }
         }
         private void CreateScene(string sceneName)
@@ -133,7 +136,7 @@ namespace Game
                 InitializeManagers();
                 InitializePlayers();
                 InitializeEnemies();
-                //InitializeMusic();
+                InitializeMusic();
             }
         }
         private void InitializeBackground()
@@ -158,7 +161,7 @@ namespace Game
             int posX = 75;
             for (int i = 0; i < 5; i++)
             {
-                var enemyGameObject = new GameObject("Enemy"); //ACA EL FACTORY
+                var enemyGameObject = new GameObject("Enemy");
                 EnemyCharacter enemyCharacter = EnemyFactory.CreateEnemy(enemyGameObject,TypeOfEnemy.Normal);
                 enemyGameObject.AddComponent(enemyCharacter);
                 enemyGameObject.transform.SetPosition(new Vector2((i * 140) + posX, 50));

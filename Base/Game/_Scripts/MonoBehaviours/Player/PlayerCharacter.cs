@@ -13,7 +13,7 @@ namespace Game
         private RigidBody rb;
         private float speed = 300;
 
-        private float shootCD =0.2f;
+        private float shootCD =0.4f;
         private float shootTimer;
         private const string ENGINEANIMATION = "Engine";
         private const string IDLE = "Idle";
@@ -39,7 +39,7 @@ namespace Game
         {
             rb = _gameObject.GetComponent<RigidBody>();
             transform.SetPosition(new Vector2(720/2,600));
-            transform.scale = new Vector2(3, 3);
+            transform.scale = new Vector2(3, 3); //esto lo dejamos asi?
         }
 
         public void Update(float deltaTime)
@@ -69,7 +69,8 @@ namespace Game
         private void Shoot(float deltaTime)
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
-            if (Engine.GetKey(Keys.SPACE) && shootTimer <= 0)
+
+            if (Engine.GetKeyDown(Keys.SPACE) && Program.AbleToShoot() && shootTimer <= 0)
             {
                 shootTimer = shootCD;
                 var bulletGameObject = GameManager.Instance.bullets.GetObjectFromPool();
