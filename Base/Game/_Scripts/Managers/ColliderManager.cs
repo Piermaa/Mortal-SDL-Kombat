@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,6 +44,9 @@ namespace Game
 
         private List<BulletPrefab> bullets = new List<BulletPrefab>();
 
+        private List<BulletPrefab> bulletsToRemove = new List<BulletPrefab>();
+        private List<GameObject> enemiesToRemove = new List<GameObject>();
+
         public void AddEnemyCollider(GameObject col)
         {
             enemies.Add(col);
@@ -60,7 +64,14 @@ namespace Game
 
         public void RemoveBulletCollider(BulletPrefab col)
         {
-            bullets.Remove(col);
+            //xd
+            bulletsToRemove.Add(bullets.Find((x) => col == x));
+            //POR LO QUE ENTENDI:
+            //Se agrega a la lista de balas a remover una bala. Esta bala que agregamos se obtiene buscandola en la lista.
+            //Para buscarla se pasa como parametro aquella que se comparará. X entiendo que es como el nombre de la variable en un foreach
+            //Es decir, foreach(BulletPrefab x in bullets) {if(x==col) return col;}
+            //inchequeable.
+            //TODO: preguntarle a ed sheerann a ver si lo explica distinto 
         }
 
         public void Reset()
@@ -76,8 +87,11 @@ namespace Game
             float distanceY = p_objA.transform.position.y - p_objB.transform.position.y;
 
             float totalDistance = (float)Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
-
-            return totalDistance < p_objA.Radius + p_objB.Radius;
+            if (totalDistance < p_objA.Radius + p_objB.Radius)
+            {
+                Engine.Debug($"{p_objA.IsEnabled}  {p_objB.IsEnabled}");
+            }
+            return p_objA.IsEnabled && p_objB.IsEnabled && totalDistance < p_objA.Radius + p_objB.Radius;
         }
 
         public void Awake(GameObject gameObject)
@@ -87,40 +101,44 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            for (int i = 0; i < bullets.Count; i++)
+            //por cada bullet instanciada
+            foreach (BulletPrefab currentBullet in bullets)
             {
-                for (int j = 0; j < enemies.Count; j++)
+                //verificar si es aliada
+                var b = currentBullet.GetComponent<Bullet>();
+
+                if (b.Ally)
                 {
-                    // Por si se agregan balas antes de que se haga el chequeo de la función
-                    if ((j >= enemies.Count || i >= bullets.Count) || !bullets[i].IsEnabled)
+                    //si lo es, verificar si impacta algun enemigo
+                    for (int j = 0; j < enemies.Count; j++)
                     {
-                        return;
-                    }
-
-                    var b = bullets[i].GetComponent<Bullet>();
-
-                    // Chequeamos la colisión entre la balla y el enemigo
-                    if (AreCircleColliding(bullets[i], enemies[j]))
-                    {
-                        if (b.Ally)
+                        if (AreCircleColliding(currentBullet, enemies[j]))
                         {
                             var enemy = enemies[j].GetComponent<EnemyCharacter>();
-                            enemy.TakeDamage(3);
-                            bullets[i].Disable();
-                        }
-                    }
-
-                    if (AreCircleColliding(bullets[i], playerCollider))
-                    {
-                        if (!b.Ally)
-                        {
-                            bullets[i].Disable();
-                            var player = playerCollider.GetComponent<PlayerCharacter>();
-                            player.TakeDamage(1);
+                            enemy.TakeDamage(1);
+                            currentBullet.Disable();
+                            return;
                         }
                     }
                 }
+                else
+                {
+                    //sino, verificar si impacta al player
+                    if (AreCircleColliding(currentBullet, playerCollider))
+                    {
+                        currentBullet.Disable();
+                        var player = playerCollider.GetComponent<PlayerCharacter>();
+                        player.TakeDamage(1);
+                    }
+                }
             }
+            // las balas no son eliminadas de la lista al impactar. Al impactar se agregar a una lista de objetos a remover
+            // por que? Porque al usar foreach, si durante el foreach se cambiaba el .Count de la List se rompia todo
+            foreach (BulletPrefab btr in bulletsToRemove)
+            {
+                bullets.Remove(btr);
+            }
+            bulletsToRemove.Clear(); // se limpia la lista para que no se vuelvan a eliminar las que ya se eliminaron
         }
     }
 }

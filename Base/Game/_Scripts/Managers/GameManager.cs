@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Media;
 namespace Game
 {
+    //TODO: EMPROLIJAR ESTE CODIGO, HACE MUCHAS COSAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
     class GameManager
     {
         #region Singleton
@@ -89,6 +91,7 @@ namespace Game
             {
                 currentScene.Update();
                 currentScene.Render();
+                Program.GetBPM(); //TODO: class BPMManager o algo asi, no nec monobehaviour
             }
         }
         private void CreateScene(string sceneName)
@@ -133,7 +136,7 @@ namespace Game
                 InitializeManagers();
                 InitializePlayers();
                 InitializeEnemies();
-                //InitializeMusic();
+                InitializeMusic();
             }
         }
         private void InitializeBackground()
