@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class PlayerCharacter : BaseCharacter, IMonoBehaviour, IDamagable
+    public class PlayerCharacter : BaseCharacter, IMonoBehaviour, IDamagable
     {
         private GameObject engineGameObject;
         private RigidBody rb;

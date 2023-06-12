@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class SpriteRenderer : IMonoBehaviour
+    public class SpriteRenderer : IMonoBehaviour
     {
         public bool Enabled
         {
