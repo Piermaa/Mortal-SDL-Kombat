@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class BulletPrefab : GameObject, IPooledObject
+    public class BulletPrefab : GameObject, IPooledObject
     {
         Bullet bulletBehaviour;
         SpriteRenderer spriteRenderer;

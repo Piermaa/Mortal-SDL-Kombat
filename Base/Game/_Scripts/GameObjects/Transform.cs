@@ -87,5 +87,10 @@ namespace Game
             }
             return new Vector2((float)(x / h), (float)(y / h));
         }
+
+        public override string ToString()
+        {
+            return $"X: {x} / Y: {y}";
+        }
     }
 }

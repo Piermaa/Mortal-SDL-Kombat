@@ -64,12 +64,13 @@ namespace Game
 
     public class BaseCharacter
     {
+        public int Health => health;
         //Protected es privada pero todas las clases que hereden de BaseCharacter pueden acceder a esas propiedades
         protected GameObject gameObject;
         protected Transform transform;
         protected SpriteRenderer spriteRenderer;
 
-        public int health = 3;
+        protected int health = 3;
         protected int damage = 1;
         protected float moveSpeed = 1;
         protected float immunityTime = 0f;

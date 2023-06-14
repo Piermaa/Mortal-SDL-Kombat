@@ -11,7 +11,7 @@ namespace Game
     {
        public List<SpriteRenderer> sprites =new List<SpriteRenderer>();
     }
-    class LayersManager
+    public class LayersManager
     {
         private Layer[] spritesLayer= new Layer[5];
         private int defaultLayer=2;

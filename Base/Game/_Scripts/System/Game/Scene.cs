@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Scene
+    public class Scene
     {
         public LayersManager LayersManager => layersManager;
         public List<GameObject> Hierarchy => hierarchy;

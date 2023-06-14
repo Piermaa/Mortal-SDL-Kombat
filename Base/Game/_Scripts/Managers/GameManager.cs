@@ -5,7 +5,7 @@ namespace Game
 {
     //TODO: EMPROLIJAR ESTE CODIGO, HACE MUCHAS COSAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-    class GameManager
+    public class GameManager
     {
         #region Singleton
         private static GameManager instance;
@@ -32,7 +32,7 @@ namespace Game
         }
         public string MENU_KEY_Getter => MENU_KEY;
         public Pool<BulletPrefab> bullets; //TODO: ENCAPSULAR
-
+        public GameObject player => playerGameObject;
         private const string MENU_KEY = "Menu";
         private const string GAME_KEY="Game";
         private const string GAMEOVER_KEY="GameOver";
