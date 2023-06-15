@@ -167,10 +167,15 @@ namespace Game
 
         public Texture(string path)
         {
+#if TEST
+            Engine.Debug("Test");
+#else
             TextureData data = LoadTexture(path);
             Id = data.id;
             Width = data.width;
             Height = data.height;
+#endif
+
         }
 
         [DllImport("Engine.dll", CallingConvention = CallingConvention.Cdecl)]

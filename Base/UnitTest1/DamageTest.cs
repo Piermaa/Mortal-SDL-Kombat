@@ -10,17 +10,30 @@ namespace UnitTestProject
         [TestMethod]
         public void TakeDamageUnitTest()
         {
-            var playerHealth = GameManager.Instance.player.GetComponent<PlayerCharacter>();
 
+            var playerGameObject = new GameObject();
+
+            PlayerCharacter player = new PlayerCharacter(playerGameObject, "Textures/Player/Player.png");
+  
             int damage = 1;
 
-            playerHealth.TakeDamage(damage);
+            var expectedLife = player.Health - damage;
 
-            var expectedLife = playerHealth.Health - damage;
+            player.TakeDamage(damage);
 
-            var life = playerHealth.Health;
+            var life = player.Health;
 
             Assert.AreEqual(expectedLife, life);
+        }
+
+        [TestMethod]
+        public void AddToLayerOk()
+        {
+            var layers = new LayersManager();
+            SpriteRenderer sr = new SpriteRenderer();
+            layers.AddSpriteToLayer(0,sr);
+
+            Assert.AreEqual(layers.Layers[0].sprites.Count,1);
         }
     }
 }

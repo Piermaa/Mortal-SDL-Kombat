@@ -54,7 +54,12 @@ namespace Game
             transform = new Transform();
 
             // Se agrega a la jerarquía asi ya tiene la funcionalidad de Awake y Update
+#if TEST
+            Engine.Debug("Test");
+#else
             GameManager.Instance.AddGameObject(this);
+#endif
+
         }
 
         // Lo mismo que el otro constructor pero para identificar las colisiones
@@ -62,7 +67,11 @@ namespace Game
         {
             transform = new Transform();
             this.tag = tag;
-            GameManager.Instance.AddGameObject(this);
+#if TEST
+            Engine.Debug("Test");
+#else
+              GameManager.Instance.AddGameObject(this);
+#endif
 
             switch (tag)
             {
@@ -126,7 +135,7 @@ namespace Game
 
                 catch (Exception e)
                 {
-             
+                    Engine.Debug($"{e} Tried to convert ");
                 }
             }
             return default(T);

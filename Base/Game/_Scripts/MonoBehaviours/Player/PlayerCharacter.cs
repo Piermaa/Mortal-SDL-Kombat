@@ -73,7 +73,7 @@ namespace Game
             if (Engine.GetKeyDown(Keys.SPACE) && Program.AbleToShoot() && shootTimer <= 0)
             {
                 shootTimer = shootCD;
-                var bulletGameObject = GameManager.Instance.bullets.GetObjectFromPool();
+                var bulletGameObject = GameManager.Instance.bullets.GetObject();
                 bulletGameObject.BulletReset(transform.position, 270, true);
             }
         }

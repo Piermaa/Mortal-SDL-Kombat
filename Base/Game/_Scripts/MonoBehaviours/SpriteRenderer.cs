@@ -39,7 +39,11 @@ namespace Game
             this.gameObject = gameObject;
             transform = gameObject.transform;
 
+#if TEST
+            Engine.Debug("Test");
+#else
             GameManager.Instance.CurrentScene.LayersManager.AddSpriteToLayer(currentLayer,this);
+#endif
             gameObject.OnDestroy += Destroy;
         }
 

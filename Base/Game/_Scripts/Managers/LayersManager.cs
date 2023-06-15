@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 namespace Game
 {
     //la clase level va a tener uno de estos y 
-    class Layer
+    public class Layer
     {
        public List<SpriteRenderer> sprites =new List<SpriteRenderer>();
     }
     public class LayersManager
     {
+        public Layer[] Layers=> spritesLayer;
+
         private Layer[] spritesLayer= new Layer[5];
         private int defaultLayer=2;
         public LayersManager()

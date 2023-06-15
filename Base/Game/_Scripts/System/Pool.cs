@@ -31,7 +31,7 @@ namespace Game
         /// Se obtiene on objeto de la la pool de objetos, si no hay, se crea uno
         /// </summary>
         /// <returns>Devuelve el objeto pedido, si no hubo, se creo</returns>
-        public T GetObjectFromPool()
+        public T GetObject()
         {
             if (m_poolObjects.Count > 0)
             {
