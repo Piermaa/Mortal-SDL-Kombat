@@ -8,16 +8,20 @@ namespace Game
 {
     public class BulletPrefab : GameObject, IPooledObject
     {
-        Bullet bulletBehaviour;
-        SpriteRenderer spriteRenderer;
+        private Bullet bulletBehaviour;
+        private SpriteRenderer spriteRenderer= new SpriteRenderer();
 
         public BulletPrefab()
         {
             Engine.Debug("NON POOLED, CREATED!!!!!!!!------");
             ColliderManager.Instance.AddBulletCollider(this);
-            bulletBehaviour = new Bullet(this, false);
+ 
+            bulletBehaviour = new Bullet();
             AddComponent(bulletBehaviour);
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            var rb = new RigidBody();
+            AddComponent(rb);
+            bulletBehaviour.RigidBody = rb;
+            AddComponent(spriteRenderer);
         }
         public void Reset(Vector2 resetPosition, float rot)
         {
@@ -48,6 +52,7 @@ namespace Game
 
         /// <summary>
         /// Se borra del collider manager este gameobject para que no sea tomado en cuenta en las colisiones
+        /// y se mete en la Pool de balas de la escena del nivel
         /// </summary>
 
         public void Disable()

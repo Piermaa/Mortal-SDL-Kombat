@@ -8,12 +8,13 @@ namespace Game
 {
     public class Metronome : IMonoBehaviour
     {
-        public Action onBPMTick;
+        public event Action onBPMTick;
         private double bpm = 0.50847457;
         private double bpmCount;
-        private float bpmTollerance = 0.25f;
+        private float bpmTollerance = 0.15f;
 
         private int ticks=0;
+        private bool canShoot;
 
         public void Awake(GameObject gameObject)
         {

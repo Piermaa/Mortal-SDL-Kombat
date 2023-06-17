@@ -87,10 +87,6 @@ namespace Game
             float distanceY = p_objA.transform.position.y - p_objB.transform.position.y;
 
             float totalDistance = (float)Math.Sqrt(distanceX * distanceX + distanceY * distanceY);
-            if (totalDistance < p_objA.Radius + p_objB.Radius)
-            {
-                Engine.Debug($"{p_objA.IsEnabled}  {p_objB.IsEnabled}");
-            }
             return p_objA.IsEnabled && p_objB.IsEnabled && totalDistance < p_objA.Radius + p_objB.Radius;
         }
 

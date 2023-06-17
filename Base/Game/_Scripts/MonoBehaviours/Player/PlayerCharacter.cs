@@ -15,7 +15,7 @@ namespace Game
         private RigidBody rb;
         private float speed = 300;
 
-        private float shootCD =0.4f;
+        private float shootCD =0.3f;
         private float shootTimer;
         private const string ENGINEANIMATION = "Engine";
         private const string IDLE = "Idle";
@@ -73,7 +73,7 @@ namespace Game
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
 
-            if (Engine.GetKeyDown(Keys.SPACE) && metronome.AbleToShoot() && shootTimer <= 0)
+            if (Engine.GetKeyDown(Keys.SPACE) && metronome.CanShoot() && shootTimer <= 0)
             {
                 shootTimer = shootCD;
                 var bulletGameObject=GameManager.Instance.GetBullet();
