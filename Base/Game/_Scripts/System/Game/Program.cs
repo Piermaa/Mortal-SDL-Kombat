@@ -14,7 +14,6 @@ namespace Game
         public static float deltaTime;
         private static DateTime startTime = DateTime.Now;
         private static float endTime;
-        public static double cooldownDebugger = 0.50847457;
 
         private const int WIDTH = 720;
         private const int HEIGHT = 720;
@@ -35,6 +34,7 @@ namespace Game
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
             GameManager.Instance.SetMenuScene();
         }
+
         private static void Update()
         {
             // Limpia elcanvas
@@ -56,24 +56,7 @@ namespace Game
             endTime = currentTime;
         }
         //TODO: clASS====================================================
-        public static void GetBPM() 
-        {
-            cooldownDebugger -= deltaTime;
-
-            if (cooldownDebugger < 0.25f) 
-            {
-                if (cooldownDebugger <= 0)
-                {
-                    cooldownDebugger = 0.50847457;
-                    Console.WriteLine("Has ended the bpm");
-                }
-            }
-        }
-
-        public static bool AbleToShoot()
-        {
-            return cooldownDebugger < 0.25f;
-        }
+       
         //==============================================================
     }
 }

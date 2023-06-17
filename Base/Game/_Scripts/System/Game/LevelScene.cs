@@ -18,6 +18,7 @@ namespace Game
             InitializeManagers();
             InitializePlayers();
             InitializeEnemies();
+            InitializeBPM();
             InitializeMusic();
         }
 
@@ -29,6 +30,14 @@ namespace Game
             background.transform.SetPosition(new Vector2(0, 200));
             background.AddComponent(bg);
         }
+
+        private void InitializeManagers()
+        {
+            GameObject colMngGo = new GameObject();
+            ColliderManager.Instance.Reset();
+            bullets = new Pool<BulletPrefab>();
+            colMngGo.AddComponent(ColliderManager.Instance);
+        } 
 
         private void InitializePlayers()
         {
@@ -48,19 +57,15 @@ namespace Game
                 enemyGameObject.transform.SetPosition(new Vector2((i * 140) + posX, 50));
             }
         }
-
+        private void InitializeBPM()
+        {
+            GameObject metronome = new GameObject();
+            metronome.AddComponent(new Metronome());
+        }
         private void InitializeMusic()
         {
             SoundPlayer soundPlayer = new SoundPlayer("music.wav");
             soundPlayer.PlayLooping();
-        }
-
-        private void InitializeManagers()
-        {
-            GameObject colMngGo = new GameObject();
-            ColliderManager.Instance.Reset();
-            bullets = new Pool<BulletPrefab>();
-            colMngGo.AddComponent(ColliderManager.Instance);
         }
     }
 }

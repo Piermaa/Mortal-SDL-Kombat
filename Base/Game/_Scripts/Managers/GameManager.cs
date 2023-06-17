@@ -71,7 +71,6 @@ namespace Game
 
             currentScene.Update();
             currentScene.Render();
-            Program.GetBPM(); //TODO: class BPMManager o algo asi, no nec monobehaviour
         }
 
         public void AddGameObject(GameObject go)
@@ -112,8 +111,6 @@ namespace Game
         {
             return (ColliderManager.Instance.EnemyColliders.Count <= 0);
         }
-
-    
 
         public void GameOver()
         {

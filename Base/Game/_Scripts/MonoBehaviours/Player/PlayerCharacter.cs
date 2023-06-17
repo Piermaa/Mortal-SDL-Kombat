@@ -70,7 +70,7 @@ namespace Game
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
 
-            if (Engine.GetKeyDown(Keys.SPACE) && Program.AbleToShoot() && shootTimer <= 0)
+            if (Engine.GetKeyDown(Keys.SPACE) && Metronome.Instance.AbleToShoot() && shootTimer <= 0)
             {
                 shootTimer = shootCD;
                 var bulletGameObject=GameManager.Instance.GetBullet();
