@@ -11,7 +11,9 @@ namespace Game
     #endregion
     class Program
     {
-        public static float deltaTime;
+        public static float DeltaTime =>deltaTime;
+        private static float deltaTime;
+
         private static DateTime startTime = DateTime.Now;
         private static float endTime;
 
@@ -55,8 +57,5 @@ namespace Game
             deltaTime = currentTime - endTime;
             endTime = currentTime;
         }
-        //TODO: clASS====================================================
-       
-        //==============================================================
     }
 }

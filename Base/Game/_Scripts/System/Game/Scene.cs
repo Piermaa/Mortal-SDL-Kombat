@@ -20,7 +20,7 @@ namespace Game
         {
             for (int i = 0; i < hierarchy.Count; i++)
             {
-                hierarchy[i].Update(Program.deltaTime);
+                hierarchy[i].Update(Program.DeltaTime);
             }
         }
         public void Render()

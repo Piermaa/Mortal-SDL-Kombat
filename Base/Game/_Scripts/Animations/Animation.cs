@@ -42,7 +42,7 @@ namespace Game
         /// </summary>
         public void RunAnimation()
         {
-            currentAnimationTime += Program.deltaTime;
+            currentAnimationTime += Program.DeltaTime;
 
             if (currentAnimationTime >= speed)
             {

@@ -16,9 +16,19 @@ namespace Game
         public Action onBPMTick;
         private double cooldownDebugger = 0.50847457;
 
-        public void GetBPM()
+        public void Awake(GameObject gameObject)
         {
-            cooldownDebugger -= Program.deltaTime;
+            instance = this;
+        }
+
+        public void Update(float deltaTime)
+        {
+            GetBPM();
+        }
+
+        private void GetBPM()
+        {
+            cooldownDebugger -= Program.DeltaTime;
 
             if (cooldownDebugger < 0.25f)
             {
@@ -36,14 +46,6 @@ namespace Game
             return cooldownDebugger < 0.25f;
         }
 
-        public void Awake(GameObject gameObject)
-        {
-            instance = this;
-        }
-
-        public void Update(float deltaTime)
-        {
-            GetBPM();
-        }
+       
     }
 }
