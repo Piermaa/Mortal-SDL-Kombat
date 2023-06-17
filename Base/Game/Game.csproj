@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;TEST</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -108,6 +108,8 @@
     <Compile Include="_Scripts\System\EnemyFactory.cs" />
     <Compile Include="_Scripts\GameObjects\Prefabs\BulletPrefab.cs" />
     <Compile Include="_Scripts\Managers\LayersManager.cs" />
+    <Compile Include="_Scripts\System\Game\LevelScene.cs" />
+    <Compile Include="_Scripts\System\Game\MenuScene.cs" />
     <Compile Include="_Scripts\System\Game\Scene.cs" />
     <Compile Include="_Scripts\Managers\InputManager.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Music\MusicPlayer.cs" />

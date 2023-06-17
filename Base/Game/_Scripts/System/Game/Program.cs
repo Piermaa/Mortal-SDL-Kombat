@@ -33,8 +33,19 @@ namespace Game
             // Singleton del GameManager
             GameManager.Instance.WindowDimensions= new Vector2(WIDTH,HEIGHT);
             Engine.Initialize("Rythm Galaga", WIDTH, HEIGHT, false);
-            GameManager.Instance.ScenesCreation();
-            GameManager.Instance.ChangeScene(GameManager.Instance.MENU_KEY_Getter);
+            GameManager.Instance.SetMenuScene();
+        }
+        private static void Update()
+        {
+            // Limpia elcanvas
+            Engine.Clear();
+
+            // Calcula el tiempo
+            GetTime();
+
+            // Muestra lo que tiene que mostrar en ese nuevo frame
+            GameManager.Instance.Update();
+            Engine.Show();
         }
 
         static void GetTime()
@@ -44,8 +55,8 @@ namespace Game
             deltaTime = currentTime - endTime;
             endTime = currentTime;
         }
-
-        public static void GetBPM()
+        //TODO: clASS====================================================
+        public static void GetBPM() 
         {
             cooldownDebugger -= deltaTime;
 
@@ -63,18 +74,6 @@ namespace Game
         {
             return cooldownDebugger < 0.25f;
         }
-
-        private static void Update()
-        {
-            // Limpia elcanvas
-            Engine.Clear();
-
-            // Calcula el tiempo
-            GetTime();
-
-            // Muestra lo que tiene que mostrar en ese nuevo frame
-            GameManager.Instance.Update();
-            Engine.Show();
-        }
+        //==============================================================
     }
 }

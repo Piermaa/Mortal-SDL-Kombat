@@ -6,21 +6,17 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Scene
+    public abstract class Scene
     {
         public LayersManager LayersManager => layersManager;
         public List<GameObject> Hierarchy => hierarchy;
 
-        private List<GameObject> hierarchy;
-        private LayersManager layersManager;
+        protected List<GameObject> hierarchy = new List<GameObject>();
+        protected LayersManager layersManager = new LayersManager();
 
-        public Scene()
-        {
-            layersManager = new LayersManager();
-            hierarchy = new List<GameObject>();
-        }
+        abstract public void SetupScene();
 
-        public void Update()
+        public virtual void Update()
         {
             for (int i = 0; i < hierarchy.Count; i++)
             {
@@ -29,9 +25,8 @@ namespace Game
         }
         public void Render()
         {
-            LayersManager.Render();
+            layersManager.Render();
         }
-
         public void Reset()
         {
             layersManager.Reset();

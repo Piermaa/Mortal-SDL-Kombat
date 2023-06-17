@@ -175,7 +175,6 @@ namespace Game
             Width = data.width;
             Height = data.height;
 #endif
-
         }
 
         [DllImport("Engine.dll", CallingConvention = CallingConvention.Cdecl)]
