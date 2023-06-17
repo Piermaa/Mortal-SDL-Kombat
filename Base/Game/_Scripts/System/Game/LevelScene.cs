@@ -16,9 +16,9 @@ namespace Game
         {
             InitializeBackground();
             InitializeManagers();
+            InitializeBPM();
             InitializePlayers();
             InitializeEnemies();
-            InitializeBPM();
             InitializeMusic();
         }
 

@@ -9,6 +9,8 @@ namespace Game
 {
     public class PlayerCharacter : BaseCharacter, IMonoBehaviour, IDamagable
     {
+        private Metronome metronome;
+
         private GameObject engineGameObject;
         private RigidBody rb;
         private float speed = 300;
@@ -40,6 +42,7 @@ namespace Game
             rb = _gameObject.GetComponent<RigidBody>();
             transform.SetPosition(new Vector2(720/2,600));
             transform.scale = new Vector2(3, 3); //esto lo dejamos asi?
+            metronome= GameManager.Instance.CurrentScene.FindObjectOfType<Metronome>();
         }
 
         public void Update(float deltaTime)
@@ -70,7 +73,7 @@ namespace Game
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
 
-            if (Engine.GetKeyDown(Keys.SPACE) && Metronome.Instance.AbleToShoot() && shootTimer <= 0)
+            if (Engine.GetKeyDown(Keys.SPACE) && metronome.AbleToShoot() && shootTimer <= 0)
             {
                 shootTimer = shootCD;
                 var bulletGameObject=GameManager.Instance.GetBullet();

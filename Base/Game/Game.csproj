@@ -104,6 +104,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="_Scripts\GameObjects\Prefabs\PlayerPrefab.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Enemies\EnemyCharacter.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Metronome.cs" />
     <Compile Include="_Scripts\System\EnemyFactory.cs" />
