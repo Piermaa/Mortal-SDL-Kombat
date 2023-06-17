@@ -25,6 +25,7 @@ namespace Game
                 if (cooldownDebugger <= 0)
                 {
                     cooldownDebugger = 0.50847457;
+                    onBPMTick?.Invoke();
                     Console.WriteLine("Has ended the bpm");
                 }
             }
