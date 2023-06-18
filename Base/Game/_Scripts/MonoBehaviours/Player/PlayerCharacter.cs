@@ -73,9 +73,8 @@ namespace Game
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
 
-            if (Engine.GetKeyDown(Keys.SPACE) && metronome.CanShoot() && shootTimer <= 0)
+            if (Engine.GetKeyDown(Keys.SPACE) && metronome.AbleToShoot())
             {
-                shootTimer = shootCD;
                 var bulletGameObject=GameManager.Instance.GetBullet();
                 bulletGameObject.BulletReset(transform.position, 270, true);
             }

@@ -13,14 +13,13 @@ namespace Game
 
         public BulletPrefab()
         {
-            Engine.Debug("NON POOLED, CREATED!!!!!!!!------");
             ColliderManager.Instance.AddBulletCollider(this);
  
             bulletBehaviour = new Bullet();
             AddComponent(bulletBehaviour);
             var rb = new RigidBody();
             AddComponent(rb);
-            bulletBehaviour.RigidBody = rb;
+            bulletBehaviour.RigidBody = rb; //AGREGAR EL RB ANTES ROMPE TODO DESCONOZCO
             AddComponent(spriteRenderer);
         }
         public void Reset(Vector2 resetPosition, float rot)

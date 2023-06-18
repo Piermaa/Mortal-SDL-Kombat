@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Game
 {
@@ -83,14 +80,38 @@ namespace Game
 
             if (x == 0 && y == 0)
             {
-                return Vector2.Zero;
+                return Zero;
             }
             return new Vector2((float)(x / h), (float)(y / h));
+        }
+
+        public static Vector2 Lerp(Vector2 a, Vector2 b, float t)
+        {
+
+            t = Mathf.Clamp01(t); // Clamping t between 0 and 1
+
+            float x = Mathf.Lerp(a.x, b.x, t);
+            float y = Mathf.Lerp(a.y, b.y, t);
+
+            return new Vector2(x, y);
         }
 
         public override string ToString()
         {
             return $"X: {x} / Y: {y}";
+        }
+    }
+
+    public static class Mathf
+    {
+        public static float Lerp(float a, float b, float t)
+        {
+            return a + (b - a) * t;
+        }
+
+        public static float Clamp01(float value)
+        {
+            return (value < 0f) ? 0f : (value > 1f) ? 1f : value;
         }
     }
 }

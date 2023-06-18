@@ -8,13 +8,17 @@ namespace Game
 {
     public class Metronome : IMonoBehaviour
     {
+        public double clampedCount
+        {
+            get { return 1 - bpmCount / bpm; }
+        }
         public event Action onBPMTick;
+
         private double bpm = 0.50847457;
         private double bpmCount;
         private float bpmTollerance = 0.15f;
 
-        private int ticks=0;
-        private bool canShoot;
+        private int ticks=0; // no me acuerdo para que era esto pero iba a ser re util seguro
 
         public void Awake(GameObject gameObject)
         {
@@ -23,6 +27,7 @@ namespace Game
 
         public void Update(float deltaTime)
         {
+            Engine.Debug(clampedCount);
             GetBPM(deltaTime);
         }
 
