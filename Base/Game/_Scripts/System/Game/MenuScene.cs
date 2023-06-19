@@ -8,9 +8,10 @@ namespace Game
 {
     public class MenuScene : Scene
     {
+        GameObject canvas;
         public override void SetupScene()
         {
-            GameObject canvas = new GameObject();
+            canvas= new GameObject();
             SpriteRenderer canvasImage = new SpriteRenderer();
             canvasImage.SetTexture(GetCanvasTexture());
             canvas.AddComponent(canvasImage);
@@ -25,6 +26,7 @@ namespace Game
             {
                 case (0):
                     texture = Engine.GetTexture("Textures/UI/PressEnter.png");
+                   // canvas.transform.scale = Vector2.Zero;
                     break;
 
                 case (1):
