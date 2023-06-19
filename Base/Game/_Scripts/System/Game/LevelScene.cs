@@ -14,13 +14,12 @@ namespace Game
 
         public override void SetupScene()
         {
+            InitializeMusic();
+            InitializeBPM();
             InitializeBackground();
             InitializeManagers();
-            InitializeBPM();
             InitializePlayers();
             InitializeEnemies();
-            InitializeMusic();
-
             InitializeUI();
         }
 
@@ -66,7 +65,7 @@ namespace Game
         }
         private void InitializeMusic()
         {
-            SoundPlayer soundPlayer = new SoundPlayer("music.wav");
+            SoundPlayer soundPlayer = new SoundPlayer("8BitMusic.wav");
             soundPlayer.PlayLooping();
         }
 

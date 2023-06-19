@@ -25,16 +25,18 @@ namespace Game
             switch (GameManager.Instance.GameState)//TODO: Cambiar numeros magicos por un enum
             {
                 case (0):
-                    texture = Engine.GetTexture("Textures/UI/PressEnter.png");
-                   // canvas.transform.scale = Vector2.Zero;
+                    texture = Engine.GetTexture("Textures/UI/PressEnterToPlay.png");
+                    canvas.transform.scale = new Vector2(0.8f, 0.8f);
                     break;
 
                 case (1):
-                    texture= Engine.GetTexture("Textures/UI/Win.png");
+                    texture = Engine.GetTexture("Textures/UI/Win.png");
+                    canvas.transform.scale = new Vector2(0.35f, 0.35f);
                     break;
 
                 case (2):
                     texture= Engine.GetTexture("Textures/UI/Fail.png");
+                    canvas.transform.scale = new Vector2(0.6f, 0.6f);
                     break;
             }
 

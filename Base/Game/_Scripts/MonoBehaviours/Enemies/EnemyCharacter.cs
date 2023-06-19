@@ -28,7 +28,7 @@ namespace Game
             animator.SetAnimation(NORMAL_ENEMY_IDLE);
 
             //creas una animacion de muerte y la guardas
-            deathAnimation = animator.CreateAnimation(EXPLOSIONANIMATION, "Textures/Animations/Engine/", 3, 0.1f,false);
+            deathAnimation = animator.CreateAnimation(EXPLOSIONANIMATION, "Textures/Animations/Explosion/", 6, 0.1f,false);
             //a la animacion de muerte, le agregas como evento al terminar: Destroy
             deathAnimation.onAnimationFinish += Destroy;
         }
@@ -65,6 +65,7 @@ namespace Game
 
         public void Death()
         {
+            gameObject.transform.scale = new Vector2(0.75f, 0.75f);
             animator.SetAnimation(EXPLOSIONANIMATION);
         }
 

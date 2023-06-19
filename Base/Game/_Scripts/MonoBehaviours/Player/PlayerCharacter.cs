@@ -11,6 +11,9 @@ namespace Game
     {
         private Metronome metronome;
 
+        private Animator animator = new Animator();
+        private Animation idleAnimation;
+        private Animation deathAnimation;
         private GameObject engineGameObject;
         private RigidBody rb;
         private float speed = 300;
@@ -19,20 +22,31 @@ namespace Game
         private float shootTimer;
         private const string ENGINEANIMATION = "Engine";
         private const string IDLE = "Idle";
+        private const string EXPLOSIONANIMATION = "Explosion";
 
         // Al crear el script se agregan todos los componentes
         // 
         public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName) // : base hace como de "pasamanos", como la clase de la que hereda (BaseCharacter) necesita en su constructor estos parametros, PlayerCharacter los pide al ser construido y se los pasa
         {
+            _gameObject.AddComponent(animator);
             engineGameObject = new GameObject();
             engineGameObject.transform.scale = new Vector2(2.5f, 2.5f);
             SpriteRenderer engineSpriteRenderer = new SpriteRenderer(1);
            // engineSpriteRenderer.Layer = 1;
             Animator engineAnimator = new Animator();
-
+            
             engineAnimator.CreateAnimation(ENGINEANIMATION,"Textures/Animations/Engine/",3,0.1f,true);
             engineAnimator.SetAnimation(ENGINEANIMATION);
 
+            //creas una animacion de muerte y la guardas
+            animator.CreateAnimation(IDLE, "Textures/Animations/Player/", 1, 0.1f, true);
+            animator.SetAnimation(IDLE);
+
+            //creas una animacion de muerte y la guardas
+            deathAnimation = animator.CreateAnimation(EXPLOSIONANIMATION, "Textures/Animations/Explosion/", 6, 0.1f, false);
+            //a la animacion de muerte, le agregas como evento al terminar: Destroy
+            deathAnimation.onAnimationFinish += Destroy;
+            
             engineGameObject.AddComponent(engineSpriteRenderer);
             engineGameObject.AddComponent(engineAnimator);
         }
@@ -73,7 +87,7 @@ namespace Game
         {
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
 
-            if (Engine.GetKeyDown(Keys.SPACE) && metronome.AbleToShoot())
+            if (Engine.GetKeyDown(Keys.SPACE) && metronome.CanShoot())
             {
                 var bulletGameObject=GameManager.Instance.GetBullet();
                 bulletGameObject.BulletReset(transform.position, 270, true);
@@ -99,8 +113,18 @@ namespace Game
         /// <summary>
         /// Termina el juego
         /// </summary>
+        /// 
+
         public void Death()
         {
+            engineGameObject.Destroy();
+            gameObject.transform.scale = new Vector2(0.75f, 0.75f);
+            animator.SetAnimation(EXPLOSIONANIMATION);
+        }
+
+        public void Destroy()
+        {
+            deathAnimation.onAnimationFinish -= Destroy;
             GameManager.Instance.GameOver();
         }
     }

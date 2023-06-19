@@ -38,8 +38,6 @@ namespace Game
         {
             List<Texture> animationFrames = new List<Texture>();
 
-            //gameObject.transform.scale = new Vector2(0.2f, 0.2f);
-            //
             for (int i = 0; i < p_texturesAmount; i++)
             {
                 animationFrames.Add(Engine.GetTexture($"{p_path}{i}.png"));
