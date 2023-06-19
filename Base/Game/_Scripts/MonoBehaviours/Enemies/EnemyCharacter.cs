@@ -8,18 +8,27 @@ namespace Game
 {
     class EnemyCharacter: BaseCharacter, IMonoBehaviour, IDamagable
     {
-        private float shootCD=2;
+        Metronome metronome;
+
+        private RigidBody rb = new RigidBody();
+        private float speed = 100f;
+        private int shootCD;
         private float shootTimer;
         private Animator animator = new Animator();
         private Animation deathAnimation;
         private const string EXPLOSIONANIMATION = "Explosion";
         private const string NORMAL_ENEMY_IDLE = "NormalEnemyIdle";
 
+        private bool isDead;
+
         //tipo HEAVY IDLE, NORMAL IDLE, BOSSIDLE
 
-        public EnemyCharacter(GameObject _gameObject, string textureName, float attackSpeed, string texturePath) : base(_gameObject, textureName)
+        public EnemyCharacter(GameObject _gameObject, string textureName, int attackSpeed, int health, float speed, string texturePath) : base(_gameObject, textureName)
         {
+            _gameObject.AddComponent(rb);
             shootCD = attackSpeed;
+            this.Health = health;
+            this.speed = speed;
             _gameObject.AddComponent(animator);
             //RESPECTO AL FACTORY: ACA SE SETEAN LOS SPRITES POR CULPA DEL ANIMATOR ENTONCES ACA TENES QUE HACER QUE EL 
             //PARAMETRO SEA EL STRING QUE VA EN SETANIMATION
@@ -35,16 +44,21 @@ namespace Game
 
         public void Awake(GameObject gameObject)
         {
+            metronome = GameManager.Instance.CurrentScene.FindObjectOfType<Metronome>();
+
+            metronome.onBPMTick += Shoot;
             gameObject.transform.rotation = 180;
         }
 
         public void Update(float deltaTime)
         {
-            shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
-            if (shootTimer == 0)
+            Movement();
+        }
+
+        private void Shoot()
+        {
+            if (metronome.Ticks % shootCD == 0 && !isDead)
             {
-                shootTimer = shootCD;
-                //Engine.Debug("Enemy shot");
                 var bulletGameObject = GameManager.Instance.GetBullet();
                 bulletGameObject.BulletReset(transform.position, 90, false);
             }
@@ -63,8 +77,19 @@ namespace Game
             }
         }
 
+        private void Movement()
+        {
+            if (!isDead)
+            {
+                rb.Velocity = Vector2.Down * speed;
+            }
+            
+        }
+
         public void Death()
         {
+            isDead = true;
+            rb.Velocity = Vector2.Zero;
             gameObject.transform.scale = new Vector2(0.75f, 0.75f);
             animator.SetAnimation(EXPLOSIONANIMATION);
         }
@@ -72,6 +97,7 @@ namespace Game
         private void Destroy()
         {
             deathAnimation.onAnimationFinish -= Destroy;
+            metronome.onBPMTick -= Shoot;
             gameObject.Destroy();
         }
     }

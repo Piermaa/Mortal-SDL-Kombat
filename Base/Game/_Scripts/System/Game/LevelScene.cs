@@ -19,7 +19,8 @@ namespace Game
             InitializeBackground();
             InitializeManagers();
             InitializePlayers();
-            InitializeEnemies();
+            //InitializeEnemies();
+            InitializeEnemyManager();
             InitializeUI();
         }
 
@@ -62,6 +63,11 @@ namespace Game
         {
             GameObject metronome = new GameObject();
             metronome.AddComponent(new Metronome());
+        }
+        private void InitializeEnemyManager()
+        {
+            GameObject enemyManager = new GameObject();
+            enemyManager.AddComponent(new EnemyManager());
         }
         private void InitializeMusic()
         {

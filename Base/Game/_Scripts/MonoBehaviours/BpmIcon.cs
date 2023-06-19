@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class BpmIcon :IMonoBehaviour
+    public class BpmIcon : IMonoBehaviour
     {
         private GameObject leftTimeSign = new GameObject();
         private GameObject rightTimeSign = new GameObject();

@@ -58,7 +58,7 @@ namespace Game
             {
                 if (CheckGameOver())
                 {
-                    Win();
+                    //Win();
                 }
             }
             else

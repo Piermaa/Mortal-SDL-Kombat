@@ -17,17 +17,21 @@ namespace Game
         private GameObject engineGameObject;
         private RigidBody rb;
         private float speed = 300;
-
+        private int health = 4;
         private float shootCD =0.3f;
         private float shootTimer;
         private const string ENGINEANIMATION = "Engine";
         private const string IDLE = "Idle";
+        private const string IDLE2 = "Idle2";
+        private const string IDLE3 = "Idle3";
+        private const string IDLE4 = "Idle4";
         private const string EXPLOSIONANIMATION = "Explosion";
 
         // Al crear el script se agregan todos los componentes
         // 
         public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName) // : base hace como de "pasamanos", como la clase de la que hereda (BaseCharacter) necesita en su constructor estos parametros, PlayerCharacter los pide al ser construido y se los pasa
         {
+            Health = health;
             _gameObject.AddComponent(animator);
             engineGameObject = new GameObject();
             engineGameObject.transform.scale = new Vector2(2.5f, 2.5f);
@@ -39,8 +43,12 @@ namespace Game
             engineAnimator.SetAnimation(ENGINEANIMATION);
 
             //creas una animacion de muerte y la guardas
-            animator.CreateAnimation(IDLE, "Textures/Animations/Player/", 1, 0.1f, true);
+            animator.CreateAnimation(IDLE, "Textures/Animations/Player/Idle1/", 1, 0.1f, true);
             animator.SetAnimation(IDLE);
+
+            animator.CreateAnimation(IDLE2, "Textures/Animations/Player/Idle2/", 1, 0.1f, true);
+            animator.CreateAnimation(IDLE3, "Textures/Animations/Player/Idle3/", 1, 0.1f, true);
+            animator.CreateAnimation(IDLE4, "Textures/Animations/Player/Idle4/", 1, 0.1f, true);
 
             //creas una animacion de muerte y la guardas
             deathAnimation = animator.CreateAnimation(EXPLOSIONANIMATION, "Textures/Animations/Explosion/", 6, 0.1f, false);
@@ -55,7 +63,7 @@ namespace Game
         {
             rb = _gameObject.GetComponent<RigidBody>();
             transform.SetPosition(new Vector2(720/2,600));
-            transform.scale = new Vector2(3, 3); //esto lo dejamos asi?
+            transform.scale = new Vector2(0.3f, 0.3f);
             metronome= GameManager.Instance.CurrentScene.FindObjectOfType<Metronome>();
         }
 
@@ -109,6 +117,22 @@ namespace Game
                     Death();
                 }
             }
+
+            switch (health)
+            {
+                case 3:
+                    animator.SetAnimation(IDLE2);
+                    break;
+
+                case 2:
+                    animator.SetAnimation(IDLE3);
+                    break;
+
+                case 1:
+                    animator.SetAnimation(IDLE4);
+                    break;
+            }
+
         }
         /// <summary>
         /// Termina el juego

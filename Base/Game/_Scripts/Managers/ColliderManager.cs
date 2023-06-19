@@ -111,7 +111,7 @@ namespace Game
                         if (AreCircleColliding(currentBullet, enemies[j]))
                         {
                             var enemy = enemies[j].GetComponent<EnemyCharacter>();
-                            enemy.TakeDamage(1);
+                            enemy.TakeDamage(3);
                             currentBullet.Disable();
                             return;
                         }

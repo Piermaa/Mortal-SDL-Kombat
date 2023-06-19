@@ -64,7 +64,12 @@ namespace Game
 
     public class BaseCharacter
     {
-        public int Health => health;
+        public int Health
+        {
+            get { return health; }
+            set { health = value; }
+        }
+
         //Protected es privada pero todas las clases que hereden de BaseCharacter pueden acceder a esas propiedades
         protected GameObject gameObject;
         protected Transform transform;

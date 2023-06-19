@@ -15,6 +15,7 @@ namespace Game
         public event Action onBPMTick;
 
         private double bpm = 0.5f;
+
         private double bpmCount;
         private float bpmTollerance = 0.13f;
 
@@ -24,7 +25,9 @@ namespace Game
         private bool canShoot;
         private bool hasShot;
 
-        private int ticks=0; // no me acuerdo para que era esto pero iba a ser re util seguro
+        private int ticks = 0;
+
+        public int Ticks => ticks;
 
         public void Awake(GameObject gameObject)
         {
@@ -34,7 +37,7 @@ namespace Game
         public void Update(float deltaTime)
         {
             GetBPM(deltaTime);
-
+            
             canShoot = AbleToShoot();
         }
 
@@ -51,7 +54,6 @@ namespace Game
                     ticks++;
                     bpmCount = bpm;
                     onBPMTick?.Invoke(); //otras clases le pueden decir aca pasan cosas
-                    Console.WriteLine("Has ended the bpm");
                 }
 
                 if (bpmCountExtra >= bpmTolleranceExtra + 0.2f)
