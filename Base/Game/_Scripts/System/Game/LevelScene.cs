@@ -14,13 +14,13 @@ namespace Game
 
         public override void SetupScene()
         {
+            InitializeMusic();
+            InitializeBPM();
             InitializeBackground();
             InitializeManagers();
-            InitializeBPM();
             InitializePlayers();
-            InitializeEnemies();
-            InitializeMusic();
-
+            //InitializeEnemies();
+            InitializeEnemyManager();
             InitializeUI();
         }
 
@@ -64,9 +64,14 @@ namespace Game
             GameObject metronome = new GameObject();
             metronome.AddComponent(new Metronome());
         }
+        private void InitializeEnemyManager()
+        {
+            GameObject enemyManager = new GameObject();
+            enemyManager.AddComponent(new EnemyManager());
+        }
         private void InitializeMusic()
         {
-            SoundPlayer soundPlayer = new SoundPlayer("music.wav");
+            SoundPlayer soundPlayer = new SoundPlayer("8BitMusic.wav");
             soundPlayer.PlayLooping();
         }
 

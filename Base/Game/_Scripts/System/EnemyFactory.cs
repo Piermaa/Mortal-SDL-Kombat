@@ -24,17 +24,17 @@ namespace Game
             {
                 case TypeOfEnemy.Normal:
                     p_gameObject.transform.scale = new Vector2(3, 3);
-                    return new EnemyCharacter(p_gameObject,NORMAL,1, "Textures/Animations/Enemy/NormalEnemy/");
+                    return new EnemyCharacter(p_gameObject,NORMAL,2, 1, 100,"Textures/Animations/Enemy/NormalEnemy/");
                     break;
 
                 case TypeOfEnemy.Heavy:
                     p_gameObject.transform.scale = new Vector2(0.25f, 0.25f);
-                    return new EnemyCharacter(p_gameObject,HEAVY,1, "Textures/Animations/Enemy/HeavyEnemy/");
+                    return new EnemyCharacter(p_gameObject,HEAVY,3, 9, 75, "Textures/Animations/Enemy/HeavyEnemy/");
                     break;
 
                 case TypeOfEnemy.Boss:
                     p_gameObject.transform.scale = new Vector2(0.5f, 0.5f);
-                    return new EnemyCharacter(p_gameObject,BOSS,3, "Textures/Animations/Enemy/BossEnemy/");
+                    return new EnemyCharacter(p_gameObject,BOSS,3, 21, 50, "Textures/Animations/Enemy/BossEnemy/");
                     break;
             }
             return default;

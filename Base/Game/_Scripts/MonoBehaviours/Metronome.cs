@@ -14,11 +14,20 @@ namespace Game
         }
         public event Action onBPMTick;
 
-        private double bpm = 0.50847457;
-        private double bpmCount;
-        private float bpmTollerance = 0.15f;
+        private double bpm = 0.5f;
 
-        private int ticks=0; // no me acuerdo para que era esto pero iba a ser re util seguro
+        private double bpmCount;
+        private float bpmTollerance = 0.13f;
+
+        private double bpmCountExtra;
+        private float bpmTolleranceExtra = 0.13f;
+
+        private bool canShoot;
+        private bool hasShot;
+
+        private int ticks = 0;
+
+        public int Ticks => ticks;
 
         public void Awake(GameObject gameObject)
         {
@@ -27,34 +36,50 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            Engine.Debug(clampedCount);
             GetBPM(deltaTime);
+            
+            canShoot = AbleToShoot();
         }
 
         private void GetBPM(float deltaTime)
         {
             bpmCount -= deltaTime;
+            bpmCountExtra += deltaTime;
 
-            if (bpmCount < bpmTollerance)
+            if (bpmCount < bpmTollerance && canShoot)
             {
                 if (bpmCount <= 0)
                 {
+                    bpmCountExtra = 0;
                     ticks++;
                     bpmCount = bpm;
                     onBPMTick?.Invoke(); //otras clases le pueden decir aca pasan cosas
-                    Console.WriteLine("Has ended the bpm");
+                }
+
+                if (bpmCountExtra >= bpmTolleranceExtra + 0.2f)
+                {
+                    hasShot = false;
+                    bpmCountExtra = 0;
                 }
             }
         }
 
         public bool AbleToShoot()
         {
-            return bpmCount < bpmTollerance;
+            return bpmCount < bpmTollerance || bpmCountExtra < bpmTolleranceExtra;
         }
 
         public bool CanShoot()
         {
-            return (bpmCount-bpmTollerance) < 0;
+            if (AbleToShoot() && !hasShot)
+            {
+                hasShot = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
