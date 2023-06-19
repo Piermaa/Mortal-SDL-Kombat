@@ -32,5 +32,19 @@ namespace Game
             layersManager.Reset();
             hierarchy.Clear();
         }
+
+        public T FindObjectOfType<T>() where T : IMonoBehaviour
+        {
+            foreach (var gameObject in hierarchy)
+            {
+                var component= gameObject.GetComponent<T>();
+                if (component!=null)
+                {
+                    return component;
+                }
+            }
+
+            return default;
+        }
     }
 }

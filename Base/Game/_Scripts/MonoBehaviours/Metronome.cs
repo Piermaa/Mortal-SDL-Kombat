@@ -8,33 +8,39 @@ namespace Game
 {
     public class Metronome : IMonoBehaviour
     {
-        #region Singleton
-        private static Metronome instance;
+        public double clampedCount
+        {
+            get { return 1 - bpmCount / bpm; }
+        }
+        public event Action onBPMTick;
 
-        public static Metronome Instance => instance;
-        #endregion
-        public Action onBPMTick;
-        private double cooldownDebugger = 0.50847457;
+        private double bpm = 0.50847457;
+        private double bpmCount;
+        private float bpmTollerance = 0.15f;
+
+        private int ticks=0; // no me acuerdo para que era esto pero iba a ser re util seguro
 
         public void Awake(GameObject gameObject)
         {
-            instance = this;
+            bpmCount = bpm;
         }
 
         public void Update(float deltaTime)
         {
-            GetBPM();
+            Engine.Debug(clampedCount);
+            GetBPM(deltaTime);
         }
 
-        private void GetBPM()
+        private void GetBPM(float deltaTime)
         {
-            cooldownDebugger -= Program.DeltaTime;
+            bpmCount -= deltaTime;
 
-            if (cooldownDebugger < 0.25f)
+            if (bpmCount < bpmTollerance)
             {
-                if (cooldownDebugger <= 0)
+                if (bpmCount <= 0)
                 {
-                    cooldownDebugger = 0.50847457;
+                    ticks++;
+                    bpmCount = bpm;
                     onBPMTick?.Invoke();
                     Console.WriteLine("Has ended the bpm");
                 }
@@ -43,9 +49,12 @@ namespace Game
 
         public bool AbleToShoot()
         {
-            return cooldownDebugger < 0.25f;
+            return bpmCount < bpmTollerance;
         }
 
-       
+        public bool CanShoot()
+        {
+            return (bpmCount-bpmTollerance) < 0;
+        }
     }
 }

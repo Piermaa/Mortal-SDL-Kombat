@@ -9,14 +9,11 @@ namespace Game
 {
     class RigidBody : IMonoBehaviour
     {
-        private GameObject gameObject;
-        private Vector2 velocity = Vector2.Zero;
-
         public Vector2 Velocity
         {
-            get 
-            { 
-                return velocity; 
+            get
+            {
+                return velocity;
             }
 
             set
@@ -24,8 +21,10 @@ namespace Game
                 velocity = value;
             }
         }
-        private Vector2 acceleration = Vector2.Zero;
 
+        private GameObject gameObject;
+        private Vector2 velocity = Vector2.Zero;
+        private Vector2 acceleration = Vector2.Zero;
         private float mass = 10;
 
         public void Awake(GameObject _gameObject)
@@ -44,8 +43,6 @@ namespace Game
             acceleration.x = 0;
             acceleration.y = 0;
         }
-
-        public void Render(){ }
 
         #region NO USADO
         /// <summary>

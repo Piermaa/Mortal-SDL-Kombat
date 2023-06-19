@@ -16,10 +16,12 @@ namespace Game
         {
             InitializeBackground();
             InitializeManagers();
+            InitializeBPM();
             InitializePlayers();
             InitializeEnemies();
-            InitializeBPM();
             InitializeMusic();
+
+            InitializeUI();
         }
 
         private void InitializeBackground()
@@ -66,6 +68,13 @@ namespace Game
         {
             SoundPlayer soundPlayer = new SoundPlayer("music.wav");
             soundPlayer.PlayLooping();
+        }
+
+        private void InitializeUI()
+        {
+            GameObject canvas = new GameObject();
+            canvas.AddComponent(new SpriteRenderer(4));
+            canvas.AddComponent(new BpmIcon());
         }
     }
 }

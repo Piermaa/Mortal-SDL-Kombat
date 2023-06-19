@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -84,10 +85,22 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\ship.png" />
+    <Content Include="Textures\UI\bar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\UI\Fail.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\UI\PressEnter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\TickOff.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\TickOn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Time sign.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\UI\Win.png">
@@ -104,6 +117,8 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="_Scripts\GameObjects\Prefabs\PlayerPrefab.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\BpmIcon.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Enemies\EnemyCharacter.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Metronome.cs" />
     <Compile Include="_Scripts\System\EnemyFactory.cs" />

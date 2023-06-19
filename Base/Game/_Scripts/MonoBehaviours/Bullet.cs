@@ -8,52 +8,34 @@ namespace Game
 {
     class Bullet : IMonoBehaviour
     {
+        public bool Ally
+        {
+            get { return ally; }
+            set { ally = value; }
+        }
+        public RigidBody RigidBody
+        {
+            set { rb = value; }
+        }
         private float _speed = 750;
         private float _enemySpeed = 500;
 
         // Si es ally va para arriba y no colisiona con el player
         // Si no es ally va hacia abajo y colisiona con el player
         private bool ally;
-        public bool Ally
-        {
-            get { return ally; }    
-            set { ally = value; }
-        } 
+      
 
-        private RigidBody rb = new RigidBody();
+        private RigidBody rb;
         private BulletPrefab gameObject;
-
-        public Bullet(BulletPrefab p_gameObject, bool isAlly)
-        {
-            gameObject = p_gameObject;
-            p_gameObject.AddComponent(this);
-            ally = isAlly;
-            p_gameObject.transform.scale = new Vector2(0.1f, 0.1f);
-
-            SpriteRenderer spriteRenderer = new SpriteRenderer();
-            //spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Bullet.png"));
-            if (isAlly)
-            {
-                spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil.png"));
-            }
-
-            else
-            {
-                spriteRenderer.SetTexture(Engine.GetTexture("Textures/Player/Misil2.png"));
-            }
-
-            // Añadimos los componentes al GameObject
-            p_gameObject.AddComponent(spriteRenderer);
-            p_gameObject.AddComponent(rb);
-
-            //OnDie += Program.bullets.AddToPool;
-        }
 
         // Asbjørn Thirslund (Brackeys, inspirarse para el juego Móvil)
 
         public void Awake(GameObject gameObject)
         {
-           
+            this.gameObject = (BulletPrefab)gameObject;
+            Engine.Debug("fui aniadido");
+            gameObject.transform.scale = new Vector2(0.1f, 0.1f);
+           // 
         }
 
         public void Update(float deltaTime)
