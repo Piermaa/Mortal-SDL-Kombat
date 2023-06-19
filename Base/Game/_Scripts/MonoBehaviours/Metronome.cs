@@ -41,7 +41,7 @@ namespace Game
                 {
                     ticks++;
                     bpmCount = bpm;
-                    onBPMTick?.Invoke();
+                    onBPMTick?.Invoke(); //otras clases le pueden decir aca pasan cosas
                     Console.WriteLine("Has ended the bpm");
                 }
             }

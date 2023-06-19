@@ -87,7 +87,6 @@ namespace Game
 
         public static Vector2 Lerp(Vector2 a, Vector2 b, float t)
         {
-
             t = Mathf.Clamp01(t); // Clamping t between 0 and 1
 
             float x = Mathf.Lerp(a.x, b.x, t);
