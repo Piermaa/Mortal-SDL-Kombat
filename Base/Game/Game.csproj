@@ -148,9 +148,9 @@
   <ItemGroup>
     <Compile Include="_Scripts\Managers\EnemyManager.cs" />
     <Compile Include="_Scripts\GameObjects\Prefabs\PlayerPrefab.cs" />
-    <Compile Include="_Scripts\MonoBehaviours\BpmIcon.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\Music\BpmIcon.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Enemies\EnemyCharacter.cs" />
-    <Compile Include="_Scripts\MonoBehaviours\Metronome.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\Music\Metronome.cs" />
     <Compile Include="_Scripts\System\EnemyFactory.cs" />
     <Compile Include="_Scripts\GameObjects\Prefabs\BulletPrefab.cs" />
     <Compile Include="_Scripts\Managers\LayersManager.cs" />
@@ -158,7 +158,6 @@
     <Compile Include="_Scripts\System\Game\MenuScene.cs" />
     <Compile Include="_Scripts\System\Game\Scene.cs" />
     <Compile Include="_Scripts\Managers\InputManager.cs" />
-    <Compile Include="_Scripts\MonoBehaviours\Music\MusicPlayer.cs" />
     <Compile Include="_Scripts\MonoBehaviours\BaseCharacter.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Bullet.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Player\PlayerCharacter.cs" />

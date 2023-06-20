@@ -13,26 +13,24 @@ namespace Game
         private RigidBody rb = new RigidBody();
         private float speed = 100f;
         private int shootCD;
-        private float shootTimer;
         private Animator animator = new Animator();
         private Animation deathAnimation;
         private const string EXPLOSIONANIMATION = "Explosion";
         private const string NORMAL_ENEMY_IDLE = "NormalEnemyIdle";
-
+        private int score = 0;
         private bool isDead;
 
         //tipo HEAVY IDLE, NORMAL IDLE, BOSSIDLE
 
-        public EnemyCharacter(GameObject _gameObject, string textureName, int attackSpeed, int health, float speed, string texturePath) : base(_gameObject, textureName)
+        public EnemyCharacter(GameObject _gameObject, int score,string textureName, int attackSpeed, int health, float speed, string texturePath) : base(_gameObject, textureName)
         {
+            this.score = score;
             _gameObject.AddComponent(rb);
             shootCD = attackSpeed;
             this.Health = health;
             this.speed = speed;
             _gameObject.AddComponent(animator);
-            //RESPECTO AL FACTORY: ACA SE SETEAN LOS SPRITES POR CULPA DEL ANIMATOR ENTONCES ACA TENES QUE HACER QUE EL 
-            //PARAMETRO SEA EL STRING QUE VA EN SETANIMATION
-            //LAS ANIMACIONES HACELAS ANTES DE INSTANCIAR EL ENEMIGO!!
+
             animator.CreateAnimation(NORMAL_ENEMY_IDLE, texturePath, 1, 0.1f,true);
             animator.SetAnimation(NORMAL_ENEMY_IDLE);
 
@@ -53,6 +51,10 @@ namespace Game
         public void Update(float deltaTime)
         {
             Movement();
+            if (gameObject.transform.position.y>1000)
+            {
+                Destroy();
+            }
         }
 
         private void Shoot()
@@ -92,6 +94,7 @@ namespace Game
             rb.Velocity = Vector2.Zero;
             gameObject.transform.scale = new Vector2(0.75f, 0.75f);
             animator.SetAnimation(EXPLOSIONANIMATION);
+            GameManager.Instance.Score = GameManager.Instance.Score+score;
         }
 
         private void Destroy()

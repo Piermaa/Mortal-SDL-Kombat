@@ -9,7 +9,7 @@ namespace Game
     public class BulletPrefab : GameObject, IPooledObject
     {
         private Bullet bulletBehaviour;
-        private SpriteRenderer spriteRenderer= new SpriteRenderer();
+        private SpriteRenderer spriteRenderer= new SpriteRenderer(1);
 
         public BulletPrefab()
         {

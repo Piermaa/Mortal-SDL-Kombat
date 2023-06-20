@@ -11,13 +11,10 @@ namespace Game
         void Reset(Vector2 resetPosition, float rotation);
         void Disable();
     }
-    /*
-     Si hay objetos disponibles en m_poolObjects, lo asignaremos a una variable, la removemos de la lista y la agregamos
-    la lista de inUseObjects. Finalmente retornamos ese objecto de tipo T. Si no hay objetos en la lista de disponibles, 
-    retornará nulo.
-     * */
 
-    public class Pool<T> where T: new()
+    //where T: new() 
+    //permite crear instancias del tipo T
+    public class Pool<T> where T: new() 
     {
         private List<T> m_inUseObjects;
         private List<T> m_poolObjects;
@@ -40,6 +37,9 @@ namespace Game
                 m_inUseObjects.Add(l_availableObj);
                 return l_availableObj;
             }
+            //===Distinto a lo q mostraron los profes:  ===
+            //En la clase si se devolvia null lo creaban y lo metian en la lista cada vez, si es algo que puede pasar con cada
+            //pool, entonces parecio mejor que sea parte de la funcion para evitar repetir codigo
             var newAvailableObj=new T();
             m_inUseObjects.Add(newAvailableObj);
             return newAvailableObj;

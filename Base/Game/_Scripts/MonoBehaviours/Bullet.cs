@@ -33,7 +33,6 @@ namespace Game
         public void Awake(GameObject gameObject)
         {
             this.gameObject = (BulletPrefab)gameObject;
-            Engine.Debug("fui aniadido");
             gameObject.transform.scale = new Vector2(0.1f, 0.1f);
            // 
         }

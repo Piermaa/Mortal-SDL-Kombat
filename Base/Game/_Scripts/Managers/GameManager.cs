@@ -5,6 +5,12 @@ namespace Game
 {
     public class GameManager
     {
+        public int Score 
+        {
+            get => score;
+            set { score = value; }
+        }
+
         #region Singleton
         private static GameManager instance;
 
@@ -40,28 +46,34 @@ namespace Game
         private MenuScene menuScene=new MenuScene();
 
         private Vector2 windowDimensions;
+        private int score;
 
-        private void Win()
+        private const string SCORE_TEXT = "============================= \n Score: ";
+
+        public void GameOver()
+        {
+            gameState = 2;
+            Engine.Debug(SCORE_TEXT + score);
+            SetMenuScene();
+        }
+
+        public void Win()
         {
             gameState = 1;
+            Engine.Debug(SCORE_TEXT+score);
             SetMenuScene();
         }
 
         private void ResetGame()
         {
+            score = 0;
             currentScene.Reset();
         }
 
         public void Update()
         {
-            if (currentScene == levelScene)
-            {
-                if (CheckGameOver())
-                {
-                    //Win();
-                }
-            }
-            else
+          
+            if(currentScene==menuScene)
             {
                 if (Engine.GetKeyDown(Keys.RETURN))
                 {
@@ -112,10 +124,6 @@ namespace Game
             return (ColliderManager.Instance.EnemyColliders.Count <= 0);
         }
 
-        public void GameOver()
-        {
-            gameState = 2;
-            SetMenuScene();
-        }
+      
     }
 }
