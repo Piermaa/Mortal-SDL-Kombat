@@ -25,6 +25,10 @@ namespace Game
 
         private void CalculateTicks()
         {
+            if (metronome.Ticks==200)
+            {
+                GameManager.Instance.Win();
+            }
             if (metronome.Ticks % 10 == 0)
             {
                 SpawnFromFactory();

@@ -76,7 +76,6 @@ namespace Game
         {
             leftTimeSign.transform.position= Vector2.Lerp(leftTimeSignStartPosition , gameObject.transform.position , (float)metronome.clampedCount);
             rightTimeSign.transform.position= Vector2.Lerp(rightTimeSignStartPosition , gameObject.transform.position,(float)metronome.clampedCount);
-            //Engine.Debug()
             if (tickOnTimeleft > 0)
             {
                 tickOnTimeleft -= deltaTime;

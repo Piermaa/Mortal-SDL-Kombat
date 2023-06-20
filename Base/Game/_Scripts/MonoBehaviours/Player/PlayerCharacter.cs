@@ -108,7 +108,6 @@ namespace Game
         /// <param name="amount">Cantidad de daño que tomara</param>
         public void TakeDamage(int amount)
         {
-            Engine.Debug($"Player took {amount} damage");
             if (immunityTime <= 0)
             {
                 health -= amount;
