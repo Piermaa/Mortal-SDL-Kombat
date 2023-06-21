@@ -61,19 +61,23 @@ namespace Game
         private static void Spawn(int enemies, TypeOfEnemy type)
         {
             int posX = 0;
+            int posDiff = 0;
 
             switch (enemies)
             {
                 case 5:
                     posX = 75;
+                    posDiff = 140;
                     break;
 
                 case 3:
-                    posX = 215;
+                    posX = 135;
+                    posDiff = 220;
                     break;
 
                 case 1:
                     posX = 355;
+                    posDiff = 0;
                   break;
             }
 
@@ -82,7 +86,7 @@ namespace Game
                 var enemyGameObject = new GameObject("Enemy");
                 EnemyCharacter enemyCharacter = EnemyFactory.CreateEnemy(enemyGameObject, type);
                 enemyGameObject.AddComponent(enemyCharacter);
-                enemyGameObject.transform.SetPosition(new Vector2((i * 140) + posX, 50));
+                enemyGameObject.transform.SetPosition(new Vector2((i * posDiff) + posX, 50));
             }
         }
     }
