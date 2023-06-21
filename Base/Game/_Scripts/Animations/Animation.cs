@@ -3,9 +3,10 @@ using System;
 
 namespace Game
 {
+    public delegate void OnAnimationFinish();
     public class Animation
     {
-        public event Action onAnimationFinish;
+        public event OnAnimationFinish onAnimationFinish;
 
         private string id;
         private bool isLoop;
