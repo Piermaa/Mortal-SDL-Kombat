@@ -53,7 +53,7 @@ namespace Game
                     bpmCountExtra = 0;
                     ticks++;
                     bpmCount = bpm;
-                    onBPMTick?.Invoke(); //otras clases le pueden decir aca pasan cosas
+                    onBPMTick?.Invoke(); //otras clases le pueden decir aca pasan cosas, dandole la responsabilidad a este scripts, sin necesidad de depender uno del otro
                 }
 
                 if (bpmCountExtra >= bpmTolleranceExtra + 0.2f)

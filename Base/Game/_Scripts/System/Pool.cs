@@ -51,7 +51,6 @@ namespace Game
         /// <param name="p_obj">Objeto a instertar en la pool</param>
         public void AddToPool(object p_obj)
         {
-         
             T objectPooled;
             try
             {

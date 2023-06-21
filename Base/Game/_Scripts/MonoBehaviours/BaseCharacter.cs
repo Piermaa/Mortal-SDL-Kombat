@@ -61,7 +61,6 @@ namespace Game
         void Death();
     }
 
-
     public class BaseCharacter
     {
         public int Health

@@ -19,7 +19,6 @@ namespace Game
             InitializeBackground();
             InitializeManagers();
             InitializePlayers();
-            //InitializeEnemies();
             InitializeEnemyManager();
             InitializeUI();
         }
@@ -48,27 +47,18 @@ namespace Game
             playerGameObject.AddComponent(player);
         }
 
-        private void InitializeEnemies()
-        {
-            int posX = 75;
-            for (int i = 0; i < 5; i++)
-            {
-                var enemyGameObject = new GameObject("Enemy");
-                EnemyCharacter enemyCharacter = EnemyFactory.CreateEnemy(enemyGameObject, TypeOfEnemy.Normal);
-                enemyGameObject.AddComponent(enemyCharacter);
-                enemyGameObject.transform.SetPosition(new Vector2((i * 140) + posX, 50));
-            }
-        }
         private void InitializeBPM()
         {
             GameObject metronome = new GameObject();
             metronome.AddComponent(new Metronome());
         }
+
         private void InitializeEnemyManager()
         {
             GameObject enemyManager = new GameObject();
             enemyManager.AddComponent(new EnemyManager());
         }
+
         private void InitializeMusic()
         {
             SoundPlayer soundPlayer = new SoundPlayer("8BitMusic.wav");

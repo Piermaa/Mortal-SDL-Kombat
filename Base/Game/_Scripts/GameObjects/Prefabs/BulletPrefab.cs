@@ -13,8 +13,6 @@ namespace Game
 
         public BulletPrefab()
         {
-            ColliderManager.Instance.AddBulletCollider(this);
- 
             bulletBehaviour = new Bullet();
             AddComponent(bulletBehaviour);
             var rb = new RigidBody();
@@ -22,11 +20,13 @@ namespace Game
             bulletBehaviour.RigidBody = rb; //AGREGAR EL RB ANTES ROMPE TODO DESCONOZCO
             AddComponent(spriteRenderer);
         }
+
         public void Reset(Vector2 resetPosition, float rot)
         {
             transform.position = resetPosition;
             transform.rotation = rot;
         }
+
         public void BulletReset(Vector2 resetPosition, float rot, bool isAlly)
         {
             IsEnabled = true;

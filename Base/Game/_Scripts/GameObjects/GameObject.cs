@@ -22,6 +22,7 @@ namespace Game
 
         void Update(float deltaTime);
     }
+
     public class GameObject
     {
         public Transform transform;
@@ -59,7 +60,6 @@ namespace Game
 #else
             GameManager.Instance.AddGameObject(this);
 #endif
-
         }
 
         // Lo mismo que el otro constructor pero para identificar las colisiones

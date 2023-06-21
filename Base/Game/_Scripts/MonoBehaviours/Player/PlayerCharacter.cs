@@ -17,7 +17,6 @@ namespace Game
         private GameObject engineGameObject;
         private RigidBody rb;
         private float speed = 300;
-        private int health = 4;
         private float shootCD =0.3f;
         private float shootTimer;
         private const string ENGINEANIMATION = "Engine";
@@ -31,7 +30,7 @@ namespace Game
         // 
         public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName) // : base hace como de "pasamanos", como la clase de la que hereda (BaseCharacter) necesita en su constructor estos parametros, PlayerCharacter los pide al ser construido y se los pasa
         {
-            Health = health;
+            health = 4;
             _gameObject.AddComponent(animator);
             engineGameObject = new GameObject();
             engineGameObject.transform.scale = new Vector2(2.5f, 2.5f);
