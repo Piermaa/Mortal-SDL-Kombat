@@ -6,45 +6,36 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public abstract class Scene
+    class Scene
     {
+        private List<GameObject> hierarchy = new List<GameObject>();
+        public List<GameObject> Hierarchy
+        {
+            get {return hierarchy; }
+        }
+        private LayersManager layersManager= new LayersManager();
         public LayersManager LayersManager => layersManager;
-        public List<GameObject> Hierarchy => hierarchy;
-
-        protected List<GameObject> hierarchy = new List<GameObject>();
-        protected LayersManager layersManager = new LayersManager();
-
-        abstract public void SetupScene();
-
-        public virtual void Update()
+        
+        public void Update()
         {
             for (int i = 0; i < hierarchy.Count; i++)
             {
-                hierarchy[i].Update(Program.DeltaTime);
+                hierarchy[i].Update(Program.deltaTime);
             }
         }
         public void Render()
         {
-            layersManager.Render();
-        }
-        public void Reset()
-        {
-            layersManager.Reset();
-            hierarchy.Clear();
-        }
-
-        public T FindObjectOfType<T>() where T : IMonoBehaviour
-        {
-            foreach (var gameObject in hierarchy)
+            //actualizar todos los sprites de todas las layers y en orden!!!
+            //osea el q este en la layer 0 se dibuja en la posicion 0 se dibujaria por abajo de todo
+            //y lo que este en la layer 3 se dibuja por encima de todo
+            //igualmente depende del orden que se haya agregado cada item a la lista
+            foreach (var layer in layersManager.Layers)
             {
-                var component= gameObject.GetComponent<T>();
-                if (component!=null)
+                foreach (var sprite in layer.SpritesInLayer)
                 {
-                    return component;
+                    sprite.Render();
                 }
             }
-
-            return default;
         }
     }
 }
