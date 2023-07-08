@@ -101,11 +101,11 @@ namespace Game
         {
             if (axis<0 + playerHalfWidth)
             {
-                axis = 0+ playerHalfWidth;
+                axis = 0 + playerHalfWidth;
             }
-            if (axis > 720-playerHalfWidth)
+            if (axis > 720 - playerHalfWidth)
             {
-                axis = 719- playerHalfWidth;
+                axis = 719 - playerHalfWidth;
             }
         }
 
@@ -158,8 +158,6 @@ namespace Game
         /// <summary>
         /// Termina el juego
         /// </summary>
-        /// 
-
         public void Death()
         {
             engineGameObject.Destroy();
