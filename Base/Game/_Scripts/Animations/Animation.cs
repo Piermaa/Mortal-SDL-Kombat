@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace Game
 {
+    public delegate void OnAnimationFinish();
     public class Animation
     {
+        public event OnAnimationFinish onAnimationFinish;
+
         private string id;
         private bool isLoop;
         private List<Texture> textures;
@@ -26,16 +30,20 @@ namespace Game
                 this.textures = textures;
             }
         }
-
+        /// <summary>
+        /// Tiempo y frame en 0
+        /// </summary>
         public void Reset()
         {
             this.currentFrame = 0;
             this.currentAnimationTime = 0;
         }
-
-        public void Update()
+        /// <summary>
+        /// Se corre la animacion, cambian los frames, loopea si llega al final y si tiene loop
+        /// </summary>
+        public void RunAnimation()
         {
-            currentAnimationTime += Program.deltaTime;
+            currentAnimationTime += Program.DeltaTime;
 
             if (currentAnimationTime >= speed)
             {
@@ -51,6 +59,7 @@ namespace Game
 
                     else
                     {
+                        onAnimationFinish?.Invoke();
                         currentFrame = textures.Count - 1;
                     }
                 }
