@@ -16,9 +16,10 @@ namespace Game
         private Animation deathAnimation;
         private GameObject engineGameObject;
         private RigidBody rb;
-        private float speed = 300;
+        private Vector2 speed = new Vector2( 300,200);
         private float shootCD =0.3f;
         private float shootTimer;
+        private float playerHalfWidth=50f;
         private const string ENGINEANIMATION = "Engine";
         private const string IDLE = "Idle";
         private const string IDLE2 = "Idle2";
@@ -63,7 +64,7 @@ namespace Game
             rb = _gameObject.GetComponent<RigidBody>();
             transform.SetPosition(new Vector2(720/2,600));
             transform.scale = new Vector2(0.3f, 0.3f);
-            metronome= GameManager.Instance.CurrentScene.FindObjectOfType<Metronome>();
+            metronome = GameManager.Instance.CurrentScene.FindObjectOfType<Metronome>();
         }
 
         public void Update(float deltaTime)
@@ -84,6 +85,28 @@ namespace Game
             Vector2 dir = new Vector2(x, y);
             dir = dir.Normalize();
             rb.Velocity = dir * speed;
+
+            ConstraintMovement();
+        }
+
+        private void ConstraintMovement()
+        {
+            Vector2 newPos=transform.position;
+            ClampAxis(ref newPos.x);
+            ClampAxis(ref newPos.y);
+            transform.SetPosition(newPos);
+        }
+
+        private void ClampAxis(ref float axis)
+        {
+            if (axis<0 + playerHalfWidth)
+            {
+                axis = 0+ playerHalfWidth;
+            }
+            if (axis > 720-playerHalfWidth)
+            {
+                axis = 719- playerHalfWidth;
+            }
         }
 
         /// <summary>

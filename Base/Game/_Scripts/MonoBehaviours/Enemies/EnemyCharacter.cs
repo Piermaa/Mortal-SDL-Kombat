@@ -72,10 +72,13 @@ namespace Game
         /// <param name="amount"></param>
         public void TakeDamage(int amount)
         {
-            health -= amount;
-            if (health <= 0)
+            if (!isDead)
             {
-                Death();
+                health -= amount;
+                if (health <= 0)
+                {
+                    Death();
+                }
             }
         }
 
@@ -85,7 +88,6 @@ namespace Game
             {
                 rb.Velocity = Vector2.Down * speed;
             }
-            
         }
 
         public void Death()
