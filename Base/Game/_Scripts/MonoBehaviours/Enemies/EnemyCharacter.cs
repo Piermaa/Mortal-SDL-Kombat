@@ -103,7 +103,18 @@ namespace Game
         {
             deathAnimation.onAnimationFinish -= Destroy;
             metronome.onBPMTick -= Shoot;
+            if (Random())
+            {
+                var hp = new HealthUpPrefab();
+                hp.transform.position = transform.position;
+            }
+
             gameObject.Destroy();
+        }
+
+        private bool Random()
+        {
+            return Program.GetTimeElapsed() % 5 == 0;
         }
     }
 }

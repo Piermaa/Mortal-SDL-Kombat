@@ -9,6 +9,8 @@ namespace Game
 {
     public class PlayerCharacter : BaseCharacter, IMonoBehaviour, IDamagable
     {
+        public Action<int> onLifeChanged;
+
         private Metronome metronome;
 
         private Animator animator = new Animator();
@@ -26,7 +28,7 @@ namespace Game
         private const string IDLE3 = "Idle3";
         private const string IDLE4 = "Idle4";
         private const string EXPLOSIONANIMATION = "Explosion";
-
+        private int maxHealth=5;
         // Al crear el script se agregan todos los componentes
         // 
         public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName) // : base hace como de "pasamanos", como la clase de la que hereda (BaseCharacter) necesita en su constructor estos parametros, PlayerCharacter los pide al ser construido y se los pasa
@@ -65,6 +67,8 @@ namespace Game
             transform.SetPosition(new Vector2(720/2,600));
             transform.scale = new Vector2(0.3f, 0.3f);
             metronome = GameManager.Instance.CurrentScene.FindObjectOfType<Metronome>();
+
+            onLifeChanged+=SetAnimation;
         }
 
         public void Update(float deltaTime)
@@ -105,10 +109,10 @@ namespace Game
             }
             if (axis > 720 - playerHalfWidth)
             {
-                axis = 719 - playerHalfWidth;
+                axis = 720 - playerHalfWidth;
             }
         }
-
+        
         /// <summary>
         /// Detecta si se pulsa Espacio, en caso de que si, se dispara. Tiene cooldown. Usa ObjectPooler
         /// </summary>
@@ -124,6 +128,16 @@ namespace Game
             }
         }
 
+        public void Heal(int healAmount)
+        {
+            if (health<maxHealth)
+            {
+                health += healAmount;
+                onLifeChanged?.Invoke(health);
+            }
+          
+        }
+
         /// <summary>
         /// Se resta vida al character si no esta invulnerable
         /// </summary>
@@ -133,13 +147,19 @@ namespace Game
             if (immunityTime <= 0)
             {
                 health -= amount;
+                onLifeChanged?.Invoke(health);
                 if (health <= 0)
                 {
                     Death();
                 }
             }
+        }
 
-            switch (health)
+        private void SetAnimation(int currentHealth)
+        {
+            //ANIT INTUITIVO PERO NO LO VOY A CAMBIAR B)
+            // tipo animator.SetAnimation($"Idle{currentHealth}");
+            switch (currentHealth)
             {
                 case 3:
                     animator.SetAnimation(IDLE2);
@@ -153,8 +173,8 @@ namespace Game
                     animator.SetAnimation(IDLE4);
                     break;
             }
-
         }
+
         /// <summary>
         /// Termina el juego
         /// </summary>

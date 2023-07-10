@@ -132,6 +132,46 @@
     <Content Include="Textures\UI\Fail.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\UI\HealthUp.png" />
+    <Content Include="Textures\UI\Health\0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\HealthUp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\inverse\0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\inverse\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\inverse\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\inverse\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\inverse\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\UI\Health\inverse\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\UI\PressEnterToPlay.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -161,8 +201,11 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="_Scripts\GameObjects\Prefabs\HealthUpPrefab.cs" />
     <Compile Include="_Scripts\Managers\EnemyManager.cs" />
     <Compile Include="_Scripts\GameObjects\Prefabs\PlayerPrefab.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\HealthUI.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\HealthUp.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Music\BpmIcon.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Enemies\EnemyCharacter.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Music\Metronome.cs" />
