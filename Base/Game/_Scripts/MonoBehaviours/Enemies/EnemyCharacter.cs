@@ -19,16 +19,18 @@ namespace Game
         private const string NORMAL_ENEMY_IDLE = "NormalEnemyIdle";
         private int score = 0;
         private bool isDead;
+        private bool isBoss;
 
         //tipo HEAVY IDLE, NORMAL IDLE, BOSSIDLE
 
-        public EnemyCharacter(GameObject _gameObject, int score,string textureName, int attackSpeed, int health, float speed, string texturePath) : base(_gameObject, textureName)
+        public EnemyCharacter(GameObject _gameObject, int score,string textureName, int attackSpeed, int health, float speed, bool isBoss,string texturePath) : base(_gameObject, textureName)
         {
             this.score = score;
             _gameObject.AddComponent(rb);
             shootCD = attackSpeed;
             this.Health = health;
             this.speed = speed;
+            this.isBoss = isBoss;
             _gameObject.AddComponent(animator);
 
             animator.CreateAnimation(NORMAL_ENEMY_IDLE, texturePath, 1, 0.1f,true);
@@ -92,6 +94,11 @@ namespace Game
 
         public void Death()
         {
+            if (isBoss)
+            {
+                GameManager.Instance.Credits();
+            }
+
             isDead = true;
             rb.Velocity = Vector2.Zero;
             gameObject.transform.scale = new Vector2(0.75f, 0.75f);

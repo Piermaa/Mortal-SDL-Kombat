@@ -129,6 +129,9 @@
     <Content Include="Textures\UI\bar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\UI\Credits.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\UI\Fail.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

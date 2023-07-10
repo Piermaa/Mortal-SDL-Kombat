@@ -41,16 +41,33 @@ namespace Game
             switch (rounds)
             {
                 case 0:
-                    Spawn(5, TypeOfEnemy.Normal);
+                    Spawn(3, TypeOfEnemy.Normal);
                     break;
 
                 case 1:
-                    Spawn(3, TypeOfEnemy.Heavy);
+                    Spawn(2, TypeOfEnemy.Heavy);
                     break;
 
                 case 2:
+                    Spawn(4, TypeOfEnemy.Normal);
+
+                    break;
+
+                case 3:
+                    Spawn(3, TypeOfEnemy.Heavy);
+                    break;
+
+                case 4:
+                    Spawn(5, TypeOfEnemy.Normal);
+                    break;
+
+                case 5:
+                    Spawn(4, TypeOfEnemy.Heavy);
+                    break;
+
+                case 6:
                     Spawn(1, TypeOfEnemy.Boss);
-                    rounds = -1;
+                    Spawn(2, TypeOfEnemy.Normal);    
                     break;
             }
 
@@ -65,9 +82,14 @@ namespace Game
 
             switch (enemies)
             {
-                case 5:
-                    posX = 75;
-                    posDiff = 140;
+                case 1:
+                    posX = 355;
+                    posDiff = 0;
+                    break;
+
+                case 2:
+                    posX = 220;
+                    posDiff = 300;
                     break;
 
                 case 3:
@@ -75,10 +97,17 @@ namespace Game
                     posDiff = 220;
                     break;
 
-                case 1:
-                    posX = 355;
-                    posDiff = 0;
-                  break;
+                case 4:
+                    posX = 100;
+                    posDiff = 175;
+                    break;
+
+                case 5:
+                    posX = 75;
+                    posDiff = 140;
+                    break;
+
+                  
             }
 
             for (int i = 0; i < enemies; i++)
