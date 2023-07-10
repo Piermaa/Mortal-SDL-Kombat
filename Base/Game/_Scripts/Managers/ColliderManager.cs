@@ -43,10 +43,12 @@ namespace Game
         }
 
         private List<BulletPrefab> bullets = new List<BulletPrefab>();
-
         private List<BulletPrefab> bulletsToRemove = new List<BulletPrefab>();
         private List<GameObject> enemiesToRemove = new List<GameObject>();
 
+
+        private List<GameObject> powerUps = new List<GameObject>();
+        private List<GameObject> powerUpsToRemove = new List<GameObject>();
         public void AddEnemyCollider(GameObject col)
         {
             enemies.Add(col);
@@ -60,6 +62,17 @@ namespace Game
         public void RemoveEnemyCollider(GameObject col)
         {
             enemies.Remove(col);
+        }
+
+        public void AddPowerUpCollider(GameObject col)
+        {
+            powerUps.Add(col);
+            Engine.Debug("addedpowerup");
+        }
+
+        public void RemovePowerUpCollider(GameObject col)
+        {
+            powerUps.Remove(col);
         }
 
         public void RemoveBulletCollider(BulletPrefab col)
@@ -135,6 +148,24 @@ namespace Game
                 bullets.Remove(btr);
             }
             bulletsToRemove.Clear(); // se limpia la lista para que no se vuelvan a eliminar las que ya se eliminaron
+
+            //check de powerUps
+            foreach (GameObject pu in powerUps)
+            {
+                if (AreCircleColliding(pu, playerCollider))
+                {
+                    var healer = pu.GetComponent<HealthUp>();
+                    healer.Use(playerCollider.GetComponent<PlayerCharacter>());
+                    pu.IsEnabled = false;
+                }
+            }
+
+            foreach (GameObject putr in powerUpsToRemove)
+            {
+                powerUps.Remove(putr);
+                putr.Destroy();
+            }
+            powerUpsToRemove.Clear(); // se limpia la lista para que no se vuelvan a eliminar las que ya se eliminaron
         }
     }
 }

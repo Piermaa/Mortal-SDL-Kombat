@@ -70,6 +70,24 @@ namespace Game
             GameObject canvas = new GameObject();
             canvas.AddComponent(new SpriteRenderer(4));
             canvas.AddComponent(new BpmIcon());
+
+            GameObject healthBar = new GameObject();
+            healthBar.transform.position = new Vector2(402,700);
+            healthBar.transform.scale = new Vector2(.5f, .9f);
+            healthBar.AddComponent(new SpriteRenderer(4));
+            healthBar.AddComponent(new HealthUI());
+
+            //POR QUE HICISTE ESTO PIERMA??
+            //PORQUE LA BARRA DE VIDA QUEDABA FEA SI SE LLENABA DE DERECHA A IQZ
+            //ENTONCES ASI SON 2 BARRAS Q SE LLENAN PERO ESTAN INVERTIDAS ENTONCES QUEDA CENTRADO
+            //SI NO ENTENDES DESP TE MUESTRO PARA MIQUEDA MEJOR UWU OWO EWE
+            GameObject healthBar2 = new GameObject();
+            healthBar2.transform.position = new Vector2(310, 700);
+            healthBar2.transform.scale = new Vector2(.5f, .9f);
+            healthBar2.AddComponent(new SpriteRenderer(4));
+            HealthUI ui= new HealthUI();
+            ui.FilePathModifier = "/inverse/";
+            healthBar2.AddComponent(ui);
         }
     }
 }

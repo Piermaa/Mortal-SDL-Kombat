@@ -50,12 +50,17 @@ namespace Game
             Engine.Show();
         }
 
-        static void GetTime()
+        private static void GetTime()
         {
             // Calcular el DeltaTime
             var currentTime = (float)(DateTime.Now - startTime).TotalSeconds;
             deltaTime = currentTime - endTime;
             endTime = currentTime;
+        }
+
+        public static int GetTimeElapsed()
+        {
+            return (int)(DateTime.Now - startTime).TotalSeconds;
         }
     }
 }

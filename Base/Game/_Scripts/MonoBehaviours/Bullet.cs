@@ -18,7 +18,7 @@ namespace Game
             set { rb = value; }
         }
         private float _speed = 750;
-        private float _enemySpeed = 500;
+        private float _enemySpeed = 400;
 
         // Si es ally va para arriba y no colisiona con el player
         // Si no es ally va hacia abajo y colisiona con el player
@@ -39,15 +39,7 @@ namespace Game
 
         public void Update(float deltaTime)
         {
-            if (ally)
-            {
-                rb.Velocity = Vector2.Up * _speed;
-            }
-
-            else
-            {
-                rb.Velocity = Vector2.Down * _enemySpeed;
-            }
+            rb.Velocity=ally ? Vector2.Up * _speed: Vector2.Down * _enemySpeed; // INLINEADO NAZI
 
             // Trigger para destruir las balas que se van de la pantalla
 
