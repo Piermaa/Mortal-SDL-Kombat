@@ -25,6 +25,10 @@ namespace Game
         public void Update(float deltaTime)
         {
             rb.Velocity = new Vector2(0, speed);
+            if (m_gameObject.transform.position.y>720)
+            {
+                m_gameObject.Destroy();
+            }
         }
 
         public void Use(PlayerCharacter player)
