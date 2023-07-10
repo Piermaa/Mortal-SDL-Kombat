@@ -43,7 +43,8 @@ namespace Game
 
         private Scene currentScene;
         private LevelScene levelScene=new LevelScene();
-        private MenuScene menuScene=new MenuScene();
+        private MenuScene menuScene = new MenuScene();
+        private MenuScene creditsScene = new MenuScene();
 
         private Vector2 windowDimensions;
         private int score;
@@ -64,6 +65,18 @@ namespace Game
             SetMenuScene();
         }
 
+        public void Credits()
+        {
+            gameState = 3;
+            SetMenuScene();
+        }
+
+        public void MainMenu()
+        {
+            gameState = 0;
+            SetMenuScene();
+        }
+
         private void ResetGame()
         {
             score = 0;
@@ -78,6 +91,16 @@ namespace Game
                 if (Engine.GetKeyDown(Keys.RETURN))
                 {
                     SetLevelScene();
+                }
+
+                if (Engine.GetKeyDown(Keys.C))
+                {
+                    Credits();
+                }
+
+                if (Engine.GetKeyDown(Keys.DELETE))
+                {
+                    MainMenu();
                 }
             }
 

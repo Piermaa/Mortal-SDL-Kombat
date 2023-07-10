@@ -38,6 +38,11 @@ namespace Game
                     texture= Engine.GetTexture("Textures/UI/Fail.png");
                     canvas.transform.scale = new Vector2(0.6f, 0.6f);
                     break;
+
+                case (3):
+                    texture = Engine.GetTexture("Textures/UI/Credits.png");
+                    canvas.transform.scale = new Vector2(1f, 1f);
+                    break;
             }
 
             return texture;
