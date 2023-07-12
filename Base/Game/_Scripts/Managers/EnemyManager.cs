@@ -29,7 +29,7 @@ namespace Game
             {
                 GameManager.Instance.Win();
             }
-            if (metronome.Ticks % 10 == 0)
+            if (metronome.Ticks % 18 == 0)
             {
                 SpawnFromFactory();
             }
@@ -106,8 +106,6 @@ namespace Game
                     posX = 75;
                     posDiff = 140;
                     break;
-
-                  
             }
 
             for (int i = 0; i < enemies; i++)
@@ -115,7 +113,7 @@ namespace Game
                 var enemyGameObject = new GameObject("Enemy");
                 EnemyCharacter enemyCharacter = EnemyFactory.CreateEnemy(enemyGameObject, type);
                 enemyGameObject.AddComponent(enemyCharacter);
-                enemyGameObject.transform.SetPosition(new Vector2((i * posDiff) + posX, 50));
+                enemyGameObject.transform.SetPosition(new Vector2((i * posDiff) + posX, -50));
             }
         }
     }

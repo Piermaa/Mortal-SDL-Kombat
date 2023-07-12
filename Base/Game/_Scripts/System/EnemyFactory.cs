@@ -32,7 +32,10 @@ namespace Game
 
                 case TypeOfEnemy.Boss:
                     p_gameObject.transform.scale = new Vector2(0.5f, 0.5f);
-                    return new EnemyCharacter(p_gameObject,50, ENEMY, 3, 21, 0, true, "Textures/Animations/Enemy/BossEnemy/");
+                    
+                    return new BossCharacter(p_gameObject,50, ENEMY, 3, 21, 0, true, "Textures/Animations/Enemy/BossEnemy/");
+
+                    //  return new EnemyCharacter(p_gameObject,50, ENEMY, 3, 21, 0, true, "Textures/Animations/Enemy/BossEnemy/");
                     break;
             }
             return default;
