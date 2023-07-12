@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class EnemyCharacter: BaseCharacter, IMonoBehaviour, IDamagable
+    public class EnemyCharacter: BaseCharacter, IMonoBehaviour, IDamagable
     {
-        Metronome metronome;
+        protected Metronome metronome;
 
-        private RigidBody rb = new RigidBody();
+        protected RigidBody rb = new RigidBody();
         private float speed = 100f;
         private int shootCD;
         private Animator animator = new Animator();
@@ -18,7 +18,7 @@ namespace Game
         private const string EXPLOSIONANIMATION = "Explosion";
         private const string NORMAL_ENEMY_IDLE = "NormalEnemyIdle";
         private int score = 0;
-        private bool isDead;
+        protected bool isDead;
         private bool isBoss;
 
         //tipo HEAVY IDLE, NORMAL IDLE, BOSSIDLE
@@ -59,7 +59,7 @@ namespace Game
             }
         }
 
-        private void Shoot()
+        protected void Shoot()
         {
             if (metronome.Ticks % shootCD == 0 && !isDead)
             {
@@ -106,7 +106,7 @@ namespace Game
             GameManager.Instance.Score = GameManager.Instance.Score+score;
         }
 
-        private void Destroy()
+        protected void Destroy()
         {
             deathAnimation.onAnimationFinish -= Destroy;
             metronome.onBPMTick -= Shoot;

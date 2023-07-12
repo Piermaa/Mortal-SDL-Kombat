@@ -29,6 +29,7 @@ namespace Game
         private const string IDLE4 = "Idle4";
         private const string EXPLOSIONANIMATION = "Explosion";
         private int maxHealth=5;
+        private bool isDead = false;
         // Al crear el script se agregan todos los componentes
         // 
         public PlayerCharacter(GameObject _gameObject, string textureName) : base(_gameObject, textureName) // : base hace como de "pasamanos", como la clase de la que hereda (BaseCharacter) necesita en su constructor estos parametros, PlayerCharacter los pide al ser construido y se los pasa
@@ -83,6 +84,8 @@ namespace Game
         /// </summary>
         private void Movement()
         {
+            if (isDead) return;
+
             float x = InputManager.GetAxisRaw("Horizontal");
             float y = InputManager.GetAxisRaw("Vertical");
 
@@ -119,6 +122,8 @@ namespace Game
         /// <param name="deltaTime"></param>
         private void Shoot(float deltaTime)
         {
+            if (isDead) return;
+
             shootTimer = shootTimer > 0 ? shootTimer - deltaTime : 0;
 
             if (Engine.GetKeyDown(Keys.SPACE) && metronome.CanShoot())
@@ -180,6 +185,7 @@ namespace Game
         /// </summary>
         public void Death()
         {
+            isDead = true;
             engineGameObject.Destroy();
             gameObject.transform.scale = new Vector2(0.75f, 0.75f);
             animator.SetAnimation(EXPLOSIONANIMATION);

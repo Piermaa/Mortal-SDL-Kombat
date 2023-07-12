@@ -207,6 +207,7 @@
     <Compile Include="_Scripts\GameObjects\Prefabs\HealthUpPrefab.cs" />
     <Compile Include="_Scripts\Managers\EnemyManager.cs" />
     <Compile Include="_Scripts\GameObjects\Prefabs\PlayerPrefab.cs" />
+    <Compile Include="_Scripts\MonoBehaviours\Enemies\BossCharacter.cs" />
     <Compile Include="_Scripts\MonoBehaviours\HealthUI.cs" />
     <Compile Include="_Scripts\MonoBehaviours\HealthUp.cs" />
     <Compile Include="_Scripts\MonoBehaviours\Music\BpmIcon.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class RigidBody : IMonoBehaviour
+    public class RigidBody : IMonoBehaviour
     {
         public Vector2 Velocity
         {
